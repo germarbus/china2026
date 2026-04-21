@@ -371,7 +371,9 @@ DONT.forEach(function(d,i){h+='<div class="dont-card"><div style="display:flex;a
 document.getElementById('p-tips').innerHTML=h}
 
 var RATE=7.8;
-(function(){try{fetch('https://open.er-api.com/v6/latest/EUR').then(function(r){return r.json()}).then(function(d){if(d.rates&&d.rates.CNY){RATE=d.rates.CNY;var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio actual: 1€ = '+RATE.toFixed(2)+'¥ ('+d.time_last_update_utc.substring(0,16)+')'}}).catch(function(){})}catch(e){}})();
+(function(){var rateLoaded=false;
+setTimeout(function(){if(!rateLoaded){var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio aprox: 1€ ≈ 7.8¥ (offline)'}},5000);
+try{fetch('https://open.er-api.com/v6/latest/EUR').then(function(r){return r.json()}).then(function(d){if(d.rates&&d.rates.CNY){RATE=d.rates.CNY;rateLoaded=true;var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio actual: 1€ = '+RATE.toFixed(2)+'¥ ('+d.time_last_update_utc.substring(0,16)+')'}}).catch(function(){var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio aprox: 1€ ≈ 7.8¥'})}catch(e){var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio aprox: 1€ ≈ 7.8¥'}})();
 window.convE=function(){var v=parseFloat(document.getElementById('eurIn').value)||0;document.getElementById('cnyOut').textContent=(v*RATE).toFixed(1)+' ¥'};
 window.convC=function(){var v=parseFloat(document.getElementById('cnyIn').value)||0;document.getElementById('eurOut').textContent=(v/RATE).toFixed(2)+' €'};
 // Navigate to city in Ruta tab
@@ -398,6 +400,7 @@ var WC={0:'☀️ Despejado',1:'🌤️ Casi despejado',2:'⛅ Parcialmente nubl
 function getWCEmoji(code){return WC[code]||'🌤️ '+code}
 async function loadWeather(){
 var el=document.getElementById('weatherData');if(!el)return;
+var weatherTimeout=setTimeout(function(){if(el.textContent.indexOf('Cargando')>=0)el.innerHTML=staticWeather()},8000);
 // Build list of unique city+coords+dates from the trip
 var cityDays={};
 D.days.forEach(function(day){
@@ -454,8 +457,13 @@ h+='<div class="clc"><div class="cli">📅</div><div class="clinfo"><div class="
 });
 if(!h)h='<p style="color:var(--text2);font-size:.85em">La previsión se activa 16 días antes del viaje.</p>';
 el.innerHTML=h;
-}catch(e){el.innerHTML='<p style="color:var(--text2);font-size:.85em">No se pudo cargar el clima. Se mostrará cuando haya previsión disponible.</p>';}
+}catch(e){el.innerHTML=staticWeather()}
 }
+function staticWeather(){
+var CL=[{c:'Beijing',i:'☀️',t:'15-28°C',r:'25%'},{c:'Pingyao',i:'🌤️',t:'12-26°C',r:'20%'},{c:"Xi'an",i:'☀️',t:'16-30°C',r:'30%'},{c:'Chengdu',i:'🌧️',t:'18-28°C',r:'50%'},{c:'Zhangjiajie',i:'🌦️',t:'17-27°C',r:'55%'},{c:'Fenghuang',i:'🌦️',t:'18-28°C',r:'50%'},{c:'Chongqing',i:'🌧️',t:'20-30°C',r:'45%'}];
+var h='<p style="font-size:.75em;color:var(--text2);margin-bottom:8px">Clima medio en mayo (previsión real no disponible):</p>';
+CL.forEach(function(c){h+='<div class="clc"><div class="cli">'+c.i+'</div><div class="clinfo"><div class="ct">'+c.c+'</div><div class="cd">'+c.t+' · Lluvia: '+c.r+'</div></div></div>'});
+return h}
 function lCk(){try{return JSON.parse(localStorage.getItem('cn26ck')||'{}')}catch(e){return{}}}
 function sCk(d){try{localStorage.setItem('cn26ck',JSON.stringify(d))}catch(e){}}
 function uCD(){var t=new Date('2026-04-30T00:00:00')-new Date(),el=document.getElementById('cd');if(t<=0){el.innerHTML='<div style="color:var(--gold);font-size:1.2em;font-weight:700">¡VIAJE EN MARCHA! 🐉🎉</div>';return}var d=Math.floor(t/864e5),h=Math.floor(t%864e5/36e5),m=Math.floor(t%36e5/6e4),s=Math.floor(t%6e4/1e3);el.innerHTML='<div class="cdb"><div class="n">'+d+'</div><div class="l">días</div></div><div class="cdb"><div class="n">'+h+'</div><div class="l">h</div></div><div class="cdb"><div class="n">'+m+'</div><div class="l">min</div></div><div class="cdb"><div class="n">'+s+'</div><div class="l">seg</div></div>'}
