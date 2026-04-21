@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>China 2026 🐉</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+:root{--bg:#0a0a0f;--card:#16161f;--card2:#1e1e2a;--accent:#e63946;--gold:#f4a261;--green:#2a9d8f;--text:#f1faee;--text2:#a8a8b3;--blue:#457b9d;--purple:#6c5ce7}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+.ld{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s}.ld.hide{opacity:0;pointer-events:none}
+.spinner{width:50px;height:50px;border:3px solid var(--card2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.ld p{margin-top:16px;color:var(--text2);font-size:.9em}
+.rbar{background:var(--card2);text-align:center;padding:8px;font-size:.72em;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.ldot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero{position:relative;padding:60px 20px 30px;text-align:center;background:linear-gradient(135deg,#1a0a0a 0%,#0a0a1a 50%,#0a1a0a 100%);overflow:hidden}.hero::before{content:'🐉';position:absolute;font-size:200px;opacity:.06;top:-30px;right:-40px}
+.hero h1{font-family:'Playfair Display',serif;font-size:2.4em;background:linear-gradient(135deg,var(--gold),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero .sub{color:var(--text2);margin-top:6px;font-size:.95em}
+.cd{display:flex;gap:12px;justify-content:center;margin:20px 0 10px}.cdb{background:var(--card);border:1px solid rgba(228,57,70,.3);border-radius:12px;padding:10px 14px;min-width:60px;text-align:center}.cdb .n{font-size:1.6em;font-weight:700;color:var(--gold)}.cdb .l{font-size:.7em;color:var(--text2);text-transform:uppercase}
+.crew{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}.cav{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75em;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.15)}
+.tabs{display:flex;overflow-x:auto;background:rgba(22,22,31,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:100;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:14px 16px;font-size:.82em;color:var(--text2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:.2s}.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.pnl{display:none;padding:16px;max-width:600px;margin:0 auto}.pnl.active{display:block}
+.st{font-size:1.1em;font-weight:700;margin:20px 0 12px;color:var(--gold);display:flex;align-items:center;gap:8px}.st:first-child{margin-top:0}
+.pw{background:var(--card);border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid rgba(255,255,255,.05)}
+.pr-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.82em}.pr-row .lb{color:var(--text2)}.pr-row .vl{color:var(--gold);font-weight:700}
+.pr-bar{height:6px;background:var(--card2);border-radius:3px;overflow:hidden;margin-bottom:10px}.pr-fill{height:100%;border-radius:3px;transition:width .5s}
+.dc{background:var(--card);border-radius:16px;margin-bottom:14px;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.dh{display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer}
+.dnum{width:44px;height:44px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:.75em;flex-shrink:0}.dnum .n{font-size:1.3em}
+.di{flex:1;min-width:0}.di .c{font-weight:700;font-size:1em}.di .b{font-size:.8em;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dchev{color:var(--text2);transition:transform .3s;font-size:.8em}.dc.open .dchev{transform:rotate(180deg)}
+.dimg{width:100%;height:160px;object-fit:cover;display:block}.diw{position:relative;overflow:hidden}.difb{width:100%;height:160px;display:none;align-items:center;justify-content:center;font-size:4em}
+.db{padding:0 14px 14px;display:none;font-size:.88em;color:var(--text2);line-height:1.6}.dc.open .db{display:block}
+.trav{display:flex;align-items:center;gap:8px;padding:8px 14px;margin:4px 16px 10px;background:rgba(69,123,157,.1);border-radius:10px;font-size:.78em;color:var(--blue)}
+.dtag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72em;margin-top:8px;margin-right:4px}.t-tr{background:rgba(69,123,157,.2);color:var(--blue)}.t-ac{background:rgba(42,157,143,.2);color:var(--green)}.t-pr{background:rgba(244,162,97,.2);color:var(--gold)}
+.rec{margin-top:10px;padding:10px;background:var(--card2);border-radius:10px;font-size:.8em}.rec-title{color:var(--purple);font-weight:700;margin-bottom:4px}.rec p{color:var(--text2);line-height:1.5}
+.hc{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;border:1px solid rgba(255,255,255,.05)}.hci{font-size:.75em;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}.hcn{font-weight:700;font-size:1em;margin-bottom:4px}.hca{font-size:.78em;color:var(--text2);margin-bottom:8px}.hcd{font-size:.75em;color:var(--blue);margin-bottom:6px}
+.hcm{display:flex;flex-wrap:wrap;gap:8px;font-size:.78em}.hcm span{padding:4px 10px;border-radius:8px;background:var(--card2)}.hcp{border-left:3px solid var(--gold);opacity:.7}
+#map{width:100%;height:400px;border-radius:16px;margin-bottom:16px}
+.bh{background:linear-gradient(135deg,var(--accent),#c0392b);border-radius:16px;padding:20px;text-align:center;margin-bottom:16px}.bh .t{font-size:2em;font-weight:700}.bh .p{font-size:1em;color:rgba(255,255,255,.8)}
+.bc{background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,.05)}.bct{font-weight:700;font-size:.9em;margin-bottom:8px;display:flex;justify-content:space-between}
+.bi{display:flex;justify-content:space-between;font-size:.82em;padding:4px 0;color:var(--text2);border-bottom:1px solid rgba(255,255,255,.03)}.bi:last-child{border:none}
+.cbg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:16px}.cc{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.05)}.cc .nm{font-weight:700;font-size:.9em;margin-top:6px}.cc .am{font-size:1.1em;font-weight:700;color:var(--gold);margin-top:4px}
+.cprog{background:var(--card);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center}.cbar{height:8px;background:var(--card2);border-radius:4px;margin-top:8px;overflow:hidden}.cfill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:4px;transition:width .4s}
+.ci{display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border-radius:12px;margin-bottom:6px;cursor:pointer;font-size:.88em;border:1px solid rgba(255,255,255,.05)}.ci.done{opacity:.5;text-decoration:line-through}
+.chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--text2);display:flex;align-items:center;justify-content:center;flex-shrink:0}.ci.done .chk{background:var(--green);border-color:var(--green)}
+.ic{background:var(--card);border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid rgba(255,255,255,.05)}.ic h3{font-size:.95em;margin-bottom:8px;color:var(--gold)}.ic p{font-size:.85em;color:var(--text2);line-height:1.6}
+.phr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:.82em}.pcn{color:var(--accent);font-weight:700}.ppy{color:var(--text2)}.pes{color:var(--text)}
+.clc{background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.05)}.cli{font-size:2em}.clinfo .ct{font-weight:700;font-size:.9em}.clinfo .cd{font-size:.78em;color:var(--text2)}
+.conv{background:var(--card);border-radius:14px;padding:16px;margin:16px 0;border:1px solid rgba(255,255,255,.05);text-align:center}
+.conv input{background:var(--card2);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;color:var(--text);font-size:1.1em;width:100px;text-align:center;margin:0 8px}
+.conv .res{font-size:1.3em;font-weight:700;color:var(--gold);margin-top:10px}
+.lnk{display:block;background:var(--card);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,.05);text-decoration:none;color:var(--text)}
+.lnk:active{background:var(--card2)}.lnk .lt{font-weight:700;font-size:.9em;margin-bottom:2px}.lnk .ld2{font-size:.78em;color:var(--text2)}
+.mbtn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--card);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.3em;cursor:pointer;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,.5)}.mbtn.on{background:var(--green);border-color:var(--green)}
+.rv{display:flex;overflow-x:auto;gap:0;padding:10px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-bottom:16px}.rv::-webkit-scrollbar{display:none}
+.rs{display:flex;flex-direction:column;align-items:center;min-width:70px;position:relative}.rd{width:16px;height:16px;border-radius:50%;border:3px solid var(--gold);background:var(--bg);z-index:2}.rl{position:absolute;top:8px;left:50%;width:100%;height:2px;background:var(--gold);opacity:.3}.rs:last-child .rl{display:none}.rla{font-size:.65em;margin-top:6px;color:var(--text2);text-align:center;max-width:70px}
+.sg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.sc{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.05)}.sc .v{font-size:1.5em;font-weight:700;color:var(--gold)}.sc .lb{font-size:.75em;color:var(--text2);margin-top:2px}
+.ag{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.ac{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.05)}.ac .ai{font-size:1.8em;margin-bottom:4px}.ac .an{font-weight:700;font-size:.85em}.ac .au{font-size:.72em;color:var(--text2)}
+
+html{scroll-behavior:smooth}
+.rv .rs{cursor:pointer;transition:transform .2s}.rv .rs:active{transform:scale(1.15)}
+.org-badge{display:inline-block;font-size:.65em;padding:2px 6px;border-radius:6px;margin-left:6px;vertical-align:middle}
+.org-yes{background:rgba(42,157,143,.2);color:var(--green)}.org-no{background:rgba(244,162,97,.2);color:var(--gold)}
+@media(min-width:768px){
+.pnl{max-width:700px}
+.hero h1{font-size:3em}
+.sg{grid-template-columns:repeat(4,1fr)}
+.ag{grid-template-columns:repeat(3,1fr)}
+.cbg{grid-template-columns:repeat(4,1fr)}
+.dc{transition:transform .15s}.dc:hover{transform:translateY(-2px)}
+.hc{transition:transform .15s}.hc:hover{transform:translateY(-2px)}
+.tabs{justify-content:center}
+}
+@media(min-width:1024px){
+.pnl{max-width:800px;padding:24px}
+.hero{padding:80px 20px 40px}
+#map{height:500px}
+}
+
+.sos-btn{position:fixed;bottom:20px;left:20px;width:48px;height:48px;border-radius:50%;background:var(--accent);border:2px solid #ff4757;display:flex;align-items:center;justify-content:center;font-size:1.3em;cursor:pointer;z-index:200;box-shadow:0 4px 20px rgba(230,57,70,.4);animation:sosPulse 3s infinite}
+@keyframes sosPulse{0%,100%{box-shadow:0 4px 20px rgba(230,57,70,.4)}50%{box-shadow:0 4px 30px rgba(230,57,70,.7)}}
+.sos-panel{display:none;position:fixed;bottom:80px;left:16px;right:16px;max-width:400px;background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:20px;z-index:250;box-shadow:0 10px 40px rgba(0,0,0,.8);max-height:70vh;overflow-y:auto}
+.sos-panel.show{display:block}
+.sos-close{position:absolute;top:12px;right:16px;font-size:1.2em;cursor:pointer;color:var(--text2)}
+.sos-row{padding:6px 0;font-size:.85em;border-bottom:1px solid rgba(255,255,255,.05)}
+.sos-row:last-child{border:none}
+.food-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
+.food-card{background:var(--card);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.05);cursor:pointer;transition:transform .15s}
+.food-card:active{transform:scale(.97)}
+.food-img{width:100%;height:90px;object-fit:cover;display:block}
+.food-img-fb{width:100%;height:90px;display:flex;align-items:center;justify-content:center;font-size:2.5em;background:var(--card2)}
+.food-info{padding:8px 10px}
+.food-cn{font-size:1.1em;font-weight:700;color:var(--accent)}
+.food-py{font-size:.7em;color:var(--text2)}
+.food-es{font-size:.78em;color:var(--text);margin-top:2px}
+.food-tip{font-size:.68em;color:var(--gold);margin-top:2px}
+.dont-card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;border-left:3px solid var(--accent);border:1px solid rgba(255,255,255,.05)}
+.dont-card .num{font-size:1.3em;font-weight:700;color:var(--accent);margin-right:8px}
+.dont-card p{font-size:.85em;color:var(--text2);line-height:1.5;margin-top:4px}
+@keyframes drawRoute{to{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<div class="ld" id="ld"><div class="spinner"></div><p>Cargando datos del viaje... 🐉</p></div>
+<div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
+<div class="hero"><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
+<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
+<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
+
+<div class="mbtn" id="mb" role="button" aria-label="Música">🔇</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<script>
+var SH={
+ruta:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrrMa2K3AkW8twCUkCNnaP_P-J9LU7W6hxfI5EjWvlnWU09mSImCBAPkOy0leDTT3296Cef2Uw1ImZ/pub?gid=1208780948&single=true&output=csv',
+aloj:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrrMa2K3AkW8twCUkCNnaP_P-J9LU7W6hxfI5EjWvlnWU09mSImCBAPkOy0leDTT3296Cef2Uw1ImZ/pub?gid=400375144&single=true&output=csv',
+ck:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrrMa2K3AkW8twCUkCNnaP_P-J9LU7W6hxfI5EjWvlnWU09mSImCBAPkOy0leDTT3296Cef2Uw1ImZ/pub?gid=1022488963&single=true&output=csv',
+apps:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrrMa2K3AkW8twCUkCNnaP_P-J9LU7W6hxfI5EjWvlnWU09mSImCBAPkOy0leDTT3296Cef2Uw1ImZ/pub?gid=1255999795&single=true&output=csv',
+links:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrrMa2K3AkW8twCUkCNnaP_P-J9LU7W6hxfI5EjWvlnWU09mSImCBAPkOy0leDTT3296Cef2Uw1ImZ/pub?gid=1818655128&single=true&output=csv'};
+var CRW=[{n:'Aguado',c:'#e63946'},{n:'Rodri',c:'#457b9d'},{n:'Blanca',c:'#2a9d8f'},{n:'Germán',c:'#f4a261'},{n:'Viole',c:'#6c5ce7'},{n:'Piolo',c:'#e17055'},{n:'Bea',c:'#fd79a8'}];var NP=7;
+// Images: fixed Unsplash URLs that are verified working - each unique
+var IM={
+madrid:['https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&q=60'],
+bj1:['https://source.unsplash.com/400x200/?beijing,china,temple'],
+bj2:['https://source.unsplash.com/400x200/?forbidden+city,beijing,palace'],
+wall:['https://source.unsplash.com/400x200/?great+wall+china'],
+pingyao:['https://source.unsplash.com/400x200/?pingyao,ancient+town,china'],
+xian:['https://source.unsplash.com/400x200/?xian,city+wall,china'],
+terra:['https://source.unsplash.com/400x200/?terracotta+warriors,xian'],
+panda:['https://source.unsplash.com/400x200/?giant+panda,bamboo'],
+leshan:['https://source.unsplash.com/400x200/?buddha+statue,china'],
+zjj1:['https://source.unsplash.com/400x200/?zhangjiajie,avatar+mountains'],
+zjj2:['https://source.unsplash.com/400x200/?zhangjiajie,cliff+elevator'],
+zjj3:['https://source.unsplash.com/400x200/?wulingyuan,mountains,forest'],
+zjj4:['https://source.unsplash.com/400x200/?tianmen+mountain,glass'],
+fh:['https://source.unsplash.com/400x200/?fenghuang,ancient+town,river'],
+fur:['https://source.unsplash.com/400x200/?furong+town,waterfall,night'],
+cq1:['https://source.unsplash.com/400x200/?chongqing,skyline,night'],
+cq2:['https://source.unsplash.com/400x200/?wulong,karst,natural+bridge'],
+cq3:['https://source.unsplash.com/400x200/?hongyadong,chongqing,lights'],
+vuelta:['https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&q=60']};
+var IR=[{m:'muralla',k:'wall'},{m:'mutianyu',k:'wall'},{m:'ciudad prohibida',k:'bj2'},{m:'palacio de verano',k:'bj2'},
+{m:'guerrero',k:'terra'},{m:'terracota',k:'terra'},{m:'panda',k:'panda'},{m:'leshan',k:'leshan'},
+{m:'parque nacional',k:'zjj2'},{m:'bailong',k:'zjj2'},{m:'golden whip',k:'zjj3'},{m:'huangshi',k:'zjj3'},
+{m:'72 tower',k:'zjj3'},{m:'gran ca',k:'zjj3'},{m:'tianmen',k:'zjj4'},{m:'puente de cristal',k:'zjj4'},
+{m:'fenghuang',k:'fh'},{m:'furong',k:'fur'},{m:'wulong',k:'cq2'},{m:'drones',k:'cq3'},
+{m:'ciudad real',k:'vuelta'},{m:'llegada',k:'vuelta'}];
+var CI={madrid:'madrid',beijing:'bj1',pingyao:'pingyao',xian:'xian',"xi'an":'xian',chengdu:'panda',wulingyuan:'zjj1',zhangjiajie:'zjj3',fenghuang:'fh',furong:'fur',chongqing:'cq1'};
+var CC={madrid:'#457b9d',beijing:'#e63946',pingyao:'#8e44ad',xian:'#2980b9',"xi'an":'#2980b9',chengdu:'#16a085',wulingyuan:'#1abc9c',zhangjiajie:'#27ae60',fenghuang:'#e67e22',furong:'#3498db',chongqing:'#9b59b6'};
+var CE={madrid:'🏠',beijing:'🏯',pingyao:'🏮',xian:'🕌',"xi'an":'🕌',chengdu:'🐼',wulingyuan:'⛰️',zhangjiajie:'🏔️',fenghuang:'🏘️',furong:'🌊',chongqing:'🌃'};
+var TRAV={'madrid→beijing':'✈️ ~12h','beijing→pingyao':'🚅 5h nocturno','pingyao→xian':'🚅 ~3h',"pingyao→xi'an":'🚅 ~3h','xian→chengdu':'🚅 ~4h',"xi'an→chengdu":'🚅 ~4h','chengdu→wulingyuan':'🚅 7-8h + taxi','wulingyuan→zhangjiajie':'🚕 30min','zhangjiajie→fenghuang':'🚅 ~1.5h','fenghuang→furong':'🚌 ~2h','furong→chongqing':'🚅 ~6h vía ZJJ','chongqing→madrid':'✈️ ~14h'};
+var CM=[{n:'Madrid',la:40.4168,lo:-3.7038,e:'🏠'},{n:'Beijing',la:39.9042,lo:116.4074,e:'🏯'},{n:'Pingyao',la:37.1987,lo:112.1761,e:'🏮'},{n:"Xi'an",la:34.3416,lo:108.9398,e:'🕌'},{n:'Chengdu',la:30.5728,lo:104.0668,e:'🐼'},{n:'Wulingyuan',la:29.3499,lo:110.55,e:'⛰️'},{n:'Zhangjiajie',la:29.1169,lo:110.4783,e:'🏔️'},{n:'Fenghuang',la:27.9481,lo:109.5996,e:'🏘️'},{n:'Furong',la:28.75,lo:109.9,e:'🌊'},{n:'Chongqing',la:29.4316,lo:106.9123,e:'🌃'}];
+var CL=[{c:'Beijing',i:'☀️',t:'15-28°C',r:'25%'},{c:'Pingyao',i:'🌤️',t:'12-26°C',r:'20%'},{c:"Xi'an",i:'☀️',t:'16-30°C',r:'30%'},{c:'Chengdu',i:'🌧️',t:'18-28°C',r:'50%'},{c:'Zhangjiajie',i:'🌦️',t:'17-27°C',r:'55%'},{c:'Fenghuang',i:'🌦️',t:'18-28°C',r:'50%'},{c:'Chongqing',i:'🌧️',t:'20-30°C',r:'45%'}];
+var PH=[['你好','Nǐ hǎo','Hola'],['谢谢','Xiè xiè','Gracias'],['多少钱','Duōshǎo qián','¿Cuánto?'],['太贵了','Tài guì le','Muy caro'],['不要','Bú yào','No quiero'],['好吃','Hǎo chī','Delicioso'],['不辣','Bú là','Sin picante'],['厕所在哪','Cèsuǒ zài nǎ','¿Dónde baño?'],['我是西班牙人','Wǒ shì Xībānyá rén','Soy español'],['救命','Jiù mìng','¡Socorro!'],['请帮我','Qǐng bāng wǒ','Ayúdame'],['买单','Mǎi dān','La cuenta'],['我不会说中文','Wǒ bú huì shuō zhōngwén','No hablo chino']];
+// Recommendations per city
+var RECS={
+beijing:'🍜 Probar pato Pekín en Quanjude o Dadong. 🏛️ Subir al Parque Jingshan para la mejor vista de la Ciudad Prohibida. 🛍️ Pasear por los Hutongs en bici. 🍵 Tomar té en una casa de té tradicional en Houhai.',
+pingyao:'🏮 Pasear la muralla de la ciudad al atardecer. 🏦 Visitar el Rishengchang, el primer banco de China. 🍜 Probar los fideos de Pingyao y la carne de res estofada local.',
+xian:'🕌 Perderse por el Barrio Musulmán y probar los Roujiamo (hamburguesas chinas). 🏯 Ver el espectáculo de luces en la Muralla de la ciudad de noche. 🍜 Comer Biángbiáng miàn (los fideos más anchos de China).',
+chengdu:'🌶️ Hot Pot obligatorio en Shu Jiuxiang o Huangcheng Laoma. 🐼 Ver los pandas temprano (son más activos por la mañana). 🍜 Probar Mapo Tofu en Chen Mapo y Dan Dan Mian en cualquier puesto callejero. 🎭 Ver un espectáculo de cambio de cara (Bian Lian) en Shu Feng Ya Yun.',
+zhangjiajie:'⛰️ Madrugar para evitar masas en el Parque Nacional. 🌉 El puente de cristal mejor a primera hora. 🎭 No perderse el show de las 72 Towers por la noche. 💡 Llevar calzado de trekking y poncho.',
+fenghuang:'🌙 La magia es de noche con las luces reflejadas en el río. 🚣 Dar un paseo en barca por el río Tuojiang. 🏘️ Callejear sin mapa por el casco antiguo.',
+furong:'🌊 Bajar a la cascada iluminada por la noche, es espectacular. 📸 Las mejores fotos son desde el puente principal al anochecer.',
+chongqing:'🌃 Hongyadong de noche parece sacado de El Viaje de Chihiro. 🌶️ Hot Pot estilo Chongqing (más picante que Chengdu) en Qiaotou Hotpot. 🚡 Cruzar el río en el teleférico Yangtze. 🏞️ Wulong es una excursión de día completo, merece la pena.'
+};
+
+var REST={
+beijing:{name:'Beijing',dishes:['🦆 Pato Pekín (Quanjude o Dadong)','🥟 Jiaozi (empanadillas al vapor)','🍜 Zhajiang Mian (fideos con salsa de soja)','🥢 Hot Pot estilo Beijing (cordero)'],
+places:['Quanjude — el pato Pekín original desde 1864','Dadong — pato Pekín moderno, más ligero','Baodu Feng — callos de cordero, auténtico Beijing','Wangfujing Snack Street — puestos callejeros de todo tipo']},
+pingyao:{name:'Pingyao',dishes:['🥩 Carne de res estofada de Pingyao','🍜 Fideos cortados a cuchillo (Dao Xiao Mian)','🫘 Tofu fermentado','🍚 Vinagre negro de Shanxi (probadlo en todo)'],
+places:['Dejuyuan — cocina tradicional en patio antiguo','Sakura Cafe — buena fusión para descansar','Puestos en la calle principal — probar todo lo de vinagre']},
+xian:{name:"Xi'an",dishes:['🫓 Roujiamo (la hamburguesa china original)','🍜 Biángbiáng Miàn (fideos gigantes)','🐑 Yangrou Paomo (sopa de cordero con pan)','🍢 Brochetas de cordero especiadas'],
+places:['Barrio Musulmán — imprescindible, todo se come por la calle','Lao Sun Jia — la mejor Yangrou Paomo','Tian Xia Di Yi Mian — Biángbiáng Miàn espectaculares','Jia San Guantang Baozi — sopas dentro de bollitos']},
+chengdu:{name:'Chengdu',dishes:['🌶️ Hot Pot sichuanés (el original)','🧆 Mapo Tofu (adormece la boca)','🍜 Dan Dan Mian (fideos picantes)','🐰 Conejo frito picante (especialidad local)','🥟 Zhong Dumplings (con salsa dulce-picante)'],
+places:['Shu Jiuxiang — Hot Pot top','Chen Mapo — el Mapo Tofu original desde 1862','Huangcheng Laoma — Hot Pot premium en Qintai Road','Callejón Kuan Zhai — ambiente + comida + té','Ming Ting — casero y auténtico, cola siempre']},
+zhangjiajie:{name:'Zhangjiajie',dishes:['🐟 Pescado del río con chile Tujia','🥬 Verduras de montaña salteadas','🍖 Cerdo ahumado Tujia','🍚 Arroz glutinoso con tres sabores'],
+places:['Restaurantes en Wulingyuan cerca del parque','Night market de Zhangjiajie ciudad — precios locales']},
+fenghuang:{name:'Fenghuang',dishes:['🦆 Pato al jengibre de Fenghuang','🐟 Pescado del río Tuojiang','🌶️ Tofu apestoso frito (suena mal, está buenísimo)','🍺 Cerveza local en los bares del río'],
+places:['Bares y puestos a orillas del río Tuojiang','Probar el tofu apestoso en cualquier puesto callejero']},
+chongqing:{name:'Chongqing',dishes:['🌶️ Hot Pot Chongqing (más picante que Chengdu)','🐟 Pescado en aceite de chile (Shui Zhu Yu)','🍜 Chongqing Xiao Mian (fideos callejeros)','🐔 Pollo Laziji (frito con montaña de chiles)'],
+places:['Qiaotou Hotpot — centenario, el original','Hongyadong — comer con vistas al río (turístico pero bonito)','Puestos en Jiefangbei — Xiao Mian por 8-10¥','Dezhuang Hotpot — cadena fiable, buen precio']}
+};
+
+var FOOD=[
+{cn:'北京烤鸭',py:'Běijīng kǎoyā',es:'Pato Pekín',tip:'Señala esto en Beijing',emoji:'🦆',img:'https://images.unsplash.com/photo-1518492104633-130d0cc84637?w=200&h=150&fit=crop&q=60'},
+{cn:'火锅',py:'Huǒguō',es:'Hot Pot',tip:'Pide doble caldo: picante + suave',emoji:'🍲',img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=150&fit=crop&q=60'},
+{cn:'麻婆豆腐',py:'Má pó dòufu',es:'Mapo Tofu',tip:'MUY picante, adormece la boca',emoji:'🌶️',img:'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=200&h=150&fit=crop&q=60'},
+{cn:'饺子',py:'Jiǎozi',es:'Empanadillas',tip:'Al vapor (蒸) o fritas (煎)',emoji:'🥟',img:'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=200&h=150&fit=crop&q=60'},
+{cn:'担担面',py:'Dàndàn miàn',es:'Fideos Dan Dan',tip:'Típicos de Chengdu',emoji:'🍜',img:'https://images.unsplash.com/photo-1555126634-323283e090fa?w=200&h=150&fit=crop&q=60'},
+{cn:'肉夹馍',py:'Ròu jiā mó',es:'Hamburguesa china',tip:'Típico de Xi\'an, imprescindible',emoji:'🫓',img:'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=200&h=150&fit=crop&q=60'},
+{cn:'臭豆腐',py:'Chòu dòufu',es:'Tofu apestoso',tip:'Huele fatal, sabe genial',emoji:'🧀',img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&h=150&fit=crop&q=60'},
+{cn:'小笼包',py:'Xiǎolóng bāo',es:'Bollitos de sopa',tip:'Cuidado, queman por dentro',emoji:'🫕',img:'https://images.unsplash.com/photo-1541696490-8744a5dc0228?w=200&h=150&fit=crop&q=60'},
+{cn:'宫保鸡丁',py:'Gōngbǎo jīdīng',es:'Pollo Kung Pao',tip:'Con cacahuetes, picante medio',emoji:'🍗',img:'https://images.unsplash.com/photo-1525755662778-989d0524087e?w=200&h=150&fit=crop&q=60'},
+{cn:'炒饭',py:'Chǎofàn',es:'Arroz frito',tip:'El comodín si no sabes qué pedir',emoji:'🍚',img:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=200&h=150&fit=crop&q=60'},
+{cn:'啤酒',py:'Píjiǔ',es:'Cerveza',tip:'Tsingtao o Snow son las típicas',emoji:'🍺',img:'https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=200&h=150&fit=crop&q=60'},
+{cn:'不要辣',py:'Bú yào là',es:'SIN PICANTE',tip:'⚠️ MEMORIZA ESTO',emoji:'🚫🌶️',img:''}
+];
+var DONT=[
+{title:'No bebas agua del grifo',desc:'Ni para lavarte los dientes. Compra botellas (1-2¥ en cualquier tienda). En los hoteles suele haber hervidor.'},
+{title:'No uses Google Maps',desc:'Está bloqueado en China. Usa Amap (高德地图) o Baidu Maps. Descárgalos ANTES de llegar.'},
+{title:'No lleves solo tarjeta de crédito',desc:'Visa/Mastercard NO funcionan casi en ningún sitio. Todo se paga con Alipay o WeChat Pay. Configúralos antes del viaje.'},
+{title:'No tires papel al váter',desc:'La mayoría de baños públicos no lo soportan. Hay papelera al lado. Y lleva SIEMPRE tu propio papel.'},
+{title:'No hagas cola sin mirar',desc:'En China las colas no siempre se respetan. Si alguien se cuela, es normal. No te frustres.'},
+{title:'No hables de política',desc:'Evitar temas de Taiwán, Tíbet, Tiananmen y Hong Kong. Es muy sensible y puede causaros problemas.'},
+{title:'No des propina',desc:'En China NO se da propina. Se considera ofensivo en muchos sitios. Ni en restaurantes ni en taxis.'},
+{title:'No te fíes del "free WiFi"',desc:'El WiFi público es lento y censurado. Con Holafly tenéis datos + VPN incluido, usad eso.'},
+{title:'No compres en la primera tienda',desc:'Siempre regatear, especialmente en mercados turísticos. Empieza ofreciendo el 30% del precio que te dicen.'},
+{title:'No salgas sin la dirección del hotel en chino',desc:'Pide en recepción una tarjeta con la dirección en caracteres chinos. Los taxistas no hablan inglés.'}
+];
+var DW={J:'Jueves',V:'Viernes',S:'Sábado',D:'Domingo',L:'Lunes',M:'Martes',X:'Miércoles'};
+var MN=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+var D={days:[],hotels:[],cl:{},apps:[],links:[]};
+function parseCSV(t){var lines=[],cur='',inQ=false;for(var i=0;i<t.length;i++){var c=t[i];if(c==='"'){if(inQ&&t[i+1]==='"'){cur+='"';i++}else inQ=!inQ}else if(c===','&&!inQ){if(!lines.length)lines.push([]);lines[lines.length-1].push(cur);cur=''}else if((c==='\n'||c==='\r')&&!inQ){if(cur!==''||lines.length>0){if(!lines.length)lines.push([]);lines[lines.length-1].push(cur);cur='';lines.push([])}if(c==='\r'&&t[i+1]==='\n')i++}else cur+=c}if(cur!==''){if(!lines.length)lines.push([]);lines[lines.length-1].push(cur)}if(lines.length&&lines[lines.length-1].length===1&&lines[lines.length-1][0]==='')lines.pop();return lines}
+async function fetchCSV(u){try{var r=await fetch(u);return parseCSV(await r.text())}catch(e){return[]}}
+function exD(s){if(!s)return null;var str=String(s).trim();var m=str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m){var day=parseInt(m[1]),mon=parseInt(m[2]),yr=parseInt(m[3]);if(day>12)return new Date(yr,mon-1,day);return new Date(yr,mon-1,day)}m=str.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return new Date(parseInt(m[1]),parseInt(m[2])-1,parseInt(m[3]));var num=parseFloat(s);if(!isNaN(num)&&num>40000&&num<60000)return new Date((num-25569)*86400000);return null}
+function parseNum(s){if(!s)return NaN;return parseFloat(String(s).trim().replace(/[€$\s]/g,'').replace(',','.'))}
+function procRuta(rows){if(rows.length<2)return;var dn=0,used={};
+var hdr=rows[0]||[];var iDate=0,iDow=1,iCity=2,iTr=3,iTray=4,iHt=5,iDesc=6,iExc=7,iPt=8,iOrg=-1;
+for(var c=0;c<hdr.length;c++){var h=(hdr[c]||'').toLowerCase().trim();if(h.indexOf('fecha')>=0)iDate=c;else if(h==='día'||h==='dia')iDow=c;else if(h.indexOf('ciudad')>=0)iCity=c;else if(h.indexOf('transporte')>=0&&h.indexOf('precio')<0)iTr=c;else if(h.indexOf('trayecto')>=0)iTray=c;else if(h.indexOf('hora')>=0)iHt=c;else if(h.indexOf('descripci')>=0)iDesc=c;else if(h.indexOf('excursion')>=0)iExc=c;else if(h.indexOf('precio')>=0)iPt=c;else if(h.indexOf('organizado')>=0)iOrg=c}
+for(var i=1;i<rows.length;i++){var r=rows[i];if(!r||r.length<2)continue;var ds=r[iDate]||'',dow=r[iDow]||'',city=(r[iCity]||'').trim(),tr=(r[iTr]||'').trim(),tray=(r[iTray]||'').trim(),ht=(r[iHt]||'').trim(),desc=(r[iDesc]||'').trim(),exc=(r[iExc]||'').trim(),pt=(r[iPt]||'').trim();if(!city&&!desc)continue;dn++;
+var jd=exD(ds);if(!jd)jd=new Date(2026,3,29+dn);var dstr=jd.getDate()+' '+MN[jd.getMonth()];
+var cl=city.toLowerCase().split('→')[0].split('/')[0].split('(')[0].trim().replace(/\s+/g,' ').replace(/[\u2018\u2019\u0060\u00B4]/g,"'");
+var ik=CI[cl]||'bj1',dl=(desc+' '+city).toLowerCase();
+for(var ri=0;ri<IR.length;ri++){if(dl.indexOf(IR[ri].m)>=0){ik=IR[ri].k;break}}
+if(used[ik]){var allK=Object.keys(IM).filter(function(k){return!used[k]});var best=allK[0]||ik;var clB=cl.replace(/[^a-z]/g,'');
+for(var a=0;a<allK.length;a++){var ak=allK[a];if((clB.indexOf('beijing')>=0&&(ak==='bj1'||ak==='bj2'||ak==='wall'))||(clB.indexOf('zhangjiajie')>=0&&ak.indexOf('zjj')>=0)||(clB.indexOf('wulingyuan')>=0&&ak.indexOf('zjj')>=0)||(clB.indexOf('chongqing')>=0&&ak.indexOf('cq')>=0)||(clB.indexOf('chengdu')>=0&&(ak==='panda'||ak==='leshan'))){best=ak;break}}ik=best}
+used[ik]=true;
+var tags=[];if(tr)tags.push({t:(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+tr+(ht?' '+ht:''),c:'t-tr'});
+if(exc)exc.split('\n').forEach(function(e){e=e.replace(/^-\s*/,'').trim();if(e){var hp=e.indexOf('€')>=0;tags.push({t:(hp?'💰 ':'🎯 ')+e,c:hp?'t-pr':'t-ac'})}});
+if(pt){pt=pt.trim();if(pt)tags.push({t:'💰 Transporte: '+pt,c:'t-pr'})}
+var org=iOrg>=0?(r[iOrg]||'').trim():'';
+D.days.push({d:dn,date:dstr,dow:DW[dow]||dow,city:city,emoji:CE[cl]||'📍',img:ik,color:CC[cl]||'#457b9d',desc:desc||'Día en '+city,tags:tags,cl:cl,org:org})}}
+function procAloj(rows){if(rows.length<2)return;var seen={};
+var hdr=rows[0]||[];var iCity=-1,iName=-1,iAddr=-1,iBk=-1,iType=-1,iPrice=-1,iPaid=-1,iWhen=-1,iDate=-1;
+for(var c=0;c<hdr.length;c++){var h=(hdr[c]||'').toLowerCase().trim();if(h.indexOf('ciudad')>=0)iCity=c;else if(h.indexOf('alojamiento')>=0)iName=c;else if(h.indexOf('direcci')>=0)iAddr=c;else if(h.indexOf('desayuno')>=0)iBk=c;else if(h.indexOf('tipo')>=0)iType=c;else if(h.indexOf('precio')>=0)iPrice=c;else if(h.indexOf('pagado')>=0)iPaid=c;else if(h.indexOf('paga')>=0&&h.indexOf('pagado')<0)iWhen=c;else if(h.indexOf('día')>=0||h.indexOf('dia')>=0||h.indexOf('fecha')>=0)iDate=c}
+if(iCity<0)iCity=1;if(iName<0)iName=2;if(iAddr<0)iAddr=3;if(iBk<0)iBk=4;if(iType<0)iType=5;if(iPrice<0)iPrice=6;if(iPaid<0)iPaid=7;if(iWhen<0)iWhen=8;if(iDate<0)iDate=0;
+for(var i=1;i<rows.length;i++){var r=rows[i];if(!r||r.length<3)continue;var city=(r[iCity]||'').trim(),name=(r[iName]||'').trim();if(!name||seen[name])continue;seen[name]=true;
+var addr=(r[iAddr]||'').trim(),bk=(r[iBk]||'').trim(),type=(r[iType]||'').trim(),price=parseNum(r[iPrice]),paid=(r[iPaid]||'').trim().toUpperCase(),when=(r[iWhen]||'').trim();
+var dateStr='';var jd=exD(r[iDate]);if(jd)dateStr=jd.getDate()+' '+MN[jd.getMonth()];
+if(!city)continue;
+// Count nights: how many consecutive rows have this hotel name
+var nightCount=0;for(var j=i;j<rows.length;j++){if((rows[j][iName]||'').trim()===name||(rows[j][iCity]||'').trim()===city)nightCount++;else break}
+var dateOut='';if(nightCount>0){var jdOut=exD(rows[Math.min(i+nightCount,rows.length-1)][iDate]);if(jdOut)dateOut=jdOut.getDate()+' '+MN[jdOut.getMonth()]}
+D.hotels.push({city:city,name:name,addr:addr,bk:bk==='SI'||bk==='SÍ',type:type||'Hotel 🏨',price:isNaN(price)?null:price,paid:paid==='SI'||paid==='SÍ',when:when,dateIn:dateStr,dateOut:dateOut,nights:nightCount>1?nightCount+' noches':nightCount===1?'1 noche':''})}
+if(!D.hotels.some(function(h){return h.city.toLowerCase().indexOf('chongqing')>=0&&h.price!==null}))D.hotels.push({city:'Chongqing',name:'Pendiente',addr:'Zona Jiefangbei',bk:false,type:'Por confirmar ❓',price:null,paid:false,when:'',date:''})}
+function procCk(rows){if(rows.length<2)return;var cl={'Equipaje':[],'Importantes':[]};for(var i=1;i<rows.length;i++){var r=rows[i];if(!r)continue;if((r[0]||'').trim())cl['Equipaje'].push(r[0].trim());if((r[3]||'').trim())cl['Importantes'].push(r[3].trim())}D.cl=cl}
+function procApps(rows){if(rows.length<2)return;var icons={alipay:'💳',wechat:'💬',amap:'🗺️',trip:'🚅',didi:'🚕',holafly:'📶'};for(var i=1;i<rows.length;i++){var r=rows[i];if(!r||r.length<2)continue;var n=(r[0]||'').trim(),u=(r[1]||'').trim();if(n)D.apps.push({icon:icons[n.toLowerCase()]||'📱',name:n,use:u})}}
+function procLinks(rows){if(rows.length<2)return;for(var i=1;i<rows.length;i++){var r=rows[i];if(!r||r.length<2)continue;var desc=(r[0]||'').trim(),url=(r[1]||'').trim();if(desc&&url)D.links.push({desc:desc,url:url})}}
+function imgErr(el){el.style.display='none';var p=el.parentNode;if(p){var f=p.querySelector('.difb');if(f)f.style.display='flex'}}
+window.imgErr=imgErr;
+function iTag(k,e,g){var u=IM[k]||IM.bj1;return '<div class="diw"><img class="dimg" src="'+u[0]+'" onerror="imgErr(this)" loading="lazy" alt=""><div class="difb" style="background:'+(g||'linear-gradient(135deg,#1a1a2e,#16213e)')+'">'+( e||'🐉')+'</div></div>'}
+function calcB(){var cats=[];cats.push({l:'✈️ Vuelos',items:[{n:'Madrid↔Beijing ida y vuelta',t:480*NP,p:480}]});
+var tr=[],en=[];D.days.forEach(function(d){d.tags.forEach(function(tg){var txt=tg.t,m=txt.match(/([\d.,]+)\s*€/);if(!m)return;var v=parseFloat(m[1].replace(',','.'));if(isNaN(v))return;var lb=txt.replace(/[💰🎯🚅✈️]\s*/g,'').replace(/([\d.,]+)\s*€/g,'').replace(/Transporte:/gi,'').replace(/:/g,'').trim();
+if(tg.c==='t-pr'&&txt.toLowerCase().indexOf('transporte')>=0){tr.push({n:d.city+(lb?' ('+lb+')':''),t:v,p:Math.round(v/NP*100)/100})}else if(tg.c==='t-pr'||tg.c==='t-ac'){en.push({n:lb||d.city,t:v,p:Math.round(v/NP*100)/100})}})});
+tr.push({n:"Xi'an→Chengdu (~35€/pers)",t:null,p:35});tr.push({n:'Chengdu→Zhangjiajie (~50€/pers)',t:null,p:50});
+cats.push({l:'🚅 Transporte',items:tr});
+var al=[];D.hotels.forEach(function(h){al.push(h.price?{n:h.city+' - '+h.name,t:h.price,p:Math.round(h.price/NP*100)/100}:{n:h.city+' (pendiente)',t:null,p:null})});cats.push({l:'🏨 Alojamientos',items:al});
+if(en.length)cats.push({l:'🎟️ Entradas',items:en});return cats}
+function getTrav(a,b){var ka=a.toLowerCase().split('→')[0].split('/')[0].trim();var kb=b.toLowerCase().split('→')[0].split('/')[0].trim();return TRAV[ka+'→'+kb]||null}
+function getRec(cl){return RECS[cl]||null}
+
+function rRes(){var h='',nc={};D.days.forEach(function(d){nc[d.city.split('→')[0].split('/')[0].split('(')[0].trim()]=1});var nci=Object.keys(nc).length;
+document.getElementById('hsub').textContent='30 abril — 17 mayo · '+NP+' viajeros · '+nci+' ciudades';
+var hC=D.hotels.filter(function(h){return h.price!==null}).length,hT=D.hotels.length;var pct=Math.round(((hC/hT)*0.7+0.3)*100);
+h+='<div class="st">📊 Progreso</div><div class="pw"><div class="pr-row"><span class="lb">Organización</span><span class="vl">'+pct+'%</span></div><div class="pr-bar"><div class="pr-fill" style="width:'+pct+'%;background:linear-gradient(90deg,var(--green),var(--gold))"></div></div>';
+h+='<div class="pr-row"><span class="lb">🏨 Alojamientos</span><span class="vl">'+hC+'/'+hT+'</span></div><div class="pr-bar"><div class="pr-fill" style="width:'+Math.round(hC/hT*100)+'%;background:var(--blue)"></div></div></div>';
+var bg=calcB(),tot=0;bg.forEach(function(c){c.items.forEach(function(i){if(i.t)tot+=i.t})});
+h+='<div class="sg"><div class="sc"><div class="v">'+D.days.length+'</div><div class="lb">Días</div></div><div class="sc"><div class="v">'+nci+'</div><div class="lb">Ciudades</div></div><div class="sc"><div class="v">'+NP+'</div><div class="lb">Viajeros</div></div><div class="sc"><div class="v">'+Math.round(tot/NP)+'€</div><div class="lb">€/persona</div></div></div>';
+h+='<div class="st">🗺️ Ruta</div><div class="rv">';var rc=['Madrid'];D.days.forEach(function(d){var c=d.city.split('→')[0].split('/')[0].split('(')[0].trim();if(rc[rc.length-1]!==c)rc.push(c)});if(rc[rc.length-1]!=='Madrid')rc.push('Madrid');rc.forEach(function(c){h+='<div class="rs" onclick="goToCity(\''+c.replace(/'/g,"\\'")+'\')" role="button" aria-label="Ir a '+c+'"><div class="rl"></div><div class="rd"></div><div class="rla">'+c+'</div></div>'});h+='</div>';
+if(D.apps.length){h+='<div class="st">📱 Apps</div><div class="ag">';D.apps.forEach(function(a){h+='<div class="ac"><div class="ai">'+a.icon+'</div><div class="an">'+a.name+'</div><div class="au">'+a.use+'</div></div>'});h+='</div>'}
+var pnd=D.hotels.filter(function(h){return h.price===null}).map(function(h){return h.city});
+if(pnd.length)h+='<div class="st">⚠️ Pendiente</div><p style="color:var(--text2);font-size:.88em">Falta alojamiento: <b style="color:var(--gold)">'+pnd.join(', ')+'</b></p>';
+document.getElementById('p-res').innerHTML=h}
+
+function rRut(){var h='',prev='';D.days.forEach(function(day){
+var cur=day.city.split('→')[0].split('/')[0].split('(')[0].trim();
+if(prev&&prev!==cur){var tt=getTrav(prev,cur);if(tt)h+='<div class="trav">🚀 '+prev+' → '+cur+': <b style="margin-left:4px">'+tt+'</b></div>'}prev=cur;
+h+='<div class="dc"><div class="dh"><div class="dnum" style="background:'+day.color+'"><span class="n">'+day.d+'</span>'+day.dow.substring(0,3)+'</div><div class="di"><div class="c">'+day.emoji+' '+day.city+(day.org?'<span class="org-badge '+(day.org.toLowerCase()==='si'||day.org==='TRUE'?'org-yes':'org-no')+'">'+(day.org.toLowerCase()==='si'||day.org==='TRUE'?'✅':'⏳')+'</span>':'')+'</div><div class="b">'+day.date+' — '+day.desc.substring(0,55)+'...</div></div><div class="dchev">▼</div></div>';
+h+=iTag(day.img,day.emoji,'linear-gradient(135deg,'+day.color+',#0a0a1a)');
+h+='<div class="db"><p>'+day.desc+'</p>';
+if(day.tags.length){h+='<div style="margin-top:8px">';day.tags.forEach(function(t){h+='<span class="dtag '+t.c+'">'+t.t+'</span>'});h+='</div>'}
+var rec=getRec(day.cl);if(rec){h+='<div class="rec"><div class="rec-title">💡 Recomendaciones</div><p>'+rec+'</p></div>'}
+h+='</div></div>'});document.getElementById('p-rut').innerHTML=h}
+
+function rHot(){var h='';D.hotels.forEach(function(ht){var ip=ht.price===null;
+h+='<div class="hc'+(ip?' hcp':'')+'">';
+h+='<div class="hci">'+ht.city+'</div><div class="hcn">'+ht.name+'</div>';
+if(ht.dateIn||ht.dateOut)h+='<div class="hcd">📅 '+(ht.dateIn||'?')+' → '+(ht.dateOut||'?')+(ht.nights?' ('+ht.nights+')':'')+'</div>';
+if(ht.addr)h+='<div class="hca">📍 '+ht.addr+'</div>';
+h+='<div class="hcm"><span>'+ht.type+'</span>';
+if(ht.price!==null)h+='<span>💰 '+ht.price+'€ · '+(Math.round(ht.price/NP*100)/100)+'€/pers</span>';
+if(ht.paid)h+='<span style="color:var(--green)">✅ Pagado</span>';else if(ht.when)h+='<span style="color:var(--gold)">⏳ '+ht.when+'</span>';
+if(ht.bk)h+='<span>🥐 Desayuno</span>';
+h+='</div></div>'});document.getElementById('p-hot').innerHTML=h}
+
+function rMap(){if(window._m)return;window._m=1;setTimeout(function(){var m=L.map('map').setView([33,105],3);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(m);
+var co=[];CM.forEach(function(c){
+var ic=L.divIcon({html:'<div style="font-size:24px;text-shadow:0 2px 8px rgba(0,0,0,.8)">'+c.e+'</div>',className:'',iconSize:[30,30]});
+L.marker([c.la,c.lo],{icon:ic}).addTo(m).bindPopup('<b>'+c.n+'</b>');co.push([c.la,c.lo])});
+// Animated route
+var routeLine=L.polyline([],{color:'#f4a261',weight:3,opacity:.8}).addTo(m);
+var ghostLine=L.polyline(co,{color:'#f4a261',weight:1,opacity:.15,dashArray:'6 6'}).addTo(m);
+var step=0;var animInterval=setInterval(function(){
+if(step>=co.length){clearInterval(animInterval);
+// Add moving dot at the end
+var plane=L.divIcon({html:'<div style="font-size:18px">✈️</div>',className:'',iconSize:[20,20]});
+L.marker(co[co.length-1],{icon:plane}).addTo(m);return}
+routeLine.addLatLng(co[step]);step++},400);
+m.fitBounds(co,{padding:[30,30]})},300)}
+
+function rGas(){var h='',bg=calcB(),tot=0;bg.forEach(function(c){c.items.forEach(function(i){if(i.t)tot+=i.t})});var pp=Math.round(tot/NP*100)/100;
+h+='<div class="bh"><div class="t">'+Math.round(tot)+'€</div><div class="p">grupo · '+pp+'€/persona</div><div style="font-size:.75em;margin-top:4px;opacity:.7">(solo confirmado)</div></div>';
+bg.forEach(function(c){var ct=0;c.items.forEach(function(i){if(i.t)ct+=i.t});h+='<div class="bc"><div class="bct"><span>'+c.l+'</span><span style="color:var(--gold)">'+Math.round(ct)+'€</span></div>';c.items.forEach(function(i){h+='<div class="bi"><span>'+i.n+'</span><span>'+(i.t?i.t+'€ · '+i.p+'€/pers':'❓')+'</span></div>'});h+='</div>'});
+h+='<div class="st">👥 Por persona</div><div class="cbg">';CRW.forEach(function(c){h+='<div class="cc"><div class="cav" style="background:'+c.c+';width:44px;height:44px;margin:0 auto;font-size:.9em">'+c.n[0]+'</div><div class="nm">'+c.n+'</div><div class="am">'+pp+'€</div></div>'});h+='</div>';
+document.getElementById('p-gas').innerHTML=h}
+
+function rMal(){var h='',all=[];Object.keys(D.cl).forEach(function(c){(D.cl[c]||[]).forEach(function(i){all.push(c+'::'+i)})});var ck=lCk(),dn=all.filter(function(i){return ck[i]}).length;
+h+='<div class="cprog"><b>'+dn+'/'+all.length+'</b> items<div class="cbar"><div class="cfill" style="width:'+(all.length?Math.round(dn/all.length*100):0)+'%"></div></div></div>';
+Object.keys(D.cl).forEach(function(cat){h+='<div class="st">'+(cat==='Importantes'?'⚠️':'🎒')+' '+cat+'</div>';(D.cl[cat]||[]).forEach(function(i){var k=cat+'::'+i,d=ck[k];h+='<div class="ci'+(d?' done':'')+'" data-ck="'+k+'"><div class="chk">'+(d?'✓':'')+'</div><span>'+i+'</span></div>'})});
+document.getElementById('p-mal').innerHTML=h}
+
+function rInf(){var h='';
+h+='<div class="st">💱 Convertidor EUR ↔ CNY</div><div class="conv"><div><input type="number" id="eurIn" placeholder="€" oninput="convE()"> EUR → <span id="cnyOut" class="res">0 ¥</span></div><div style="margin-top:10px"><input type="number" id="cnyIn" placeholder="¥" oninput="convC()"> CNY → <span id="eurOut" class="res">0 €</span></div><p style="font-size:.7em;color:var(--text2);margin-top:6px" id="rateInfo">Cargando cambio actual...</p></div>';
+h+='<div class="st">🌤️ Clima del viaje</div><div id="weatherData"><p style="color:var(--text2);font-size:.85em">Cargando previsión real...</p></div>';
+loadWeather();
+h+='<div class="st">🗣️ Frases en chino</div>';PH.forEach(function(p){h+='<div class="phr"><span class="pcn">'+p[0]+'</span><span class="ppy">'+p[1]+'</span><span class="pes">'+p[2]+'</span></div>'});
+h+='<div class="st">🇨🇳 Info práctica</div>';
+h+='<div class="ic"><h3>💴 Moneda</h3><p>Yuan (CNY). 1€≈7.8¥. Pagar con Alipay/WeChat. Llevar efectivo de emergencia.</p></div>';
+h+='<div class="ic"><h3>🕐 Hora</h3><p>UTC+8 — 6h más que España en verano.</p></div>';
+h+='<div class="ic"><h3>🚨 Emergencias</h3><p>Policía: 110 · Ambulancia: 120 · Bomberos: 119. Embajada España: +86 10 6532 3629</p></div>';
+h+='<div class="ic"><h3>📶 VPN</h3><p>Google/WhatsApp/Instagram bloqueados. Usar Holafly (eSIM+VPN).</p></div>';
+h+='<div class="ic"><h3>🔌 Enchufes</h3><p>Tipo A, C, I. Adaptador universal. 220V.</p></div>';
+h+='<div class="ic"><h3>💡 Tips</h3><p>Llevar papel higiénico siempre. Configurar Alipay antes. Taxi con DiDi. No beber agua del grifo. Mapas offline en Amap. Visado: españoles 30 días sin visado hasta dic 2026.</p></div>';
+h+='<div class="st">🍜 Tips gastro por ciudad</div>';
+Object.keys(RECS).forEach(function(c){h+='<div class="ic"><h3>'+( CE[c]||'📍')+' '+c.charAt(0).toUpperCase()+c.slice(1)+'</h3><p>'+RECS[c]+'</p></div>'});
+document.getElementById('p-inf').innerHTML=h}
+
+function rLnk(){var h='<div class="st">🔗 Enlaces del viaje</div>';
+if(D.links.length){D.links.forEach(function(l){h+='<a class="lnk" href="'+l.url+'" target="_blank" rel="noopener"><div class="lt">'+l.desc+'</div></a>'})}
+else{h+='<p style="color:var(--text2);font-size:.88em">No hay enlaces aún. Añádelos en la hoja "Enlaces" de tu Google Sheet.</p>'}
+document.getElementById('p-lnk').innerHTML=h}
+
+function rRst(){var h='<div class="st">🍜 Restaurantes y comida por ciudad</div>';
+h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:16px">Los mejores platos y restaurantes de cada ciudad de vuestro viaje.</p>';
+Object.keys(REST).forEach(function(key){var r=REST[key];
+h+='<div class="ic"><h3>'+(CE[key]||'📍')+' '+r.name+'</h3>';
+h+='<p style="font-weight:700;margin-bottom:4px">Platos típicos:</p><p>'+r.dishes.join('<br>')+'</p>';
+h+='<p style="font-weight:700;margin-top:8px;margin-bottom:4px">Dónde comer:</p><p>'+r.places.join('<br>')+'</p></div>'});
+h+='<div class="st">📖 Diccionario visual de comida</div>';
+h+='<p style="color:var(--text2);font-size:.82em;margin-bottom:12px">Señala estos platos en el restaurante si no sabes pedir. Toca para ampliar.</p>';
+h+='<div class="food-grid">';
+FOOD.forEach(function(f){
+h+='<div class="food-card">';
+if(f.img){h+='<img class="food-img" src="'+f.img+'" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'" loading="lazy"><div class="food-img-fb" style="display:none">'+f.emoji+'</div>'}
+else{h+='<div class="food-img-fb">'+f.emoji+'</div>'}
+h+='<div class="food-info"><div class="food-cn">'+f.cn+'</div><div class="food-py">'+f.py+'</div><div class="food-es">'+f.es+'</div>';
+if(f.tip)h+='<div class="food-tip">💡 '+f.tip+'</div>';
+h+='</div></div>'});
+h+='</div>';
+document.getElementById('p-rst').innerHTML=h}
+
+function rTips(){var h='<div class="st">🚫 Cosas que NO hacer en China</div>';
+h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:14px">Errores típicos de turistas. Leed esto antes de ir.</p>';
+DONT.forEach(function(d,i){h+='<div class="dont-card"><div style="display:flex;align-items:start"><span class="num">'+(i+1)+'</span><div><b style="color:var(--text)">'+d.title+'</b><p>'+d.desc+'</p></div></div></div>'});
+document.getElementById('p-tips').innerHTML=h}
+
+var RATE=7.8;
+(function(){try{fetch('https://open.er-api.com/v6/latest/EUR').then(function(r){return r.json()}).then(function(d){if(d.rates&&d.rates.CNY){RATE=d.rates.CNY;var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio actual: 1€ = '+RATE.toFixed(2)+'¥ ('+d.time_last_update_utc.substring(0,16)+')'}}).catch(function(){})}catch(e){}})();
+window.convE=function(){var v=parseFloat(document.getElementById('eurIn').value)||0;document.getElementById('cnyOut').textContent=(v*RATE).toFixed(1)+' ¥'};
+window.convC=function(){var v=parseFloat(document.getElementById('cnyIn').value)||0;document.getElementById('eurOut').textContent=(v/RATE).toFixed(2)+' €'};
+// Navigate to city in Ruta tab
+window.goToCity=function(city){
+// Switch to Ruta tab
+document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});
+var rutTab=document.querySelector('[data-t="rut"]');if(rutTab)rutTab.classList.add('active');
+document.getElementById('p-rut').classList.add('active');
+// Find first day card matching city
+setTimeout(function(){var cards=document.querySelectorAll('.dc');
+for(var i=0;i<cards.length;i++){var c=cards[i].querySelector('.c');
+if(c&&c.textContent.toLowerCase().indexOf(city.toLowerCase())>=0){cards[i].scrollIntoView({behavior:'smooth',block:'center'});cards[i].classList.add('open');break}}},100)};
+// Offline cache
+function saveCache(){try{localStorage.setItem('cn26_cache',JSON.stringify(D));localStorage.setItem('cn26_cache_t',Date.now())}catch(e){}}
+function loadCache(){try{var c=localStorage.getItem('cn26_cache');var t=localStorage.getItem('cn26_cache_t');if(c&&t&&(Date.now()-parseInt(t))<86400000)return JSON.parse(c)}catch(e){}return null}
+
+// Weather codes to emoji/description
+var WC={0:'☀️ Despejado',1:'🌤️ Casi despejado',2:'⛅ Parcialmente nublado',3:'☁️ Nublado',
+45:'🌫️ Niebla',48:'🌫️ Niebla helada',51:'🌧️ Llovizna ligera',53:'🌧️ Llovizna',55:'🌧️ Llovizna intensa',
+61:'🌧️ Lluvia ligera',63:'🌧️ Lluvia moderada',65:'🌧️ Lluvia fuerte',
+80:'🌦️ Chubascos ligeros',81:'🌦️ Chubascos',82:'🌦️ Chubascos fuertes',
+95:'⛈️ Tormenta',96:'⛈️ Tormenta con granizo',99:'⛈️ Tormenta fuerte'};
+function getWCEmoji(code){return WC[code]||'🌤️ '+code}
+async function loadWeather(){
+var el=document.getElementById('weatherData');if(!el)return;
+// Build list of unique city+coords+dates from the trip
+var cityDays={};
+D.days.forEach(function(day){
+var cl=day.cl||day.city.toLowerCase().split('→')[0].split('/')[0].trim();
+var coords=null;
+CM.forEach(function(c){if(c.n.toLowerCase().replace(/'/g,"'")==cl||cl.indexOf(c.n.toLowerCase())>=0)coords={la:c.la,lo:c.lo,n:c.n}});
+if(!coords)return;
+var key=coords.n;
+if(!cityDays[key])cityDays[key]={coords:coords,days:[]};
+cityDays[key].days.push({date:day.date,d:day.d,city:day.city});
+});
+var h='';
+var fetches=[];
+Object.keys(cityDays).forEach(function(key){
+var cd=cityDays[key];
+var url='https://api.open-meteo.com/v1/forecast?latitude='+cd.coords.la+'&longitude='+cd.coords.lo+'&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode&timezone=Asia/Shanghai&forecast_days=16';
+fetches.push(fetch(url).then(function(r){return r.json()}).then(function(data){
+return{key:key,data:data,days:cd.days};
+}).catch(function(){return{key:key,data:null,days:cd.days}}));
+});
+try{
+var results=await Promise.all(fetches);
+results.forEach(function(r){
+if(!r.data||!r.data.daily){
+// Fallback: show static
+r.days.forEach(function(d){
+h+='<div class="clc"><div class="cli">🌤️</div><div class="clinfo"><div class="ct">Día '+d.d+' · '+d.city+'</div><div class="cd">Previsión no disponible aún</div></div></div>';
+});
+return;
+}
+var daily=r.data.daily;
+r.days.forEach(function(d){
+// Try to match trip date with forecast date
+// Trip dates: "2 may", "3 may" etc
+// Forecast dates: "2026-05-02" etc
+var matched=false;
+for(var i=0;i<(daily.time||[]).length;i++){
+var fd=new Date(daily.time[i]);
+var fdStr=fd.getDate()+' '+MN[fd.getMonth()];
+if(fdStr===d.date){
+var tMax=Math.round(daily.temperature_2m_max[i]);
+var tMin=Math.round(daily.temperature_2m_min[i]);
+var rain=daily.precipitation_probability_max[i]||0;
+var wcode=daily.weathercode[i]||0;
+var winfo=getWCEmoji(wcode);
+var emoji=winfo.split(' ')[0];
+var desc=winfo.substring(emoji.length+1);
+h+='<div class="clc"><div class="cli">'+emoji+'</div><div class="clinfo"><div class="ct">Día '+d.d+' · '+d.city+' <span style="font-size:.75em;color:var(--text2)">('+d.date+')</span></div><div class="cd">'+tMin+'°–'+tMax+'°C · '+desc+' · Lluvia: '+rain+'%</div></div></div>';
+matched=true;break;
+}}
+if(!matched){
+h+='<div class="clc"><div class="cli">📅</div><div class="clinfo"><div class="ct">Día '+d.d+' · '+d.city+'</div><div class="cd">Fuera del rango de previsión (se actualiza 16 días antes)</div></div></div>';
+}});
+});
+if(!h)h='<p style="color:var(--text2);font-size:.85em">La previsión se activa 16 días antes del viaje.</p>';
+el.innerHTML=h;
+}catch(e){el.innerHTML='<p style="color:var(--text2);font-size:.85em">No se pudo cargar el clima. Se mostrará cuando haya previsión disponible.</p>';}
+}
+function lCk(){try{return JSON.parse(localStorage.getItem('cn26ck')||'{}')}catch(e){return{}}}
+function sCk(d){try{localStorage.setItem('cn26ck',JSON.stringify(d))}catch(e){}}
+function uCD(){var t=new Date('2026-04-30T00:00:00')-new Date(),el=document.getElementById('cd');if(t<=0){el.innerHTML='<div style="color:var(--gold);font-size:1.2em;font-weight:700">¡VIAJE EN MARCHA! 🐉🎉</div>';return}var d=Math.floor(t/864e5),h=Math.floor(t%864e5/36e5),m=Math.floor(t%36e5/6e4),s=Math.floor(t%6e4/1e3);el.innerHTML='<div class="cdb"><div class="n">'+d+'</div><div class="l">días</div></div><div class="cdb"><div class="n">'+h+'</div><div class="l">h</div></div><div class="cdb"><div class="n">'+m+'</div><div class="l">min</div></div><div class="cdb"><div class="n">'+s+'</div><div class="l">seg</div></div>'}
+document.getElementById('cr').innerHTML=CRW.map(function(c){return '<div class="cav" style="background:'+c.c+'">'+c.n.substring(0,2)+'</div>'}).join('');
+document.getElementById('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.getElementById('p-'+t.getAttribute('data-t')).classList.add('active');if(t.getAttribute('data-t')==='map')rMap()});
+document.addEventListener('click',function(e){var h=e.target.closest('.dh');if(h)h.parentNode.classList.toggle('open');var ci=e.target.closest('.ci');if(ci){var k=ci.getAttribute('data-ck'),ck=lCk();ck[k]=!ck[k];sCk(ck);rMal()}});
+document.addEventListener('touchend',function(e){var h=e.target.closest('.dh');if(h){e.preventDefault();h.parentNode.classList.toggle('open')}var ci=e.target.closest('.ci');if(ci){e.preventDefault();var k=ci.getAttribute('data-ck'),ck=lCk();ck[k]=!ck[k];sCk(ck);rMal()}},{passive:false});
+var mS=false,mP=false;function iMu(){if(mS)return;mS=true;Tone.start().then(function(){var rv=new Tone.Reverb({decay:4,wet:.5}).toDestination();var dl=new Tone.FeedbackDelay({delayTime:'8n',feedback:.2,wet:.15}).connect(rv);var fl=new Tone.Synth({oscillator:{type:'sine'},envelope:{attack:.3,decay:.4,sustain:.6,release:1.2},volume:-10}).connect(dl);var kt=new Tone.PluckSynth({attackNoise:1.5,dampening:3000,resonance:.95,volume:-14}).connect(rv);Tone.Transport.bpm.value=56;var ml=[['C4','2n'],['E4','4n'],['G4','2n'],['A4','4n'],['G4','2n'],['E4','4n'],['D4','2n'],['C4','4n'],['A3','2n'],['C4','4n'],['D4','2n'],['E4','4n'],['C4','1n'],[null,'2n'],['G4','2n'],['A4','4n'],['C5','2n'],['A4','4n'],['G4','2n'],['E4','4n'],['D4','2n'],['C4','1n']];var t=0,ev=[];ml.forEach(function(n){var d=Tone.Time(n[1]).toSeconds();ev.push({time:t,note:n[0],dur:n[1]});t+=d});var p1=new Tone.Part(function(time,v){if(v.note)fl.triggerAttackRelease(v.note,v.dur,time)},ev);p1.loop=true;p1.loopEnd=t;p1.start(0);var kn=[['C3','4n'],['G3','4n'],['C4','4n'],['E4','4n'],['G3','4n'],['D4','4n'],['A3','4n'],['E4','4n']],t2=0,ke=[];kn.forEach(function(n){ke.push({time:t2,note:n[0]});t2+=Tone.Time(n[1]).toSeconds()*2});var p2=new Tone.Part(function(time,v){kt.triggerAttackRelease(v.note,time)},ke);p2.loop=true;p2.loopEnd=t2;p2.start(0);Tone.Transport.start();mP=true;document.getElementById('mb').textContent='🎵';document.getElementById('mb').classList.add('on')})}
+document.getElementById('mb').addEventListener('click',function(){if(!mS){iMu();return}if(mP){Tone.Transport.pause();mP=false;this.textContent='🔇';this.classList.remove('on')}else{Tone.Transport.start();mP=true;this.textContent='🎵';this.classList.add('on')}});
+var aS=false;function aStart(){if(aS)return;aS=true;iMu()}document.addEventListener('touchstart',aStart,{once:true,passive:true});document.addEventListener('scroll',aStart,{once:true,passive:true});
+async function init(){var cached=loadCache();
+try{var[ruta,aloj,ck,apps,links]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links)]);
+procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);saveCache()}
+catch(e){if(cached){D=cached}else{document.getElementById('ld').querySelector('p').textContent='Sin conexión y sin datos en caché.';return}}
+uCD();setInterval(uCD,1000);rRes();rRut();rHot();rGas();rMal();rInf();rRst();rTips();rLnk();
+document.getElementById('ld').classList.add('hide');setTimeout(function(){document.getElementById('ld').style.display='none'},600);
+updTime();setInterval(autoRefresh,180000)}
+async function autoRefresh(){
+try{var[ruta,aloj,ck,apps,links]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links)]);
+D={days:[],hotels:[],cl:{},apps:[],links:[]};
+procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);saveCache();
+rRes();rRut();rHot();rGas();rMal();rInf();rRst();rTips();rLnk();updTime()}catch(e){}}
+function updTime(){var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');
+document.querySelector('.rbar').innerHTML='<div class="ldot"></div> Actualizado a las '+h+':'+m+' · Toca para refrescar'}
+init();
+
+</script>
+</body>
+</html>
