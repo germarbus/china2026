@@ -328,7 +328,7 @@ document.getElementById('p-mal').innerHTML=h}
 function rInf(){var h='';
 h+='<div class="st">💱 Convertidor EUR ↔ CNY</div><div class="conv"><div><input type="number" id="eurIn" placeholder="€" oninput="convE()"> EUR → <span id="cnyOut" class="res">0 ¥</span></div><div style="margin-top:10px"><input type="number" id="cnyIn" placeholder="¥" oninput="convC()"> CNY → <span id="eurOut" class="res">0 €</span></div><p style="font-size:.7em;color:var(--text2);margin-top:6px" id="rateInfo">Cargando cambio actual...</p></div>';
 h+='<div class="st">🌤️ Clima del viaje</div><div id="weatherData"><p style="color:var(--text2);font-size:.85em">Cargando previsión real...</p></div>';
-loadWeather();
+setTimeout(function(){loadWeather()},500);
 h+='<div class="st">🗣️ Frases en chino</div>';PH.forEach(function(p){h+='<div class="phr"><span class="pcn">'+p[0]+'</span><span class="ppy">'+p[1]+'</span><span class="pes">'+p[2]+'</span></div>'});
 h+='<div class="st">🇨🇳 Info práctica</div>';
 h+='<div class="ic"><h3>💴 Moneda</h3><p>Yuan (CNY). 1€≈7.8¥. Pagar con Alipay/WeChat. Llevar efectivo de emergencia.</p></div>';
@@ -373,7 +373,9 @@ document.getElementById('p-tips').innerHTML=h}
 var RATE=7.8;
 (function(){var rateLoaded=false;
 setTimeout(function(){if(!rateLoaded){var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio aprox: 1€ ≈ 7.8¥ (offline)'}},5000);
-try{fetch('https://open.er-api.com/v6/latest/EUR').then(function(r){return r.json()}).then(function(d){if(d.rates&&d.rates.CNY){RATE=d.rates.CNY;rateLoaded=true;var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio actual: 1€ = '+RATE.toFixed(2)+'¥ ('+d.time_last_update_utc.substring(0,16)+')'}}).catch(function(){var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio aprox: 1€ ≈ 7.8¥'})}catch(e){var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio aprox: 1€ ≈ 7.8¥'}})();
+var ac=typeof AbortController!=='undefined'?new AbortController():null;
+if(ac)setTimeout(function(){ac.abort()},5000);
+fetch('https://open.er-api.com/v6/latest/EUR',ac?{signal:ac.signal}:{}).then(function(r){return r.json()}).then(function(d){if(d.rates&&d.rates.CNY){RATE=d.rates.CNY;rateLoaded=true;var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio actual: 1€ = '+RATE.toFixed(2)+'¥ ('+d.time_last_update_utc.substring(0,16)+')'}}).catch(function(){var el=document.getElementById('rateInfo');if(el&&!rateLoaded)el.textContent='Cambio aprox: 1€ ≈ 7.8¥'})})();
 window.convE=function(){var v=parseFloat(document.getElementById('eurIn').value)||0;document.getElementById('cnyOut').textContent=(v*RATE).toFixed(1)+' ¥'};
 window.convC=function(){var v=parseFloat(document.getElementById('cnyIn').value)||0;document.getElementById('eurOut').textContent=(v/RATE).toFixed(2)+' €'};
 // Navigate to city in Ruta tab
