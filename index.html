@@ -101,14 +101,21 @@ html{scroll-behavior:smooth}
 .dont-card .num{font-size:1.3em;font-weight:700;color:var(--accent);margin-right:8px}
 .dont-card p{font-size:.85em;color:var(--text2);line-height:1.5;margin-top:4px}
 @keyframes drawRoute{to{stroke-dashoffset:0}}
+
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.wc{background:var(--card);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.05)}
+.we{font-size:1.6em}.wt{font-size:.95em;font-weight:700;color:var(--gold);margin:2px 0}
+.wd{font-size:.65em;color:var(--text2)}.wn{font-size:.75em;font-weight:700;margin-top:2px}
+.wr{font-size:.65em;color:var(--blue);margin-top:2px}
+@media(min-width:768px){.wgrid{grid-template-columns:repeat(6,1fr)}}
 </style>
 </head>
 <body>
 <div class="ld" id="ld"><div class="spinner"></div><p>Cargando datos del viaje... 🐉</p></div>
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
 <div class="hero"><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
-<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
-<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
+<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
+<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
 
 <div class="mbtn" id="mb" role="button" aria-label="Música">🔇</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -327,8 +334,7 @@ document.getElementById('p-mal').innerHTML=h}
 
 function rInf(){var h='';
 h+='<div class="st">💱 Convertidor EUR ↔ CNY</div><div class="conv"><div><input type="number" id="eurIn" placeholder="€" oninput="convE()"> EUR → <span id="cnyOut" class="res">0 ¥</span></div><div style="margin-top:10px"><input type="number" id="cnyIn" placeholder="¥" oninput="convC()"> CNY → <span id="eurOut" class="res">0 €</span></div><p style="font-size:.7em;color:var(--text2);margin-top:6px" id="rateInfo">Cargando cambio actual...</p></div>';
-h+='<div class="st">🌤️ Clima del viaje</div><div id="weatherData"><p style="color:var(--text2);font-size:.85em">Cargando previsión real...</p></div>';
-setTimeout(function(){loadWeather()},500);
+
 h+='<div class="st">🗣️ Frases en chino</div>';PH.forEach(function(p){h+='<div class="phr"><span class="pcn">'+p[0]+'</span><span class="ppy">'+p[1]+'</span><span class="pes">'+p[2]+'</span></div>'});
 h+='<div class="st">🇨🇳 Info práctica</div>';
 h+='<div class="ic"><h3>💴 Moneda</h3><p>Yuan (CNY). 1€≈7.8¥. Pagar con Alipay/WeChat. Llevar efectivo de emergencia.</p></div>';
@@ -365,6 +371,12 @@ h+='</div></div>'});
 h+='</div>';
 document.getElementById('p-rst').innerHTML=h}
 
+function rCli(){
+var h='<div class="st">🌤️ Clima del viaje</div>';
+h+='<div id="weatherData"><p style="color:var(--text2);font-size:.85em">Cargando previsión...</p></div>';
+document.getElementById('p-cli').innerHTML=h;
+setTimeout(function(){loadWeather()},300)}
+
 function rTips(){var h='<div class="st">🚫 Cosas que NO hacer en China</div>';
 h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:14px">Errores típicos de turistas. Leed esto antes de ir.</p>';
 DONT.forEach(function(d,i){h+='<div class="dont-card"><div style="display:flex;align-items:start"><span class="num">'+(i+1)+'</span><div><b style="color:var(--text)">'+d.title+'</b><p>'+d.desc+'</p></div></div></div>'});
@@ -375,7 +387,7 @@ var RATE=7.8;
 setTimeout(function(){if(!rateLoaded){var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio aprox: 1€ ≈ 7.8¥ (offline)'}},5000);
 var ac=typeof AbortController!=='undefined'?new AbortController():null;
 if(ac)setTimeout(function(){ac.abort()},5000);
-fetch('https://open.er-api.com/v6/latest/EUR',ac?{signal:ac.signal}:{}).then(function(r){return r.json()}).then(function(d){if(d.rates&&d.rates.CNY){RATE=d.rates.CNY;rateLoaded=true;var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio actual: 1€ = '+RATE.toFixed(2)+'¥ ('+d.time_last_update_utc.substring(0,16)+')'}}).catch(function(){var el=document.getElementById('rateInfo');if(el&&!rateLoaded)el.textContent='Cambio aprox: 1€ ≈ 7.8¥'})})();
+fetch('https://api.exchangerate-api.com/v4/latest/EUR',ac?{signal:ac.signal}:{}).then(function(r){return r.json()}).then(function(d){if(d.rates&&d.rates.CNY){RATE=d.rates.CNY;rateLoaded=true;var el=document.getElementById('rateInfo');if(el)el.textContent='Cambio actual: 1€ = '+RATE.toFixed(2)+'¥ ('+(d.time_last_update_utc||d.date||'hoy').substring(0,16)+')'}}).catch(function(){var el=document.getElementById('rateInfo');if(el&&!rateLoaded)el.textContent='Cambio aprox: 1€ ≈ 7.8¥'})})();
 window.convE=function(){var v=parseFloat(document.getElementById('eurIn').value)||0;document.getElementById('cnyOut').textContent=(v*RATE).toFixed(1)+' ¥'};
 window.convC=function(){var v=parseFloat(document.getElementById('cnyIn').value)||0;document.getElementById('eurOut').textContent=(v/RATE).toFixed(2)+' €'};
 // Navigate to city in Ruta tab
@@ -425,19 +437,18 @@ return{key:key,data:data,days:cd.days};
 });
 try{
 var results=await Promise.all(fetches);
+h+='<div class="wgrid">';
 results.forEach(function(r){
 if(!r.data||!r.data.daily){
-// Fallback: show static
 r.days.forEach(function(d){
-h+='<div class="clc"><div class="cli">🌤️</div><div class="clinfo"><div class="ct">Día '+d.d+' · '+d.city+'</div><div class="cd">Previsión no disponible aún</div></div></div>';
+var cn=d.city.split('→')[0].split('/')[0].split('(')[0].trim();
+h+='<div class="wc"><div class="we">🌤️</div><div class="wt">--</div><div class="wd">D'+d.d+'</div><div class="wn">'+cn+'</div><div class="wr">Sin datos</div></div>';
 });
 return;
 }
 var daily=r.data.daily;
 r.days.forEach(function(d){
-// Try to match trip date with forecast date
-// Trip dates: "2 may", "3 may" etc
-// Forecast dates: "2026-05-02" etc
+var cn=d.city.split('→')[0].split('/')[0].split('(')[0].trim();
 var matched=false;
 for(var i=0;i<(daily.time||[]).length;i++){
 var fd=new Date(daily.time[i]);
@@ -447,24 +458,24 @@ var tMax=Math.round(daily.temperature_2m_max[i]);
 var tMin=Math.round(daily.temperature_2m_min[i]);
 var rain=daily.precipitation_probability_max[i]||0;
 var wcode=daily.weathercode[i]||0;
-var winfo=getWCEmoji(wcode);
-var emoji=winfo.split(' ')[0];
-var desc=winfo.substring(emoji.length+1);
-h+='<div class="clc"><div class="cli">'+emoji+'</div><div class="clinfo"><div class="ct">Día '+d.d+' · '+d.city+' <span style="font-size:.75em;color:var(--text2)">('+d.date+')</span></div><div class="cd">'+tMin+'°–'+tMax+'°C · '+desc+' · Lluvia: '+rain+'%</div></div></div>';
+var emoji=getWCEmoji(wcode).split(' ')[0];
+h+='<div class="wc"><div class="we">'+emoji+'</div><div class="wt">'+tMin+'°/'+tMax+'°</div><div class="wd">D'+d.d+' · '+d.date+'</div><div class="wn">'+cn+'</div><div class="wr">💧'+rain+'%</div></div>';
 matched=true;break;
 }}
 if(!matched){
-h+='<div class="clc"><div class="cli">📅</div><div class="clinfo"><div class="ct">Día '+d.d+' · '+d.city+'</div><div class="cd">Fuera del rango de previsión (se actualiza 16 días antes)</div></div></div>';
+h+='<div class="wc"><div class="we">📅</div><div class="wt">--</div><div class="wd">D'+d.d+'</div><div class="wn">'+cn+'</div><div class="wr">16d antes</div></div>';
 }});
 });
+h+='</div>';
 if(!h)h='<p style="color:var(--text2);font-size:.85em">La previsión se activa 16 días antes del viaje.</p>';
 el.innerHTML=h;
 }catch(e){el.innerHTML=staticWeather()}
 }
 function staticWeather(){
 var CL=[{c:'Beijing',i:'☀️',t:'15-28°C',r:'25%'},{c:'Pingyao',i:'🌤️',t:'12-26°C',r:'20%'},{c:"Xi'an",i:'☀️',t:'16-30°C',r:'30%'},{c:'Chengdu',i:'🌧️',t:'18-28°C',r:'50%'},{c:'Zhangjiajie',i:'🌦️',t:'17-27°C',r:'55%'},{c:'Fenghuang',i:'🌦️',t:'18-28°C',r:'50%'},{c:'Chongqing',i:'🌧️',t:'20-30°C',r:'45%'}];
-var h='<p style="font-size:.75em;color:var(--text2);margin-bottom:8px">Clima medio en mayo (previsión real no disponible):</p>';
-CL.forEach(function(c){h+='<div class="clc"><div class="cli">'+c.i+'</div><div class="clinfo"><div class="ct">'+c.c+'</div><div class="cd">'+c.t+' · Lluvia: '+c.r+'</div></div></div>'});
+var h='<p style="font-size:.75em;color:var(--text2);margin-bottom:8px">Clima medio mayo (previsión no disponible):</p><div class="wgrid">';
+CL.forEach(function(c){h+='<div class="wc"><div class="we">'+c.i+'</div><div class="wt">'+c.t+'</div><div class="wn">'+c.c+'</div><div class="wr">💧'+c.r+'</div></div>'});
+h+='</div>';
 return h}
 function lCk(){try{return JSON.parse(localStorage.getItem('cn26ck')||'{}')}catch(e){return{}}}
 function sCk(d){try{localStorage.setItem('cn26ck',JSON.stringify(d))}catch(e){}}
@@ -480,14 +491,14 @@ async function init(){var cached=loadCache();
 try{var[ruta,aloj,ck,apps,links]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links)]);
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);saveCache()}
 catch(e){if(cached){D=cached}else{document.getElementById('ld').querySelector('p').textContent='Sin conexión y sin datos en caché.';return}}
-uCD();setInterval(uCD,1000);rRes();rRut();rHot();rGas();rMal();rInf();rRst();rTips();rLnk();
+uCD();setInterval(uCD,1000);rRes();rRut();rHot();rGas();rMal();rInf();rCli();rRst();rTips();rLnk();
 document.getElementById('ld').classList.add('hide');setTimeout(function(){document.getElementById('ld').style.display='none'},600);
 updTime();setInterval(autoRefresh,180000)}
 async function autoRefresh(){
 try{var[ruta,aloj,ck,apps,links]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links)]);
 D={days:[],hotels:[],cl:{},apps:[],links:[]};
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);saveCache();
-rRes();rRut();rHot();rGas();rMal();rInf();rRst();rTips();rLnk();updTime()}catch(e){}}
+rRes();rRut();rHot();rGas();rMal();rInf();rCli();rRst();rTips();rLnk();updTime()}catch(e){}}
 function updTime(){var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');
 document.querySelector('.rbar').innerHTML='<div class="ldot"></div> Actualizado a las '+h+':'+m+' · Toca para refrescar'}
 init();
