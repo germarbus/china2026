@@ -102,12 +102,12 @@ html{scroll-behavior:smooth}
 .dont-card p{font-size:.85em;color:var(--text2);line-height:1.5;margin-top:4px}
 @keyframes drawRoute{to{stroke-dashoffset:0}}
 
-.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
-.wc{background:var(--card);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.05)}
-.we{font-size:1.6em}.wt{font-size:.95em;font-weight:700;color:var(--gold);margin:2px 0}
-.wd{font-size:.65em;color:var(--text2)}.wn{font-size:.75em;font-weight:700;margin-top:2px}
-.wr{font-size:.65em;color:var(--blue);margin-top:2px}
-@media(min-width:768px){.wgrid{grid-template-columns:repeat(6,1fr)}}
+.wgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
+.wc{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.05)}
+.we{font-size:2em}.wt{font-size:1em;font-weight:700;color:var(--gold);margin:4px 0}
+.wd{font-size:.75em;color:var(--text2)}.wn{font-size:.85em;font-weight:700;margin-top:3px}
+.wr{font-size:.75em;color:var(--blue);margin-top:3px}
+@media(min-width:768px){.wgrid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
@@ -437,12 +437,12 @@ return{key:key,data:data,days:cd.days};
 });
 try{
 var results=await Promise.all(fetches);
-h+='<div class="wgrid">';
+var cards=[];
 results.forEach(function(r){
 if(!r.data||!r.data.daily){
 r.days.forEach(function(d){
 var cn=d.city.split('→')[0].split('/')[0].split('(')[0].trim();
-h+='<div class="wc"><div class="we">🌤️</div><div class="wt">--</div><div class="wd">D'+d.d+'</div><div class="wn">'+cn+'</div><div class="wr">Sin datos</div></div>';
+cards.push({day:d.d,html:'<div class="wc"><div class="we">🌤️</div><div class="wt">--</div><div class="wd">Día '+d.d+' · '+d.date+'</div><div class="wn">'+cn+'</div><div class="wr">Sin datos</div></div>'});
 });
 return;
 }
@@ -459,14 +459,15 @@ var tMin=Math.round(daily.temperature_2m_min[i]);
 var rain=daily.precipitation_probability_max[i]||0;
 var wcode=daily.weathercode[i]||0;
 var emoji=getWCEmoji(wcode).split(' ')[0];
-h+='<div class="wc"><div class="we">'+emoji+'</div><div class="wt">'+tMin+'°/'+tMax+'°</div><div class="wd">D'+d.d+' · '+d.date+'</div><div class="wn">'+cn+'</div><div class="wr">💧'+rain+'%</div></div>';
+cards.push({day:d.d,html:'<div class="wc"><div class="we">'+emoji+'</div><div class="wt">'+tMin+'°/'+tMax+'°</div><div class="wd">Día '+d.d+' · '+d.date+'</div><div class="wn">'+cn+'</div><div class="wr">💧'+rain+'%</div></div>'});
 matched=true;break;
 }}
 if(!matched){
-h+='<div class="wc"><div class="we">📅</div><div class="wt">--</div><div class="wd">D'+d.d+'</div><div class="wn">'+cn+'</div><div class="wr">16d antes</div></div>';
+cards.push({day:d.d,html:'<div class="wc"><div class="we">📅</div><div class="wt">--</div><div class="wd">Día '+d.d+'</div><div class="wn">'+cn+'</div><div class="wr">16d antes</div></div>'});
 }});
 });
-h+='</div>';
+cards.sort(function(a,b){return a.day-b.day});
+h+='<div class="wgrid">';cards.forEach(function(c){h+=c.html});h+='</div>';
 if(!h)h='<p style="color:var(--text2);font-size:.85em">La previsión se activa 16 días antes del viaje.</p>';
 el.innerHTML=h;
 }catch(e){el.innerHTML=staticWeather()}
