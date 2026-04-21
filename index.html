@@ -124,23 +124,23 @@ var CRW=[{n:'Aguado',c:'#e63946'},{n:'Rodri',c:'#457b9d'},{n:'Blanca',c:'#2a9d8f
 // Images: fixed Unsplash URLs that are verified working - each unique
 var IM={
 madrid:['https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&q=60'],
-bj1:['https://source.unsplash.com/400x200/?beijing,china,temple'],
-bj2:['https://source.unsplash.com/400x200/?forbidden+city,beijing,palace'],
-wall:['https://source.unsplash.com/400x200/?great+wall+china'],
-pingyao:['https://source.unsplash.com/400x200/?pingyao,ancient+town,china'],
-xian:['https://source.unsplash.com/400x200/?xian,city+wall,china'],
-terra:['https://source.unsplash.com/400x200/?terracotta+warriors,xian'],
-panda:['https://source.unsplash.com/400x200/?giant+panda,bamboo'],
-leshan:['https://source.unsplash.com/400x200/?buddha+statue,china'],
-zjj1:['https://source.unsplash.com/400x200/?zhangjiajie,avatar+mountains'],
-zjj2:['https://source.unsplash.com/400x200/?zhangjiajie,cliff+elevator'],
-zjj3:['https://source.unsplash.com/400x200/?wulingyuan,mountains,forest'],
-zjj4:['https://source.unsplash.com/400x200/?tianmen+mountain,glass'],
-fh:['https://source.unsplash.com/400x200/?fenghuang,ancient+town,river'],
-fur:['https://source.unsplash.com/400x200/?furong+town,waterfall,night'],
-cq1:['https://source.unsplash.com/400x200/?chongqing,skyline,night'],
-cq2:['https://source.unsplash.com/400x200/?wulong,karst,natural+bridge'],
-cq3:['https://source.unsplash.com/400x200/?hongyadong,chongqing,lights'],
+bj1:['https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=400&h=200&fit=crop&q=60'],
+bj2:['https://images.unsplash.com/photo-1599571234909-29ed5d1321d6?w=400&h=200&fit=crop&q=60'],
+wall:['https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=400&h=200&fit=crop&q=60'],
+pingyao:['https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?w=400&h=200&fit=crop&q=60'],
+xian:['https://images.unsplash.com/photo-1528164344885-f2b61573b22d?w=400&h=200&fit=crop&q=60'],
+terra:['https://images.unsplash.com/photo-1545893835-abaa50cbe628?w=400&h=200&fit=crop&q=60'],
+panda:['https://images.unsplash.com/photo-1564577160324-112d603f750f?w=400&h=200&fit=crop&q=60'],
+leshan:['https://images.unsplash.com/photo-1526029655228-b7ee5d5f7da3?w=400&h=200&fit=crop&q=60'],
+zjj1:['https://images.unsplash.com/photo-1513415564515-763d91423bdd?w=400&h=200&fit=crop&q=60'],
+zjj2:['https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&h=200&fit=crop&q=60'],
+zjj3:['https://images.unsplash.com/photo-1609924211018-5526c1c26e3d?w=400&h=200&fit=crop&q=60'],
+zjj4:['https://images.unsplash.com/photo-1537531383496-f4749b04e6c1?w=400&h=200&fit=crop&q=60'],
+fh:['https://images.unsplash.com/photo-1533552690094-23102e53e42a?w=400&h=200&fit=crop&q=60'],
+fur:['https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=400&h=200&fit=crop&q=60'],
+cq1:['https://images.unsplash.com/photo-1474181628450-4c1e4026022a?w=400&h=200&fit=crop&q=60'],
+cq2:['https://images.unsplash.com/photo-1552550049-db097c9480d1?w=400&h=200&fit=crop&q=60'],
+cq3:['https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=200&fit=crop&q=60'],
 vuelta:['https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&q=60']};
 var IR=[{m:'muralla',k:'wall'},{m:'mutianyu',k:'wall'},{m:'ciudad prohibida',k:'bj2'},{m:'palacio de verano',k:'bj2'},
 {m:'guerrero',k:'terra'},{m:'terracota',k:'terra'},{m:'panda',k:'panda'},{m:'leshan',k:'leshan'},
@@ -247,7 +247,9 @@ var dateOut='';if(nightCount>0){var jdOut=exD(rows[Math.min(i+nightCount,rows.le
 D.hotels.push({city:city,name:name,addr:addr,bk:bk==='SI'||bk==='SÍ',type:type||'Hotel 🏨',price:isNaN(price)?null:price,paid:paid==='SI'||paid==='SÍ',when:when,dateIn:dateStr,dateOut:dateOut,nights:nightCount>1?nightCount+' noches':nightCount===1?'1 noche':''})}
 if(!D.hotels.some(function(h){return h.city.toLowerCase().indexOf('chongqing')>=0&&h.price!==null}))D.hotels.push({city:'Chongqing',name:'Pendiente',addr:'Zona Jiefangbei',bk:false,type:'Por confirmar ❓',price:null,paid:false,when:'',date:''})}
 function procCk(rows){if(rows.length<2)return;var cl={'Equipaje':[],'Importantes':[]};for(var i=1;i<rows.length;i++){var r=rows[i];if(!r)continue;if((r[0]||'').trim())cl['Equipaje'].push(r[0].trim());if((r[3]||'').trim())cl['Importantes'].push(r[3].trim())}D.cl=cl}
-function procApps(rows){if(rows.length<2)return;var icons={alipay:'💳',wechat:'💬',amap:'🗺️',trip:'🚅',didi:'🚕',holafly:'📶'};for(var i=1;i<rows.length;i++){var r=rows[i];if(!r||r.length<2)continue;var n=(r[0]||'').trim(),u=(r[1]||'').trim();if(n)D.apps.push({icon:icons[n.toLowerCase()]||'📱',name:n,use:u})}}
+function procApps(rows){if(rows.length<2)return;var icons={alipay:'💳',wechat:'💬',amap:'🗺️',trip:'🚅',didi:'🚕',holafly:'📶'};
+var links={alipay:'https://apps.apple.com/app/alipay-simplify-your-life/id333206289',wechat:'https://apps.apple.com/app/wechat/id414478124',amap:'https://apps.apple.com/app/amap-gaode-map/id461703208',trip:'https://apps.apple.com/app/trip-com-book-flights-hotels/id681752345',didi:'https://apps.apple.com/app/didi-chuxing/id554499054',holafly:'https://apps.apple.com/app/holafly-esim/id1464920557'};
+for(var i=1;i<rows.length;i++){var r=rows[i];if(!r||r.length<2)continue;var n=(r[0]||'').trim(),u=(r[1]||'').trim();if(n)D.apps.push({icon:icons[n.toLowerCase()]||'📱',name:n,use:u,link:links[n.toLowerCase()]||''})}}
 function procLinks(rows){if(rows.length<2)return;for(var i=1;i<rows.length;i++){var r=rows[i];if(!r||r.length<2)continue;var desc=(r[0]||'').trim(),url=(r[1]||'').trim();if(desc&&url)D.links.push({desc:desc,url:url})}}
 function imgErr(el){el.style.display='none';var p=el.parentNode;if(p){var f=p.querySelector('.difb');if(f)f.style.display='flex'}}
 window.imgErr=imgErr;
@@ -270,7 +272,7 @@ h+='<div class="pr-row"><span class="lb">🏨 Alojamientos</span><span class="vl
 var bg=calcB(),tot=0;bg.forEach(function(c){c.items.forEach(function(i){if(i.t)tot+=i.t})});
 h+='<div class="sg"><div class="sc"><div class="v">'+D.days.length+'</div><div class="lb">Días</div></div><div class="sc"><div class="v">'+nci+'</div><div class="lb">Ciudades</div></div><div class="sc"><div class="v">'+NP+'</div><div class="lb">Viajeros</div></div><div class="sc"><div class="v">'+Math.round(tot/NP)+'€</div><div class="lb">€/persona</div></div></div>';
 h+='<div class="st">🗺️ Ruta</div><div class="rv">';var rc=['Madrid'];D.days.forEach(function(d){var c=d.city.split('→')[0].split('/')[0].split('(')[0].trim();if(rc[rc.length-1]!==c)rc.push(c)});if(rc[rc.length-1]!=='Madrid')rc.push('Madrid');rc.forEach(function(c){h+='<div class="rs" onclick="goToCity(\''+c.replace(/'/g,"\\'")+'\')" role="button" aria-label="Ir a '+c+'"><div class="rl"></div><div class="rd"></div><div class="rla">'+c+'</div></div>'});h+='</div>';
-if(D.apps.length){h+='<div class="st">📱 Apps</div><div class="ag">';D.apps.forEach(function(a){h+='<div class="ac"><div class="ai">'+a.icon+'</div><div class="an">'+a.name+'</div><div class="au">'+a.use+'</div></div>'});h+='</div>'}
+if(D.apps.length){h+='<div class="st">📱 Apps</div><div class="ag">';D.apps.forEach(function(a){h+='<div class="ac"'+(a.link?' onclick="window.open(\''+a.link+'\',\'_blank\')" style="cursor:pointer"':'')+'><div class="ai">'+a.icon+'</div><div class="an">'+a.name+'</div><div class="au">'+a.use+'</div>'+(a.link?'<div style="font-size:.65em;color:var(--blue);margin-top:4px">Descargar ↗</div>':'')+'</div>'});h+='</div>'}
 var pnd=D.hotels.filter(function(h){return h.price===null}).map(function(h){return h.city});
 if(pnd.length)h+='<div class="st">⚠️ Pendiente</div><p style="color:var(--text2);font-size:.88em">Falta alojamiento: <b style="color:var(--gold)">'+pnd.join(', ')+'</b></p>';
 document.getElementById('p-res').innerHTML=h}
