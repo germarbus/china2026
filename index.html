@@ -117,9 +117,7 @@ html{scroll-behavior:smooth}
 <div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
 <div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
 
-<div class="mbtn" id="mb" role="button" aria-label="Música">🔇</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 <script>
 var SH={
 ruta:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrrMa2K3AkW8twCUkCNnaP_P-J9LU7W6hxfI5EjWvlnWU09mSImCBAPkOy0leDTT3296Cef2Uw1ImZ/pub?gid=1208780948&single=true&output=csv',
@@ -339,12 +337,9 @@ h+='<div class="st">🗣️ Frases en chino</div>';PH.forEach(function(p){h+='<d
 h+='<div class="st">🇨🇳 Info práctica</div>';
 h+='<div class="ic"><h3>💴 Moneda</h3><p>Yuan (CNY). 1€≈7.8¥. Pagar con Alipay/WeChat. Llevar efectivo de emergencia.</p></div>';
 h+='<div class="ic"><h3>🕐 Hora</h3><p>UTC+8 — 6h más que España en verano.</p></div>';
-h+='<div class="ic"><h3>🚨 Emergencias</h3><p>Policía: 110 · Ambulancia: 120 · Bomberos: 119. Embajada España: +86 10 6532 3629</p></div>';
 h+='<div class="ic"><h3>📶 VPN</h3><p>Google/WhatsApp/Instagram bloqueados. Usar Holafly (eSIM+VPN).</p></div>';
 h+='<div class="ic"><h3>🔌 Enchufes</h3><p>Tipo A, C, I. Adaptador universal. 220V.</p></div>';
 h+='<div class="ic"><h3>💡 Tips</h3><p>Llevar papel higiénico siempre. Configurar Alipay antes. Taxi con DiDi. No beber agua del grifo. Mapas offline en Amap. Visado: españoles 30 días sin visado hasta dic 2026.</p></div>';
-h+='<div class="st">🍜 Tips gastro por ciudad</div>';
-Object.keys(RECS).forEach(function(c){h+='<div class="ic"><h3>'+( CE[c]||'📍')+' '+c.charAt(0).toUpperCase()+c.slice(1)+'</h3><p>'+RECS[c]+'</p></div>'});
 document.getElementById('p-inf').innerHTML=h}
 
 function rLnk(){var h='<div class="st">🔗 Enlaces del viaje</div>';
@@ -485,9 +480,6 @@ document.getElementById('cr').innerHTML=CRW.map(function(c){return '<div class="
 document.getElementById('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.getElementById('p-'+t.getAttribute('data-t')).classList.add('active');if(t.getAttribute('data-t')==='map')rMap()});
 document.addEventListener('click',function(e){var h=e.target.closest('.dh');if(h)h.parentNode.classList.toggle('open');var ci=e.target.closest('.ci');if(ci){var k=ci.getAttribute('data-ck'),ck=lCk();ck[k]=!ck[k];sCk(ck);rMal()}});
 document.addEventListener('touchend',function(e){var h=e.target.closest('.dh');if(h){e.preventDefault();h.parentNode.classList.toggle('open')}var ci=e.target.closest('.ci');if(ci){e.preventDefault();var k=ci.getAttribute('data-ck'),ck=lCk();ck[k]=!ck[k];sCk(ck);rMal()}},{passive:false});
-var mS=false,mP=false;function iMu(){if(mS)return;mS=true;Tone.start().then(function(){var rv=new Tone.Reverb({decay:4,wet:.5}).toDestination();var dl=new Tone.FeedbackDelay({delayTime:'8n',feedback:.2,wet:.15}).connect(rv);var fl=new Tone.Synth({oscillator:{type:'sine'},envelope:{attack:.3,decay:.4,sustain:.6,release:1.2},volume:-10}).connect(dl);var kt=new Tone.PluckSynth({attackNoise:1.5,dampening:3000,resonance:.95,volume:-14}).connect(rv);Tone.Transport.bpm.value=56;var ml=[['C4','2n'],['E4','4n'],['G4','2n'],['A4','4n'],['G4','2n'],['E4','4n'],['D4','2n'],['C4','4n'],['A3','2n'],['C4','4n'],['D4','2n'],['E4','4n'],['C4','1n'],[null,'2n'],['G4','2n'],['A4','4n'],['C5','2n'],['A4','4n'],['G4','2n'],['E4','4n'],['D4','2n'],['C4','1n']];var t=0,ev=[];ml.forEach(function(n){var d=Tone.Time(n[1]).toSeconds();ev.push({time:t,note:n[0],dur:n[1]});t+=d});var p1=new Tone.Part(function(time,v){if(v.note)fl.triggerAttackRelease(v.note,v.dur,time)},ev);p1.loop=true;p1.loopEnd=t;p1.start(0);var kn=[['C3','4n'],['G3','4n'],['C4','4n'],['E4','4n'],['G3','4n'],['D4','4n'],['A3','4n'],['E4','4n']],t2=0,ke=[];kn.forEach(function(n){ke.push({time:t2,note:n[0]});t2+=Tone.Time(n[1]).toSeconds()*2});var p2=new Tone.Part(function(time,v){kt.triggerAttackRelease(v.note,time)},ke);p2.loop=true;p2.loopEnd=t2;p2.start(0);Tone.Transport.start();mP=true;document.getElementById('mb').textContent='🎵';document.getElementById('mb').classList.add('on')})}
-document.getElementById('mb').addEventListener('click',function(){if(!mS){iMu();return}if(mP){Tone.Transport.pause();mP=false;this.textContent='🔇';this.classList.remove('on')}else{Tone.Transport.start();mP=true;this.textContent='🎵';this.classList.add('on')}});
-var aS=false;function aStart(){if(aS)return;aS=true;iMu()}document.addEventListener('touchstart',aStart,{once:true,passive:true});document.addEventListener('scroll',aStart,{once:true,passive:true});
 async function init(){var cached=loadCache();
 try{var[ruta,aloj,ck,apps,links]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links)]);
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);saveCache()}
