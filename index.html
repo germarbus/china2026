@@ -344,7 +344,7 @@ if(tg.c==='t-pr'&&txt.toLowerCase().indexOf('transporte')>=0){tr.push({n:d.city+
 cats.push({l:'🚅 Transporte',items:tr});
 var al=[];D.hotels.forEach(function(h){al.push(h.price?{n:h.city+' - '+h.name,t:h.price,p:Math.round(h.price/NP*100)/100}:{n:h.city+' (pendiente)',t:null,p:null})});cats.push({l:'🏨 Alojamientos',items:al});
 if(en.length)cats.push({l:'🎟️ Entradas',items:en});return cats}
-function getTrav(a,b){var ka=a.toLowerCase().split('→')[0].split('/')[0].split(' y ')[0].split('(')[0].trim();var kb=b.toLowerCase().split('→')[0].split('/')[0].split(' y ')[0].split('(')[0].trim();return TRAV[ka+'→'+kb]||null}
+function getTrav(a,b){var ka=a.toLowerCase().replace(/[\u2018\u2019\u0060\u00B4]/g,"'").split('→')[0].split('/')[0].split(' y ')[0].split('(')[0].trim();var kb=b.toLowerCase().replace(/[\u2018\u2019\u0060\u00B4]/g,"'").split('→')[0].split('/')[0].split(' y ')[0].split('(')[0].trim();return TRAV[ka+'→'+kb]||null}
 function getRec(cl){return RECS[cl]||null}
 
 function rRes(){var h='',nc={};D.days.forEach(function(d){nc[d.city.split('→')[0].split('/')[0].split('(')[0].trim()]=1});var nci=Object.keys(nc).length;
