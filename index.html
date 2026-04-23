@@ -114,8 +114,8 @@ html{scroll-behavior:smooth}
 <div class="ld" id="ld"><div class="spinner"></div><p>Cargando datos del viaje... 🐉</p></div>
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
 <div class="hero"><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
-<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
-<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
+<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
+<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-zjj"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
@@ -233,12 +233,7 @@ var HIST=[
 {name:'La cocina de Sichuan (川菜)',text:'Chengdu es la primera ciudad del mundo nombrada "Ciudad de la Gastronomía" por la UNESCO (2010). La cocina sichuanesa se basa en el málà (麻辣): "má" es el adormecimiento que produce el grano de pimienta de Sichuan, y "là" es el picante del chile. Juntos crean una sensación única que no existe en ninguna otra cocina del mundo. El Hot Pot nació en Chongqing pero se perfeccionó en Chengdu. El Mapo Tofu lo inventó en 1862 una mujer con marcas de viruela en la cara ("mapo" = "abuela con marcas"). Los Dan Dan Mian los vendían hombres que cargaban los fideos en un palo de bambú por las calles.'}
 ]},
 {city:'Zhangjiajie',icon:'🏔️',intro:'Las montañas que inspiraron Avatar. Un paisaje que parece de otro planeta.',sites:[
-{name:'Parque Nacional de Zhangjiajie (张家界国家森林公园)',text:'Estas columnas de piedra arenisca de cuarcita, de hasta 200 metros de alto, fueron la inspiración directa para las montañas flotantes de Pandora en Avatar (2009) de James Cameron. El director visitó el parque en 2008 y quedó tan impresionado que una columna fue renombrada oficialmente como "Avatar Hallelujah Mountain". El parque tiene 243 km² de pilares formados por 300 millones de años de erosión — el mar cubría esta zona y al retirarse dejó la arenisca expuesta al viento y la lluvia. Es el primer parque nacional de China (1982) y Patrimonio UNESCO. Hay más de 3.000 pilares de piedra, muchos cubiertos de vegetación y envueltos en niebla.'},
-{name:'Ascensor Bailong (百龙天梯)',text:'El ascensor exterior más alto del mundo: 326 metros pegado a la roca vertical, sube en 90 segundos. Construido en 2002, fue muy polémico porque lo incrustaron en un patrimonio natural. Pero la alternativa era subir 3 horas por escaleras empinadas. Las vistas desde la cima son las mejores del parque — se ve el "mar de pilares" extendiéndose hasta el horizonte. Aparece en el Libro Guinness de los Récords.'},
-{name:'Golden Whip Stream y Huangshi Village',text:'El Golden Whip Stream (金鞭溪) es un sendero de 7,5 km junto a un arroyo cristalino, entre pilares de piedra cubiertos de musgo. Es la ruta más bonita y fácil del parque — llana y sin escaleras. Los monos rhesus campan a sus anchas (cuidado con la comida). Huangshi Village (黄石寨) es una meseta a 1.080 metros con vistas panorámicas 360° de los pilares — "el que no ha subido a Huangshi no ha visto Zhangjiajie", dice el dicho local.'},
-{name:'Puente de Cristal y Gran Cañón',text:'El puente de cristal más largo y alto del mundo cuando se inauguró en 2016: 430 metros de largo, colgado a 300 metros sobre el Gran Cañón de Zhangjiajie. El suelo es de cristal transparente de 6 cm de grosor — ves el abismo bajo tus pies. Diseñado por el arquitecto israelí Haim Dotan, aguanta el peso de 800 personas. El Gran Cañón debajo tiene cascadas, cuevas y un río subterráneo navegable en barca.'},
-{name:'Tianmen Mountain (天门山)',text:'La "Puerta del Cielo": un agujero natural de 131 metros de alto perforado en la montaña, formado cuando una cueva colapsó en el año 263 d.C. Para llegar hay que subir 999 escalones (el 9 es el número de la eternidad en cultura china) o coger el teleférico más largo del mundo (7,5 km, 30 minutos). La carretera que sube tiene 99 curvas cerradas llamada "Avenida del Cielo". Arriba hay una pasarela de cristal pegada al acantilado a 1.400 metros de altura. En 1999, un piloto hizo volar un avión a través del agujero de la montaña en un evento retransmitido a todo el país.'},
-{name:'72 Towers Show',text:'Espectáculo nocturno al aire libre que cuenta la historia de las etnias Tujia y Miao que habitan esta región desde hace miles de años. Con más de 600 actores, efectos de agua, fuego y luz, recrea leyendas ancestrales en un escenario natural entre montañas. Es uno de los shows nocturnos más impresionantes de China.'}
+{name:'Parque Nacional y alrededores',text:'Zhangjiajie tiene su propia pestaña "Parque" con la guía completa día a día: rutas, consejos, mapa de puntos clave y equipamiento. La historia detallada de cada lugar (Avatar Mountain, Bailong, Tianmen, Puente de Cristal, Golden Whip, 72 Towers) está explicada allí con todo detalle.'}
 ]},
 {city:'Fenghuang',icon:'🏘️',intro:'La Ciudad del Fénix. Dicen que quien la ve de noche, no la olvida jamás.',sites:[
 {name:'Ciudad Antigua de Fenghuang (凤凰古城)',text:'Su nombre significa "Ciudad del Fénix" y fue fundada en 1704 durante la dinastía Qing. Está construida sobre pilotes de madera a orillas del río Tuojiang, en la frontera entre la cultura Han (mayoritaria en China) y las etnias Miao y Tujia. Las casas Diaojiaolou (吊脚楼, "casas con pies colgantes") se sostienen sobre el agua con pilares de madera, una técnica de construcción de más de 1.000 años. De noche, con las luces rojas reflejadas en el río y la niebla, parece un cuadro. El escritor Shen Congwen, nominado al Nobel, nació aquí y la inmortalizó en sus novelas. La etnia Miao tiene su propia lengua, vestimenta de plata elaboradísima, y tradiciones chamánicas que mantienen desde hace milenios.'},
@@ -255,6 +250,36 @@ var HIST=[
 {name:'Espectáculo de drones',text:'Chongqing se ha convertido en una de las capitales mundiales de espectáculos de drones. Miles de drones sincronizados dibujan figuras en el cielo nocturno sobre el río — dragones, caracteres chinos, el skyline de la ciudad. Es una experiencia que solo existe en China a esta escala. Comprobad horarios locales para la noche de vuestra última noche.'}
 ]}
 ];
+
+var ZJJ={
+days:[
+{day:'Día 9 (sábado) — Wulingyuan',title:'Parque Nacional: Bailong + Yuanjiajie + Tianzi',
+route:'Entrada Este → Autobús → Ascensor Bailong → Yuanjiajie → Avatar Hallelujah Mountain → Yangjiajie (opcional) → Montaña Tianzi → Autobús bajada → Salida',
+tips:['Entrar por la entrada ESTE (más cerca de Bailong)','Coger el primer autobús del parque hacia Bailong','Subir Bailong a primera hora (menos cola)','Ruta Yuanjiajie: los miradores de Avatar, "First Bridge Under Heaven"','Si hay tiempo: desvío a Yangjiajie (menos gente, más salvaje)','Montaña Tianzi: bajar en teleférico o andando por los 10 km de escaleras','Llevar: agua, snacks, poncho, zapatillas trekking','El parque cierra a las 18:00, calcular bien el tiempo'],
+img:'zjj1'},
+{day:'Día 10 (domingo) — Zhangjiajie',title:'Golden Whip + Huangshi + Gran Cañón + 72 Towers',
+route:'Entrada principal → Golden Whip Stream (7,5 km llano) → Huangshi Village → Salida → Taxi a Gran Cañón → Vuelta → 72 Towers Show (18-00h)',
+tips:['Golden Whip Stream: ruta llana junto al río, fácil, 2-3h','Cuidado con los monos: no enseñar comida ni bolsas de plástico','Huangshi Village: subir en teleférico, bajar andando (o al revés)','Vistas 360° desde arriba: "si no has subido, no has visto Zhangjiajie"','Gran Cañón: puente de cristal + cascadas + barca subterránea','72 Towers: espectáculo nocturno al aire libre, 600 actores, imprescindible','Llevar: chubasquero (llueve mucho), batería portátil, calzado grip'],
+img:'zjj3'},
+{day:'Día 11 (lunes) — Zhangjiajie',title:'Gran Cañón / Puente de Cristal + Tianmen Mountain',
+route:'Opción A: Gran Cañón + Puente de Cristal (si no dio tiempo ayer) → Tianmen por la tarde-noche\nOpción B: Tianmen Mountain día completo',
+tips:['Puente de cristal: mejor a primera hora, menos gente','Tianmen: teleférico de 7,5 km (30 min) o bus por carretera de 99 curvas','999 escalones hasta la Puerta del Cielo — subir o bajar, no ambos','Pasarela de cristal lateral: pegada al acantilado a 1.400m de altura','Tianmen de noche: la montaña se ilumina, espectacular desde abajo','Comprar entradas Tianmen 10 días antes (aún pendiente)','Este es el día más flexible: adaptad según lo que hayáis visto los días anteriores'
+],
+img:'zjj4'}
+],
+mapa:[
+{name:'Entrada Este (Wulingyuan)',lat:29.3475,lon:110.5500,nota:'Entrada principal al parque, cerca del hotel'},
+{name:'Ascensor Bailong',lat:29.3205,lon:110.4916,nota:'326m, exterior más alto del mundo'},
+{name:'Yuanjiajie / Avatar Mountain',lat:29.3370,lon:110.4780,nota:'Las columnas de Avatar'},
+{name:'Montaña Tianzi',lat:29.3700,lon:110.4600,nota:'Vistas panorámicas, bajar en teleférico'},
+{name:'Golden Whip Stream',lat:29.3150,lon:110.4750,nota:'Sendero 7,5 km junto al río'},
+{name:'Huangshi Village',lat:29.3300,lon:110.5100,nota:'Meseta a 1.080m, vistas 360°'},
+{name:'Gran Cañón + Puente Cristal',lat:29.3700,lon:110.5700,nota:'Puente 430m, a 1h en bus'},
+{name:'Tianmen Mountain',lat:29.0500,lon:110.4800,nota:'Puerta del Cielo + 999 escalones'},
+{name:'72 Towers Show',lat:29.1200,lon:110.4700,nota:'Espectáculo nocturno 18-00h'}
+],
+equip:['Zapatillas de trekking (IMPRESCINDIBLE)','Poncho / chubasquero (llueve el 55% de los días)','Batería portátil (mínimo 10.000mAh)','Botella de agua reutilizable (rellena en fuentes del parque)','Snacks y barritas (la comida del parque es cara y mala)','Gorra o sombrero','Crema solar','Bolsa impermeable para el móvil','Efectivo: algunos puestos dentro no aceptan Alipay']
+};
 var DW={J:'Jueves',V:'Viernes',S:'Sábado',D:'Domingo',L:'Lunes',M:'Martes',X:'Miércoles'};
 var MN=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 var D={days:[],hotels:[],cl:{},apps:[],links:[]};
@@ -412,6 +437,45 @@ h+='<div id="weatherData"><p style="color:var(--text2);font-size:.85em">Cargando
 document.getElementById('p-cli').innerHTML=h;
 setTimeout(function(){loadWeather()},300)}
 
+function rZjj(){var h='<div class="st">⛰️ Guía del Parque Nacional de Zhangjiajie</div>';
+h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:16px">3 días, paso a paso. Rutas, consejos y qué llevar.</p>';
+// Photo gallery
+h+='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px">';
+h+='<div style="border-radius:12px;overflow:hidden"><img src="'+IM.zjj1[0]+'" style="width:100%;height:100px;object-fit:cover" onerror="this.style.display=\'none\'"><div style="font-size:.7em;color:var(--text2);padding:4px;text-align:center">Pilares de Avatar</div></div>';
+h+='<div style="border-radius:12px;overflow:hidden"><img src="'+IM.zjj2[0]+'" style="width:100%;height:100px;object-fit:cover" onerror="this.style.display=\'none\'"><div style="font-size:.7em;color:var(--text2);padding:4px;text-align:center">Vistas desde Yuanjiajie</div></div>';
+h+='<div style="border-radius:12px;overflow:hidden"><img src="'+IM.zjj3[0]+'" style="width:100%;height:100px;object-fit:cover" onerror="this.style.display=\'none\'"><div style="font-size:.7em;color:var(--text2);padding:4px;text-align:center">Golden Whip Stream</div></div>';
+h+='<div style="border-radius:12px;overflow:hidden"><img src="'+IM.zjj4[0]+'" style="width:100%;height:100px;object-fit:cover" onerror="this.style.display=\'none\'"><div style="font-size:.7em;color:var(--text2);padding:4px;text-align:center">Tianmen Mountain</div></div>';
+h+='</div>';
+// Days
+ZJJ.days.forEach(function(d){
+h+='<div class="dc"><div class="dh"><div class="dnum" style="background:#27ae60"><span class="n">'+d.day.split(' ')[1]+'</span>'+d.day.split('(')[1].split(')')[0].substring(0,3)+'</div><div class="di"><div class="c">⛰️ '+d.title+'</div><div class="b">'+d.day+'</div></div><div class="dchev">▼</div></div>';
+h+='<div class="db">';
+h+='<p style="font-weight:700;color:var(--gold);margin-bottom:6px">📍 Ruta:</p><p style="margin-bottom:10px">'+d.route.replace(/\n/g,'<br>')+'</p>';
+h+='<p style="font-weight:700;color:var(--green);margin-bottom:6px">💡 Consejos:</p>';
+d.tips.forEach(function(t){h+='<p style="padding:3px 0;border-bottom:1px solid rgba(255,255,255,.03)">• '+t+'</p>'});
+h+='</div></div>';
+});
+// Equipment
+h+='<div class="st">🎒 Qué llevar al parque</div>';
+ZJJ.equip.forEach(function(e){h+='<div class="ci"><div class="chk">✓</div><span>'+e+'</span></div>'});
+// Mini map of park locations
+h+='<div class="st">📍 Puntos clave del parque</div>';
+h+='<div id="zjjmap" style="width:100%;height:350px;border-radius:16px;margin-bottom:16px"></div>';
+document.getElementById('p-zjj').innerHTML=h;
+// Init park map
+setTimeout(function(){
+if(window._zjjm)return;window._zjjm=1;
+var m=L.map('zjjmap').setView([29.32,110.50],11);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:16}).addTo(m);
+var bounds=[];
+ZJJ.mapa.forEach(function(p,i){
+var ic=L.divIcon({html:'<div style="background:#27ae60;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid #fff">'+(i+1)+'</div>',className:'',iconSize:[24,24]});
+L.marker([p.lat,p.lon],{icon:ic}).addTo(m).bindPopup('<b>'+p.name+'</b><br><span style="font-size:.85em">'+p.nota+'</span>');
+bounds.push([p.lat,p.lon]);
+});
+if(bounds.length)m.fitBounds(bounds,{padding:[30,30]});
+},400)}
+
 function rHist(){var h='<div class="st">📜 Guía histórica del viaje</div>';
 h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:16px">Todo lo que vais a ver, contado como si fuera vuestro guía. Leedlo en el tren o la noche antes.</p>';
 HIST.forEach(function(city){
@@ -535,14 +599,14 @@ async function init(){var cached=loadCache();
 try{var[ruta,aloj,ck,apps,links]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links)]);
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);saveCache()}
 catch(e){if(cached){D=cached}else{document.getElementById('ld').querySelector('p').textContent='Sin conexión y sin datos en caché.';return}}
-uCD();setInterval(uCD,1000);rRes();rRut();rHot();rGas();rMal();rInf();rCli();rRst();rTips();rHist();rLnk();
+uCD();setInterval(uCD,1000);rRes();rRut();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rLnk();
 document.getElementById('ld').classList.add('hide');setTimeout(function(){document.getElementById('ld').style.display='none'},600);
 updTime();setInterval(autoRefresh,180000)}
 async function autoRefresh(){
 try{var[ruta,aloj,ck,apps,links]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links)]);
 D={days:[],hotels:[],cl:{},apps:[],links:[]};
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);saveCache();
-rRes();rRut();rHot();rGas();rMal();rInf();rCli();rRst();rTips();rHist();rLnk();updTime()}catch(e){}}
+rRes();rRut();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rLnk();updTime()}catch(e){}}
 function updTime(){var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');
 document.querySelector('.rbar').innerHTML='<div class="ldot"></div> Actualizado a las '+h+':'+m+' · Toca para refrescar'}
 init();
