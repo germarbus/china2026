@@ -309,10 +309,12 @@ used[ik]=true;
 var tags=[];if(tr){
 var trayFmt=tray;
 if(tray&&tray.indexOf(':')>=0){var tp=tray.split(':');var th=parseInt(tp[0])||0;var tm=parseInt(tp[1])||0;trayFmt=th+'h'+(tm>0?tm+'min':'')}
-if(tray){var prevCity='';for(var pi=i-1;pi>=1;pi--){var pc=(rows[pi][iCity]||'').trim();if(pc&&pc.toLowerCase()!==city.toLowerCase()){prevCity=pc;break}}
+if(tray){var prevCity='';var immPrevCity=(i>1?(rows[i-1][iCity]||'').trim():'');
+if(immPrevCity.toLowerCase()!==city.toLowerCase()){
+for(var pi=i-1;pi>=1;pi--){var pc=(rows[pi][iCity]||'').trim();if(pc&&pc.toLowerCase()!==city.toLowerCase()){prevCity=pc;break}}
 if(prevCity){var tkA=prevCity.toLowerCase().split('→')[0].split('/')[0].split(' y ')[0].split('(')[0].trim().replace(/[\u2018\u2019\u0060\u00B4]/g,"'");
 var tkB=cl.split(' y ')[0].trim();
-TRAV[tkA+'→'+tkB]=(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+trayFmt+(ht?' · Sale '+ht:'')}}}
+TRAV[tkA+'→'+tkB]=(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+trayFmt+(ht?' · Sale '+ht:'')}}}}
 if(exc)exc.split('\n').forEach(function(e){e=e.replace(/^-\s*/,'').trim();if(e){var hp=e.indexOf('€')>=0;tags.push({t:(hp?'💰 ':'🎯 ')+e,c:hp?'t-pr':'t-ac'})}});
 if(pt){pt=pt.trim();if(pt){var ptVal=parseNum(pt);if(!isNaN(ptVal)&&ptVal>0){tags.push({t:'💰 Transporte: '+ptVal+'€',c:'t-pr'})}else{tags.push({t:'💰 Transporte: '+pt,c:'t-pr'})}}}
 var org=iOrg>=0?(r[iOrg]||'').trim():'';
