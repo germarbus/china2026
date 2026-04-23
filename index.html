@@ -286,7 +286,9 @@ var D={days:[],hotels:[],cl:{},apps:[],links:[]};
 function parseCSV(t){var lines=[],cur='',inQ=false;for(var i=0;i<t.length;i++){var c=t[i];if(c==='"'){if(inQ&&t[i+1]==='"'){cur+='"';i++}else inQ=!inQ}else if(c===','&&!inQ){if(!lines.length)lines.push([]);lines[lines.length-1].push(cur);cur=''}else if((c==='\n'||c==='\r')&&!inQ){if(cur!==''||lines.length>0){if(!lines.length)lines.push([]);lines[lines.length-1].push(cur);cur='';lines.push([])}if(c==='\r'&&t[i+1]==='\n')i++}else cur+=c}if(cur!==''){if(!lines.length)lines.push([]);lines[lines.length-1].push(cur)}if(lines.length&&lines[lines.length-1].length===1&&lines[lines.length-1][0]==='')lines.pop();return lines}
 async function fetchCSV(u){try{var r=await fetch(u);return parseCSV(await r.text())}catch(e){return[]}}
 function exD(s){if(!s)return null;var str=String(s).trim();var m=str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m){var day=parseInt(m[1]),mon=parseInt(m[2]),yr=parseInt(m[3]);if(day>12)return new Date(yr,mon-1,day);return new Date(yr,mon-1,day)}m=str.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return new Date(parseInt(m[1]),parseInt(m[2])-1,parseInt(m[3]));var num=parseFloat(s);if(!isNaN(num)&&num>40000&&num<60000)return new Date((num-25569)*86400000);return null}
-function parseNum(s){if(!s)return NaN;return parseFloat(String(s).trim().replace(/[€$\s]/g,'').replace(',','.'))}
+function parseNum(s){if(!s)return NaN;var v=String(s).trim().replace(/[€$\s]/g,'');
+if(v.indexOf(',')>=0){v=v.replace(/\./g,'').replace(',','.')}
+return parseFloat(v)}
 function procRuta(rows){if(rows.length<2)return;var dn=0,used={};
 var hdr=rows[0]||[];var iDate=0,iDow=1,iCity=2,iTr=3,iTray=4,iHt=5,iDesc=6,iExc=7,iPt=8,iOrg=-1;
 for(var c=0;c<hdr.length;c++){var h=(hdr[c]||'').toLowerCase().trim();if(h.indexOf('fecha')>=0)iDate=c;else if(h==='día'||h==='dia')iDow=c;else if(h.indexOf('ciudad')>=0)iCity=c;else if(h.indexOf('transporte')>=0&&h.indexOf('precio')<0)iTr=c;else if(h.indexOf('trayecto')>=0)iTray=c;else if(h.indexOf('hora')>=0)iHt=c;else if(h.indexOf('descripci')>=0)iDesc=c;else if(h.indexOf('excursion')>=0)iExc=c;else if(h.indexOf('precio')>=0)iPt=c;else if(h.indexOf('organizado')>=0)iOrg=c}
@@ -300,7 +302,7 @@ for(var a=0;a<allK.length;a++){var ak=allK[a];if((clB.indexOf('beijing')>=0&&(ak
 used[ik]=true;
 var tags=[];if(tr)tags.push({t:(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+tr+(ht?' '+ht:''),c:'t-tr'});
 if(exc)exc.split('\n').forEach(function(e){e=e.replace(/^-\s*/,'').trim();if(e){var hp=e.indexOf('€')>=0;tags.push({t:(hp?'💰 ':'🎯 ')+e,c:hp?'t-pr':'t-ac'})}});
-if(pt){pt=pt.trim();if(pt)tags.push({t:'💰 Transporte: '+pt,c:'t-pr'})}
+if(pt){pt=pt.trim();if(pt){var ptVal=parseNum(pt);if(!isNaN(ptVal)&&ptVal>0){tags.push({t:'💰 Transporte: '+ptVal+'€',c:'t-pr'})}else{tags.push({t:'💰 Transporte: '+pt,c:'t-pr'})}}}
 var org=iOrg>=0?(r[iOrg]||'').trim():'';
 D.days.push({d:dn,date:dstr,dow:DW[dow]||dow,city:city,emoji:CE[cl]||'📍',img:ik,color:CC[cl]||'#457b9d',desc:desc||'Día en '+city,tags:tags,cl:cl,org:org})}}
 function procAloj(rows){if(rows.length<2)return;var seen={};
@@ -325,9 +327,9 @@ function imgErr(el){el.style.display='none';var p=el.parentNode;if(p){var f=p.qu
 window.imgErr=imgErr;
 function iTag(k,e,g){var u=IM[k]||IM.bj1;return '<div class="diw"><img class="dimg" src="'+u[0]+'" onerror="imgErr(this)" loading="lazy" alt=""><div class="difb" style="background:'+(g||'linear-gradient(135deg,#1a1a2e,#16213e)')+'">'+( e||'🐉')+'</div></div>'}
 function calcB(){var cats=[];cats.push({l:'✈️ Vuelos',items:[{n:'Madrid↔Beijing ida y vuelta',t:480*NP,p:480}]});
-var tr=[],en=[];D.days.forEach(function(d){d.tags.forEach(function(tg){var txt=tg.t,m=txt.match(/([\d.,]+)\s*€/);if(!m)return;var v=parseFloat(m[1].replace(',','.'));if(isNaN(v))return;var lb=txt.replace(/[💰🎯🚅✈️]\s*/g,'').replace(/([\d.,]+)\s*€/g,'').replace(/Transporte:/gi,'').replace(/:/g,'').trim();
+var tr=[],en=[];D.days.forEach(function(d){d.tags.forEach(function(tg){var txt=tg.t,m=txt.match(/([\d.,]+)\s*€/);if(!m)m=txt.match(/€\s*([\d.,]+)/);if(!m)m=txt.match(/:\s*([\d.,]+)\s*$/);if(!m)return;var v=parseFloat(m[1].replace(/\./g,function(c,i,s){return s.indexOf(',')>=0?'':c}).replace(',','.'));if(isNaN(v)||v===0)return;var lb=txt.replace(/[💰🎯🚅✈️]\s*/g,'').replace(/([\d.,]+)\s*€?/g,'').replace(/Transporte:/gi,'').replace(/:/g,'').trim();
 if(tg.c==='t-pr'&&txt.toLowerCase().indexOf('transporte')>=0){tr.push({n:d.city+(lb?' ('+lb+')':''),t:v,p:Math.round(v/NP*100)/100})}else if(tg.c==='t-pr'||tg.c==='t-ac'){en.push({n:lb||d.city,t:v,p:Math.round(v/NP*100)/100})}})});
-tr.push({n:"Xi'an→Chengdu (~35€/pers)",t:null,p:35});tr.push({n:'Chengdu→Zhangjiajie (~50€/pers)',t:null,p:50});
+tr.push({n:"Xi'an→Chengdu (~35€/pers)",t:35*NP,p:35});tr.push({n:'Chengdu→Zhangjiajie (~50€/pers)',t:50*NP,p:50});
 cats.push({l:'🚅 Transporte',items:tr});
 var al=[];D.hotels.forEach(function(h){al.push(h.price?{n:h.city+' - '+h.name,t:h.price,p:Math.round(h.price/NP*100)/100}:{n:h.city+' (pendiente)',t:null,p:null})});cats.push({l:'🏨 Alojamientos',items:al});
 if(en.length)cats.push({l:'🎟️ Entradas',items:en});return cats}
