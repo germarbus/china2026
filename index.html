@@ -300,9 +300,14 @@ for(var ri=0;ri<IR.length;ri++){if(dl.indexOf(IR[ri].m)>=0){ik=IR[ri].k;break}}
 if(used[ik]){var allK=Object.keys(IM).filter(function(k){return!used[k]});var best=allK[0]||ik;var clB=cl.replace(/[^a-z]/g,'');
 for(var a=0;a<allK.length;a++){var ak=allK[a];if((clB.indexOf('beijing')>=0&&(ak==='bj1'||ak==='bj2'||ak==='wall'))||(clB.indexOf('zhangjiajie')>=0&&ak.indexOf('zjj')>=0)||(clB.indexOf('wulingyuan')>=0&&ak.indexOf('zjj')>=0)||(clB.indexOf('chongqing')>=0&&ak.indexOf('cq')>=0)||(clB.indexOf('chengdu')>=0&&(ak==='panda'||ak==='leshan'))){best=ak;break}}ik=best}
 used[ik]=true;
-var tags=[];if(tr){var trayLabel=tr+(tray?' '+tray:'');tags.push({t:(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+trayLabel,c:'t-tr'});
-if(tray){var prevCity='';for(var pi=i-1;pi>=1;pi--){var pc=(rows[pi][iCity]||'').trim();if(pc&&pc!==city){prevCity=pc;break}}
-if(prevCity){var tk=prevCity.toLowerCase().split('→')[0].split('/')[0].split('(')[0].trim().replace(/[\u2018\u2019\u0060\u00B4]/g,"'")+'→'+cl;TRAV[tk]=(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+tray}}}
+var tags=[];if(tr){
+var trayFmt=tray;
+if(tray&&tray.indexOf(':')>=0){var tp=tray.split(':');var th=parseInt(tp[0])||0;var tm=parseInt(tp[1])||0;trayFmt=th+'h'+(tm>0?tm+'min':'')}
+tags.push({t:(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+tr+(trayFmt?' '+trayFmt:'')+(ht?' · Sale '+ht:''),c:'t-tr'});
+if(tray){var prevCity='';for(var pi=i-1;pi>=1;pi--){var pc=(rows[pi][iCity]||'').trim();if(pc&&pc.toLowerCase()!==city.toLowerCase()){prevCity=pc;break}}
+if(prevCity){var tkA=prevCity.toLowerCase().split('→')[0].split('/')[0].split(' y ')[0].split('(')[0].trim().replace(/[\u2018\u2019\u0060\u00B4]/g,"'");
+var tkB=cl.split(' y ')[0].trim();
+TRAV[tkA+'→'+tkB]=(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+trayFmt}}}
 if(exc)exc.split('\n').forEach(function(e){e=e.replace(/^-\s*/,'').trim();if(e){var hp=e.indexOf('€')>=0;tags.push({t:(hp?'💰 ':'🎯 ')+e,c:hp?'t-pr':'t-ac'})}});
 if(pt){pt=pt.trim();if(pt){var ptVal=parseNum(pt);if(!isNaN(ptVal)&&ptVal>0){tags.push({t:'💰 Transporte: '+ptVal+'€',c:'t-pr'})}else{tags.push({t:'💰 Transporte: '+pt,c:'t-pr'})}}}
 var org=iOrg>=0?(r[iOrg]||'').trim():'';
@@ -334,7 +339,7 @@ if(tg.c==='t-pr'&&txt.toLowerCase().indexOf('transporte')>=0){tr.push({n:d.city+
 cats.push({l:'🚅 Transporte',items:tr});
 var al=[];D.hotels.forEach(function(h){al.push(h.price?{n:h.city+' - '+h.name,t:h.price,p:Math.round(h.price/NP*100)/100}:{n:h.city+' (pendiente)',t:null,p:null})});cats.push({l:'🏨 Alojamientos',items:al});
 if(en.length)cats.push({l:'🎟️ Entradas',items:en});return cats}
-function getTrav(a,b){var ka=a.toLowerCase().split('→')[0].split('/')[0].trim();var kb=b.toLowerCase().split('→')[0].split('/')[0].trim();return TRAV[ka+'→'+kb]||null}
+function getTrav(a,b){var ka=a.toLowerCase().split('→')[0].split('/')[0].split(' y ')[0].split('(')[0].trim();var kb=b.toLowerCase().split('→')[0].split('/')[0].split(' y ')[0].split('(')[0].trim();return TRAV[ka+'→'+kb]||null}
 function getRec(cl){return RECS[cl]||null}
 
 function rRes(){var h='',nc={};D.days.forEach(function(d){nc[d.city.split('→')[0].split('/')[0].split('(')[0].trim()]=1});var nci=Object.keys(nc).length;
