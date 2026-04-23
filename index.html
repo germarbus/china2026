@@ -23,6 +23,7 @@
 .tab{flex:0 0 auto;padding:14px 16px;font-size:.82em;color:var(--text2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:.2s}.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
 .pnl{display:none;padding:16px;max-width:600px;margin:0 auto}.pnl.active{display:block}
 .st{font-size:1.1em;font-weight:700;margin:20px 0 12px;color:var(--gold);display:flex;align-items:center;gap:8px}.st:first-child{margin-top:0}
+.mal-compact .st{font-size:.95em;margin:12px 0 6px}
 .pw{background:var(--card);border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid rgba(255,255,255,.05)}
 .pr-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.82em}.pr-row .lb{color:var(--text2)}.pr-row .vl{color:var(--gold);font-weight:700}
 .pr-bar{height:6px;background:var(--card2);border-radius:3px;overflow:hidden;margin-bottom:10px}.pr-fill{height:100%;border-radius:3px;transition:width .5s}
@@ -43,9 +44,9 @@
 .bc{background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,.05)}.bct{font-weight:700;font-size:.9em;margin-bottom:8px;display:flex;justify-content:space-between}
 .bi{display:flex;justify-content:space-between;font-size:.82em;padding:4px 0;color:var(--text2);border-bottom:1px solid rgba(255,255,255,.03)}.bi:last-child{border:none}
 .cbg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:16px}.cc{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.05)}.cc .nm{font-weight:700;font-size:.9em;margin-top:6px}.cc .am{font-size:1.1em;font-weight:700;color:var(--gold);margin-top:4px}
-.cprog{background:var(--card);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center}.cbar{height:8px;background:var(--card2);border-radius:4px;margin-top:8px;overflow:hidden}.cfill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:4px;transition:width .4s}
-.ci{display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border-radius:12px;margin-bottom:6px;cursor:pointer;font-size:.88em;border:1px solid rgba(255,255,255,.05)}.ci.done{opacity:.5;text-decoration:line-through}
-.chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--text2);display:flex;align-items:center;justify-content:center;flex-shrink:0}.ci.done .chk{background:var(--green);border-color:var(--green)}
+.cprog{background:var(--card);border-radius:10px;padding:10px;margin-bottom:10px;text-align:center;font-size:.85em}.cbar{height:6px;background:var(--card2);border-radius:3px;margin-top:6px;overflow:hidden}.cfill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:3px;transition:width .4s}
+.ci{display:flex;align-items:center;gap:7px;padding:7px 10px;background:var(--card);border-radius:8px;margin-bottom:3px;cursor:pointer;font-size:.8em;border:1px solid rgba(255,255,255,.05)}.ci.done{opacity:.5;text-decoration:line-through}
+.chk{width:18px;height:18px;border-radius:5px;border:2px solid var(--text2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75em}.ci.done .chk{background:var(--green);border-color:var(--green)}
 .ic{background:var(--card);border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid rgba(255,255,255,.05)}.ic h3{font-size:.95em;margin-bottom:8px;color:var(--gold)}.ic p{font-size:.85em;color:var(--text2);line-height:1.6}
 .phr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:.82em}.pcn{color:var(--accent);font-weight:700}.ppy{color:var(--text2)}.pes{color:var(--text)}
 .clc{background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.05)}.cli{font-size:2em}.clinfo .ct{font-weight:700;font-size:.9em}.clinfo .cd{font-size:.78em;color:var(--text2)}
@@ -213,7 +214,6 @@ var DONT=[
 {title:'Cuidado con el picante',desc:'La comida en Sichuan y Chongqing pica MUCHO más de lo que esperáis. Aprended a decir 不要辣 (bú yào là = sin picante). Llevad Fortasec por si acaso.'},
 {title:'Descarga mapas offline antes de salir del hotel',desc:'La conexión puede fallar en zonas rurales (Zhangjiajie, Furong). Descargad la zona en Amap con WiFi del hotel cada mañana.'},
 {title:'No pilles taxis en la calle, usa DiDi',desc:'Los taxis callejeros pueden timarte con el precio o dar rodeos. Con DiDi ves la ruta y el precio antes de subirte. Paga siempre por la app.'},
-{title:'Lleva siempre batería portátil',desc:'Alipay, Amap, DiDi, traductor... todo va con el móvil. Si se queda sin batería estáis vendidos. Llevad un powerbank de 10.000mAh mínimo.'},
 {title:'Hazte capturas de todo antes de salir',desc:'Capturas de los billetes de tren, reservas de hotel, dirección en chino, QR de Alipay. Si falla internet, tienes todo guardado.'},
 {title:'Cuidado con el jet lag los primeros días',desc:'China va 6h por delante de España. Los primeros 2 días en Beijing no forcéis el ritmo. Dormid algo en el avión y no os acostéis antes de las 21h hora local.'}
 ];
@@ -265,7 +265,7 @@ tips:['Entrar por la entrada ESTE (más cerca de Bailong)','Coger el primer auto
 img:'zjj1'},
 {day:'Día 10 (domingo) — Zhangjiajie',title:'Golden Whip + Huangshi + Gran Cañón + 72 Towers',
 route:'Entrada principal → Golden Whip Stream (7,5 km llano) → Huangshi Village → Salida → Taxi a Gran Cañón → Vuelta → 72 Towers Show (18-00h)',
-tips:['Golden Whip Stream: ruta llana junto al río, fácil, 2-3h','Cuidado con los monos: no enseñar comida ni bolsas de plástico','Huangshi Village: subir en teleférico, bajar andando (o al revés)','Vistas 360° desde arriba: "si no has subido, no has visto Zhangjiajie"','Gran Cañón: puente de cristal + cascadas + barca subterránea','72 Towers: espectáculo nocturno al aire libre, 600 actores, imprescindible','Llevar: chubasquero (llueve mucho), batería portátil, calzado grip'],
+tips:['Golden Whip Stream: ruta llana junto al río, fácil, 2-3h','Cuidado con los monos: no enseñar comida ni bolsas de plástico','Huangshi Village: subir en teleférico, bajar andando (o al revés)','Vistas 360° desde arriba: "si no has subido, no has visto Zhangjiajie"','Gran Cañón: puente de cristal + cascadas + barca subterránea','72 Towers: espectáculo nocturno al aire libre, 600 actores, imprescindible','Llevar: chubasquero (llueve mucho), calzado grip'],
 img:'zjj3'},
 {day:'Día 11 (lunes) — Zhangjiajie',title:'Gran Cañón / Puente de Cristal + Tianmen Mountain',
 route:'Opción A: Gran Cañón + Puente de Cristal (si no dio tiempo ayer) → Tianmen por la tarde-noche\nOpción B: Tianmen Mountain día completo',
@@ -284,7 +284,7 @@ mapa:[
 {name:'Tianmen Mountain',lat:29.0500,lon:110.4800,nota:'Puerta del Cielo + 999 escalones'},
 {name:'72 Towers Show',lat:29.1200,lon:110.4700,nota:'Espectáculo nocturno 18-00h'}
 ],
-equip:['Zapatillas de trekking (IMPRESCINDIBLE)','Poncho / chubasquero (llueve el 55% de los días)','Batería portátil (mínimo 10.000mAh)','Botella de agua reutilizable (rellena en fuentes del parque)','Snacks y barritas (la comida del parque es cara y mala)','Gorra o sombrero','Crema solar','Bolsa impermeable para el móvil','Efectivo: algunos puestos dentro no aceptan Alipay']
+equip:['Zapatillas de trekking (IMPRESCINDIBLE)','Poncho / chubasquero (llueve el 55% de los días)','Botella de agua reutilizable (rellena en fuentes del parque)','Snacks y barritas (la comida del parque es cara y mala)','Gorra o sombrero','Crema solar','Bolsa impermeable para el móvil','Efectivo: algunos puestos dentro no aceptan Alipay']
 };
 var DW={J:'Jueves',V:'Viernes',S:'Sábado',D:'Domingo',L:'Lunes',M:'Martes',X:'Miércoles'};
 var MN=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
@@ -404,10 +404,10 @@ bg.forEach(function(c){var ct=0;c.items.forEach(function(i){if(i.t)ct+=i.t});h+=
 h+='<div class="st">👥 Por persona</div><div class="cbg">';CRW.forEach(function(c){h+='<div class="cc"><div class="cav" style="background:'+c.c+';width:44px;height:44px;margin:0 auto;font-size:.9em">'+c.n[0]+'</div><div class="nm">'+c.n+'</div><div class="am">'+pp+'€</div></div>'});h+='</div>';
 document.getElementById('p-gas').innerHTML=h}
 
-function rMal(){var h='',all=[];Object.keys(D.cl).forEach(function(c){(D.cl[c]||[]).forEach(function(i){all.push(c+'::'+i)})});var ck=lCk(),dn=all.filter(function(i){return ck[i]}).length;
+function rMal(){var h='<div class="mal-compact">',all=[];Object.keys(D.cl).forEach(function(c){(D.cl[c]||[]).forEach(function(i){all.push(c+'::'+i)})});var ck=lCk(),dn=all.filter(function(i){return ck[i]}).length;
 h+='<div class="cprog"><b>'+dn+'/'+all.length+'</b> items<div class="cbar"><div class="cfill" style="width:'+(all.length?Math.round(dn/all.length*100):0)+'%"></div></div></div>';
 Object.keys(D.cl).forEach(function(cat){h+='<div class="st">'+(cat==='Importantes'?'⚠️':'🎒')+' '+cat+'</div>';(D.cl[cat]||[]).forEach(function(i){var k=cat+'::'+i,d=ck[k];h+='<div class="ci'+(d?' done':'')+'" data-ck="'+k+'"><div class="chk">'+(d?'✓':'')+'</div><span>'+i+'</span></div>'})});
-document.getElementById('p-mal').innerHTML=h}
+h+='</div>';document.getElementById('p-mal').innerHTML=h}
 
 function rInf(){var h='';
 h+='<div class="st">💱 Convertidor EUR ↔ CNY</div><div class="conv"><div><input type="number" id="eurIn" placeholder="€" oninput="convE()"> EUR → <span id="cnyOut" class="res">0 ¥</span></div><div style="margin-top:10px"><input type="number" id="cnyIn" placeholder="¥" oninput="convC()"> CNY → <span id="eurOut" class="res">0 €</span></div><p style="font-size:.7em;color:var(--text2);margin-top:6px" id="rateInfo">Cargando cambio actual...</p></div>';
