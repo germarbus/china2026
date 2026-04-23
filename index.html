@@ -155,7 +155,7 @@ var IR=[{m:'muralla',k:'wall'},{m:'mutianyu',k:'wall'},{m:'ciudad prohibida',k:'
 var CI={madrid:'madrid',beijing:'bj1',xian:'xian',"xi'an":'xian',chengdu:'panda',wulingyuan:'zjj1',zhangjiajie:'zjj3',fenghuang:'fh',furong:'fur',chongqing:'cq1'};
 var CC={madrid:'#457b9d',beijing:'#e63946',xian:'#2980b9',"xi'an":'#2980b9',chengdu:'#16a085',wulingyuan:'#1abc9c',zhangjiajie:'#27ae60',fenghuang:'#e67e22',furong:'#3498db',chongqing:'#9b59b6'};
 var CE={madrid:'🏠',beijing:'🏯',xian:'🕌',"xi'an":'🕌',chengdu:'🐼',wulingyuan:'⛰️',zhangjiajie:'🏔️',fenghuang:'🏘️',furong:'🌊',chongqing:'🌃'};
-var TRAV={'madrid→beijing':'✈️ ~12h','beijing→xian':'🚅 ~4.5h','xian→chengdu':'🚅 ~4h',"xi'an→chengdu":'🚅 ~4h','chengdu→wulingyuan':'🚅 7-8h + taxi','wulingyuan→zhangjiajie':'🚕 30min','zhangjiajie→fenghuang':'🚅 ~1.5h','fenghuang→furong':'🚌 ~2h','furong→chongqing':'🚅 ~6h vía ZJJ','chongqing→madrid':'✈️ ~14h'};
+var TRAV={};
 var CM=[{n:'Madrid',la:40.4168,lo:-3.7038,e:'🏠'},{n:'Beijing',la:39.9042,lo:116.4074,e:'🏯'},{n:"Xi'an",la:34.3416,lo:108.9398,e:'🕌'},{n:'Chengdu',la:30.5728,lo:104.0668,e:'🐼'},{n:'Wulingyuan',la:29.3499,lo:110.55,e:'⛰️'},{n:'Zhangjiajie',la:29.1169,lo:110.4783,e:'🏔️'},{n:'Fenghuang',la:27.9481,lo:109.5996,e:'🏘️'},{n:'Furong',la:28.75,lo:109.9,e:'🌊'},{n:'Chongqing',la:29.4316,lo:106.9123,e:'🌃'}];
 var CL=[{c:'Beijing',i:'☀️',t:'15-28°C',r:'25%'},{c:"Xi'an",i:'☀️',t:'16-30°C',r:'30%'},{c:'Chengdu',i:'🌧️',t:'18-28°C',r:'50%'},{c:'Zhangjiajie',i:'🌦️',t:'17-27°C',r:'55%'},{c:'Fenghuang',i:'🌦️',t:'18-28°C',r:'50%'},{c:'Chongqing',i:'🌧️',t:'20-30°C',r:'45%'}];
 var PH=[['你好','Nǐ hǎo','Hola'],['谢谢','Xiè xiè','Gracias'],['多少钱','Duōshǎo qián','¿Cuánto?'],['太贵了','Tài guì le','Muy caro'],['不要','Bú yào','No quiero'],['好吃','Hǎo chī','Delicioso'],['不辣','Bú là','Sin picante'],['厕所在哪','Cèsuǒ zài nǎ','¿Dónde baño?'],['我是西班牙人','Wǒ shì Xībānyá rén','Soy español'],['救命','Jiù mìng','¡Socorro!'],['请帮我','Qǐng bāng wǒ','Ayúdame'],['买单','Mǎi dān','La cuenta'],['我不会说中文','Wǒ bú huì shuō zhōngwén','No hablo chino']];
@@ -300,7 +300,9 @@ for(var ri=0;ri<IR.length;ri++){if(dl.indexOf(IR[ri].m)>=0){ik=IR[ri].k;break}}
 if(used[ik]){var allK=Object.keys(IM).filter(function(k){return!used[k]});var best=allK[0]||ik;var clB=cl.replace(/[^a-z]/g,'');
 for(var a=0;a<allK.length;a++){var ak=allK[a];if((clB.indexOf('beijing')>=0&&(ak==='bj1'||ak==='bj2'||ak==='wall'))||(clB.indexOf('zhangjiajie')>=0&&ak.indexOf('zjj')>=0)||(clB.indexOf('wulingyuan')>=0&&ak.indexOf('zjj')>=0)||(clB.indexOf('chongqing')>=0&&ak.indexOf('cq')>=0)||(clB.indexOf('chengdu')>=0&&(ak==='panda'||ak==='leshan'))){best=ak;break}}ik=best}
 used[ik]=true;
-var tags=[];if(tr)tags.push({t:(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+tr+(ht?' '+ht:''),c:'t-tr'});
+var tags=[];if(tr){var trayLabel=tr+(tray?' '+tray:'');tags.push({t:(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+trayLabel,c:'t-tr'});
+if(tray){var prevCity='';for(var pi=i-1;pi>=1;pi--){var pc=(rows[pi][iCity]||'').trim();if(pc&&pc!==city){prevCity=pc;break}}
+if(prevCity){var tk=prevCity.toLowerCase().split('→')[0].split('/')[0].split('(')[0].trim().replace(/[\u2018\u2019\u0060\u00B4]/g,"'")+'→'+cl;TRAV[tk]=(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+tray}}}
 if(exc)exc.split('\n').forEach(function(e){e=e.replace(/^-\s*/,'').trim();if(e){var hp=e.indexOf('€')>=0;tags.push({t:(hp?'💰 ':'🎯 ')+e,c:hp?'t-pr':'t-ac'})}});
 if(pt){pt=pt.trim();if(pt){var ptVal=parseNum(pt);if(!isNaN(ptVal)&&ptVal>0){tags.push({t:'💰 Transporte: '+ptVal+'€',c:'t-pr'})}else{tags.push({t:'💰 Transporte: '+pt,c:'t-pr'})}}}
 var org=iOrg>=0?(r[iOrg]||'').trim():'';
