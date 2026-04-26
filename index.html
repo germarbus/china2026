@@ -119,8 +119,8 @@ html{scroll-behavior:smooth}
 <div class="ld" id="ld"><div class="spinner"></div><p>Cargando datos del viaje... 🐉</p></div>
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
 <div class="hero"><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
-<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="not">Notas</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
-<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-ver"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-zjj"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-vid"></div><div class="pnl" id="p-not"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
+<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
+<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-ver"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-zjj"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-vid"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
 
 <div class="zoom-overlay" id="zoomOverlay" onclick="this.classList.remove('show')"><img id="zoomImg" src="" alt=""></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -584,29 +584,6 @@ h+='<p style="color:var(--text2);font-size:.8em;margin-top:4px">'+v.desc+'</p></
 });
 document.getElementById('p-vid').innerHTML=h}
 
-function rNot(){
-var notes=JSON.parse(localStorage.getItem('china26_notes')||'[]');
-var h='<div class="st">📝 Notas del viaje</div>';
-h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:14px">Apuntes personales — se guardan en tu navegador. Cada viajero tiene las suyas.</p>';
-h+='<div style="display:flex;gap:8px;margin-bottom:16px"><input id="note-in" type="text" placeholder="Escribe una nota..." style="flex:1;padding:10px 14px;border-radius:10px;border:1px solid var(--card2);background:var(--card);color:var(--text);font-size:.9em;outline:none"><button onclick="addNote()" style="padding:10px 18px;border-radius:10px;border:none;background:var(--gold);color:#000;font-weight:700;cursor:pointer;font-size:.9em;white-space:nowrap">+ Añadir</button></div>';
-if(!notes.length){h+='<p style="color:var(--text2);font-size:.85em;font-style:italic;text-align:center;padding:30px 0">Sin notas todavía. Añade recordatorios, ideas, sitios que os recomienden...</p>'}
-else{notes.forEach(function(n,i){
-var d=new Date(n.ts);
-var ds=d.toLocaleDateString('es-ES',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-h+='<div style="background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:start;gap:10px;border-left:3px solid var(--gold)">';
-h+='<div style="flex:1"><p style="color:var(--text);font-size:.9em;line-height:1.4">'+n.txt+'</p><span style="color:var(--text2);font-size:.7em">'+ds+'</span></div>';
-h+='<button onclick="delNote('+i+')" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.1em;padding:2px 6px;flex-shrink:0" title="Eliminar">✕</button>';
-h+='</div>'})}
-h+='<div style="margin-top:20px;text-align:center"><button onclick="exportNotes()" style="padding:8px 16px;border-radius:8px;border:1px solid var(--card2);background:transparent;color:var(--text2);cursor:pointer;font-size:.78em;margin-right:8px">📋 Copiar todas</button>';
-h+='<button onclick="clearNotes()" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(231,76,60,.3);background:transparent;color:rgba(231,76,60,.7);cursor:pointer;font-size:.78em">🗑️ Borrar todas</button></div>';
-document.getElementById('p-not').innerHTML=h;
-var inp=document.getElementById('note-in');
-if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter')addNote()})}
-function addNote(){var inp=document.getElementById('note-in');if(!inp)return;var txt=inp.value.trim();if(!txt)return;var notes=JSON.parse(localStorage.getItem('china26_notes')||'[]');notes.unshift({txt:txt,ts:Date.now()});localStorage.setItem('china26_notes',JSON.stringify(notes));rNot()}
-function delNote(i){var notes=JSON.parse(localStorage.getItem('china26_notes')||'[]');notes.splice(i,1);localStorage.setItem('china26_notes',JSON.stringify(notes));rNot()}
-function clearNotes(){if(!confirm('¿Borrar TODAS las notas?'))return;localStorage.removeItem('china26_notes');rNot()}
-function exportNotes(){var notes=JSON.parse(localStorage.getItem('china26_notes')||'[]');if(!notes.length){alert('No hay notas');return}var txt=notes.map(function(n){return '• '+n.txt}).join('\n');navigator.clipboard.writeText(txt).then(function(){alert('Notas copiadas al portapapeles')}).catch(function(){prompt('Copia manualmente:',txt)})}
-
 function rTips(){var h='<div class="st">🚫 Cosas que NO hacer en China</div>';
 h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:14px">Errores típicos de turistas. Leed esto antes de ir.</p>';
 DONT.forEach(function(d,i){h+='<div class="dont-card"><div style="display:flex;align-items:start"><span class="num">'+(i+1)+'</span><div><b style="color:var(--text)">'+d.title+'</b><p>'+d.desc+'</p></div></div></div>'});
@@ -719,14 +696,14 @@ async function init(){var cached=loadCache();
 try{var[ruta,aloj,ck,apps,links,ver]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links),fetchCSV(SH.ver)]);
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);procVer(ver);saveCache()}
 catch(e){if(cached){D=cached}else{document.getElementById('ld').querySelector('p').textContent='Sin conexión y sin datos en caché.';return}}
-uCD();setInterval(uCD,1000);rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rNot();rLnk();
+uCD();setInterval(uCD,1000);rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rLnk();
 document.getElementById('ld').classList.add('hide');setTimeout(function(){document.getElementById('ld').style.display='none'},600);
 updTime();setInterval(autoRefresh,180000)}
 async function autoRefresh(){
 try{var[ruta,aloj,ck,apps,links,ver]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links),fetchCSV(SH.ver)]);
 D={days:[],hotels:[],cl:{},apps:[],links:[],ver:[]};
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);procVer(ver);saveCache();
-rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rNot();rLnk();updTime()}catch(e){}}
+rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rLnk();updTime()}catch(e){}}
 function updTime(){var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');
 document.querySelector('.rbar').innerHTML='<div class="ldot"></div> Actualizado a las '+h+':'+m+' · Toca para refrescar'}
 init();
