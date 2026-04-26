@@ -20,7 +20,7 @@
 .hero h1{font-family:'Playfair Display',serif;font-size:2.4em;background:linear-gradient(135deg,var(--gold),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero .sub{color:var(--text2);margin-top:6px;font-size:.95em}
 .cd{display:flex;gap:12px;justify-content:center;margin:20px 0 10px}.cdb{background:var(--card);border:1px solid rgba(228,57,70,.3);border-radius:12px;padding:10px 14px;min-width:60px;text-align:center}.cdb .n{font-size:1.6em;font-weight:700;color:var(--gold)}.cdb .l{font-size:.7em;color:var(--text2);text-transform:uppercase}
 .crew{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}.cav{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75em;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.15)}
-.tabs{display:flex;overflow-x:auto;background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(128,128,128,.15);position:sticky;top:0;z-index:100;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tabs{display:flex;overflow-x:auto;background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(128,128,128,.15);-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;padding:14px 16px;font-size:.82em;color:var(--text2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:.2s}.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
 .pnl{display:none;padding:16px;max-width:600px;margin:0 auto}.pnl.active{display:block}
 .st{font-size:1.1em;font-weight:700;margin:20px 0 12px;color:var(--gold);display:flex;align-items:center;gap:8px}.st:first-child{margin-top:0}
@@ -121,7 +121,12 @@ html{scroll-behavior:smooth}
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
 <div class="hero"><div style="position:absolute;top:16px;right:16px;display:flex;gap:8px"><button id="themeBtn" onclick="toggleTheme()" style="background:var(--card2);border:1px solid rgba(128,128,128,.2);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:.85em;color:var(--text)">☀️ Claro</button></div><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
 <div id="searchBar" style="padding:8px 16px;background:var(--bg);position:sticky;top:0;z-index:101"><div style="display:flex;gap:8px;max-width:600px;margin:0 auto"><input id="searchIn" type="text" placeholder="🔍 Buscar en toda la app..." style="flex:1;padding:9px 14px;border-radius:10px;border:1px solid var(--card2);background:var(--card);color:var(--text);font-size:.85em;outline:none" oninput="doSearch(this.value)"><button id="searchClear" onclick="clearSearch()" style="display:none;padding:6px 12px;border-radius:10px;border:none;background:var(--card2);color:var(--text2);cursor:pointer;font-size:.85em">✕</button></div><div id="searchResults" style="max-width:600px;margin:8px auto 0;display:none"></div></div>
+<div style="position:sticky;top:0;z-index:100">
+<div style="position:relative">
 <div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="fra">Frases</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
+<div id="tabFadeR" style="position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(90deg,transparent,var(--bg));pointer-events:none;z-index:101;transition:opacity .3s"></div>
+<div id="tabFadeL" style="position:absolute;left:0;top:0;bottom:0;width:40px;background:linear-gradient(-90deg,transparent,var(--bg));pointer-events:none;z-index:101;opacity:0;transition:opacity .3s"></div>
+</div></div>
 <div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-ver"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-zjj"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-vid"></div><div class="pnl" id="p-fra"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
 
 <div class="zoom-overlay" id="zoomOverlay" onclick="this.classList.remove('show')"><img id="zoomImg" src="" alt=""></div>
@@ -528,13 +533,22 @@ function rVer(){var h='<div class="st">👀 ¿Qué ver cada día?</div>';
 h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:16px">Planning día a día con lo imprescindible de cada ciudad. Datos en vivo del Google Sheet.</p>';
 if(!D.ver.length){h+='<p style="color:var(--text2)">Cargando datos...</p>';document.getElementById('p-ver').innerHTML=h;return}
 var dias=['D','L','M','X','J','V','S'];var diasN=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+var now=new Date();var todayStr=now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear();
 D.ver.forEach(function(v,idx){
 var cl=v.ciudad.toLowerCase().split(/[,/]/)[0].trim().replace(/\s+y\s+.*$/,'');
 var emoji=CE[cl]||'📍';
 var color=CC[cl]||'var(--accent)';
 var hasContent=v.que||v.tip;
 var diaN=diasN[dias.indexOf(v.dia)]||v.dia;
-h+='<div style="background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;border-left:4px solid '+color+'">';
+/* Parse fecha DD/MM/YYYY to compare */
+var fp=v.fecha.split('/');var fechaNorm=parseInt(fp[0])+'/'+ parseInt(fp[1])+'/'+fp[2];
+var isToday=fechaNorm===todayStr;
+var fd=fp.length===3?new Date(parseInt(fp[2]),parseInt(fp[1])-1,parseInt(fp[0])):null;
+var isPast=fd&&fd<now&&!isToday;
+var todayStyle=isToday?'border:2px solid var(--gold);box-shadow:0 0 16px rgba(244,162,97,.25);':'';
+var todayId=isToday?' id="today-ver"':'';
+h+='<div style="background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;border-left:4px solid '+color+';'+todayStyle+(isPast?'opacity:.6;':'')+'"'+todayId+'>';
+if(isToday)h+='<div style="background:var(--gold);color:#000;text-align:center;padding:3px 0;font-size:.72em;font-weight:700;letter-spacing:1px;border-radius:8px;margin-bottom:8px">📍 HOY</div>';
 h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:'+(hasContent?'10':'0')+'px">';
 h+='<div><span style="font-size:1.1em">'+emoji+'</span> <b style="color:var(--text)">Día '+(idx+1)+'</b> <span style="color:var(--text2);font-size:.82em">'+v.fecha+' · '+diaN+'</span></div>';
 h+='<span style="background:'+color+';color:#fff;font-size:.7em;padding:2px 8px;border-radius:8px">'+v.ciudad+'</span></div>';
@@ -543,7 +557,8 @@ if(items.length===1){h+='<p style="color:var(--text);font-size:.88em;line-height
 else{h+='<div style="font-size:.88em;line-height:1.5">';items.forEach(function(it){h+='<div style="padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)">• '+it+'</div>'});h+='</div>'}}
 if(v.tip){h+='<div style="margin-top:8px;padding:8px 10px;background:rgba(255,193,7,.08);border-radius:8px;font-size:.82em;color:var(--gold)">💡 '+v.tip.replace(/\n/g,'<br>')+'</div>'}
 h+='</div>'});
-document.getElementById('p-ver').innerHTML=h}
+document.getElementById('p-ver').innerHTML=h;
+var tc=document.getElementById('today-ver');if(tc&&document.getElementById('p-ver').classList.contains('active')){setTimeout(function(){tc.scrollIntoView({behavior:'smooth',block:'center'})},500)}}
 
 function rRst(){var h='<div class="st">🍜 Restaurantes y comida por ciudad</div>';
 h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:16px">Los mejores platos y restaurantes de cada ciudad de vuestro viaje.</p>';
@@ -880,7 +895,13 @@ if(elCN){elCN.textContent=now.toLocaleTimeString('es-ES',cnOpts);
 document.getElementById('clkCNday').textContent=now.toLocaleDateString('es-ES',cnDayOpts)}
 }
 document.getElementById('cr').innerHTML=CRW.map(function(c){return '<div class="cav" style="background:'+c.c+'">'+c.n.substring(0,2)+'</div>'}).join('');
-document.getElementById('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.getElementById('p-'+t.getAttribute('data-t')).classList.add('active');if(t.getAttribute('data-t')==='map')rMap();});
+document.getElementById('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.getElementById('p-'+t.getAttribute('data-t')).classList.add('active');if(t.getAttribute('data-t')==='map')rMap();t.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});});
+/* Tab scroll fade indicators */
+var tabsEl=document.getElementById('tabs');
+function uTabFade(){var sl=tabsEl.scrollLeft,sw=tabsEl.scrollWidth,cw=tabsEl.clientWidth;
+document.getElementById('tabFadeR').style.opacity=(sl+cw>=sw-10)?'0':'1';
+document.getElementById('tabFadeL').style.opacity=sl>10?'1':'0'}
+tabsEl.addEventListener('scroll',uTabFade);setTimeout(uTabFade,500);
 document.addEventListener('click',function(e){var h=e.target.closest('.dh');if(h)h.parentNode.classList.toggle('open');var ci=e.target.closest('.ci');if(ci){var k=ci.getAttribute('data-ck'),ck=lCk();ck[k]=!ck[k];sCk(ck);rMal()}});
 document.addEventListener('touchend',function(e){var h=e.target.closest('.dh');if(h){e.preventDefault();h.parentNode.classList.toggle('open')}var ci=e.target.closest('.ci');if(ci){e.preventDefault();var k=ci.getAttribute('data-ck'),ck=lCk();ck[k]=!ck[k];sCk(ck);rMal()}},{passive:false});
 async function init(){var cached=loadCache();
