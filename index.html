@@ -10,16 +10,17 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Playfair+Display:wght@700&display=swap');
 :root{--bg:#0a0a0f;--card:#16161f;--card2:#1e1e2a;--accent:#e63946;--gold:#f4a261;--green:#2a9d8f;--text:#f1faee;--text2:#a8a8b3;--blue:#457b9d;--purple:#6c5ce7}
+:root.light{--bg:#f5f5f0;--card:#ffffff;--card2:#eeeee8;--accent:#d62839;--gold:#c87a30;--green:#248277;--text:#1a1a2e;--text2:#555566;--blue:#3a6d8c;--purple:#5a4dbf}
 *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-tap-highlight-color:transparent}
 .ld{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s}.ld.hide{opacity:0;pointer-events:none}
 .spinner{width:50px;height:50px;border:3px solid var(--card2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.ld p{margin-top:16px;color:var(--text2);font-size:.9em}
 .rbar{background:var(--card2);text-align:center;padding:8px;font-size:.72em;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
 .ldot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero{position:relative;padding:60px 20px 30px;text-align:center;background:linear-gradient(135deg,#1a0a0a 0%,#0a0a1a 50%,#0a1a0a 100%);overflow:hidden}.hero::before{content:'🐉';position:absolute;font-size:200px;opacity:.06;top:-30px;right:-40px}
+.hero{position:relative;padding:60px 20px 30px;text-align:center;background:linear-gradient(135deg,var(--card) 0%,var(--bg) 50%,var(--card) 100%);overflow:hidden}.hero::before{content:'🐉';position:absolute;font-size:200px;opacity:.06;top:-30px;right:-40px}
 .hero h1{font-family:'Playfair Display',serif;font-size:2.4em;background:linear-gradient(135deg,var(--gold),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero .sub{color:var(--text2);margin-top:6px;font-size:.95em}
 .cd{display:flex;gap:12px;justify-content:center;margin:20px 0 10px}.cdb{background:var(--card);border:1px solid rgba(228,57,70,.3);border-radius:12px;padding:10px 14px;min-width:60px;text-align:center}.cdb .n{font-size:1.6em;font-weight:700;color:var(--gold)}.cdb .l{font-size:.7em;color:var(--text2);text-transform:uppercase}
 .crew{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}.cav{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75em;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.15)}
-.tabs{display:flex;overflow-x:auto;background:rgba(22,22,31,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:100;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tabs{display:flex;overflow-x:auto;background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(128,128,128,.15);position:sticky;top:0;z-index:100;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;padding:14px 16px;font-size:.82em;color:var(--text2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:.2s}.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
 .pnl{display:none;padding:16px;max-width:600px;margin:0 auto}.pnl.active{display:block}
 .st{font-size:1.1em;font-weight:700;margin:20px 0 12px;color:var(--gold);display:flex;align-items:center;gap:8px}.st:first-child{margin-top:0}
@@ -118,9 +119,10 @@ html{scroll-behavior:smooth}
 <body>
 <div class="ld" id="ld"><div class="spinner"></div><p>Cargando datos del viaje... 🐉</p></div>
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
-<div class="hero"><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
-<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
-<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-ver"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-zjj"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-vid"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
+<div class="hero"><div style="position:absolute;top:16px;right:16px;display:flex;gap:8px"><button id="themeBtn" onclick="toggleTheme()" style="background:var(--card2);border:1px solid rgba(128,128,128,.2);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:.85em;color:var(--text)">☀️ Claro</button></div><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
+<div id="searchBar" style="padding:8px 16px;background:var(--bg);position:sticky;top:0;z-index:101"><div style="display:flex;gap:8px;max-width:600px;margin:0 auto"><input id="searchIn" type="text" placeholder="🔍 Buscar en toda la app..." style="flex:1;padding:9px 14px;border-radius:10px;border:1px solid var(--card2);background:var(--card);color:var(--text);font-size:.85em;outline:none" oninput="doSearch(this.value)"><button id="searchClear" onclick="clearSearch()" style="display:none;padding:6px 12px;border-radius:10px;border:none;background:var(--card2);color:var(--text2);cursor:pointer;font-size:.85em">✕</button></div><div id="searchResults" style="max-width:600px;margin:8px auto 0;display:none"></div></div>
+<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="fra">Frases</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
+<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-ver"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-zjj"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-vid"></div><div class="pnl" id="p-fra"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
 
 <div class="zoom-overlay" id="zoomOverlay" onclick="this.classList.remove('show')"><img id="zoomImg" src="" alt=""></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -595,6 +597,111 @@ h+='<p style="color:var(--text2);font-size:.8em;margin-top:4px">'+v.desc+'</p></
 });
 document.getElementById('p-vid').innerHTML=h}
 
+/* === THEME TOGGLE === */
+function toggleTheme(){
+var root=document.documentElement;
+var isLight=root.classList.toggle('light');
+localStorage.setItem('china26_theme',isLight?'light':'dark');
+document.getElementById('themeBtn').innerHTML=isLight?'🌙 Oscuro':'☀️ Claro';
+}
+function loadTheme(){
+var t=localStorage.getItem('china26_theme');
+if(t==='light'){document.documentElement.classList.add('light');document.getElementById('themeBtn').innerHTML='🌙 Oscuro'}
+}
+
+/* === GLOBAL SEARCH === */
+var SEARCH_DATA=[];
+function buildSearchIndex(){
+SEARCH_DATA=[];
+HIST.forEach(function(city){
+city.sites.forEach(function(s){
+SEARCH_DATA.push({type:'Historia',section:city.city,title:s.name,text:s.text,tab:'hist'});
+});
+if(city.intro)SEARCH_DATA.push({type:'Historia',section:city.city,title:city.city+' — intro',text:city.intro,tab:'hist'});
+if(city.pop)SEARCH_DATA.push({type:'Historia',section:city.city,title:city.city+' — datos',text:city.pop,tab:'hist'});
+});
+DONT.forEach(function(d){SEARCH_DATA.push({type:'Tips',section:'No hacer',title:d.title,text:d.desc,tab:'tips'})});
+Object.keys(REST).forEach(function(k){var r=REST[k];
+r.dishes.forEach(function(d){SEARCH_DATA.push({type:'Gastronomía',section:r.city,title:d.name,text:d.desc+(d.price?' '+d.price:''),tab:'rst'})});
+});
+FRASES.forEach(function(f){SEARCH_DATA.push({type:'Frases',section:f.cat,title:f.es,text:f.zh+' '+f.py+' '+f.es,tab:'fra'})});
+D.days.forEach(function(d){SEARCH_DATA.push({type:'Ruta',section:d.city,title:'Día — '+d.city,text:d.city+' '+d.transport+' '+(d.org||''),tab:'rut'})});
+D.ver.forEach(function(v){if(v.que)SEARCH_DATA.push({type:'Qué ver',section:v.ciudad,title:'Día '+v.fecha,text:v.que+' '+(v.tip||''),tab:'ver'})});
+}
+function doSearch(q){
+var res=document.getElementById('searchResults');
+var btn=document.getElementById('searchClear');
+if(!q||q.length<2){res.style.display='none';btn.style.display='none';return}
+btn.style.display='block';
+var ql=q.toLowerCase();
+var hits=SEARCH_DATA.filter(function(item){
+return item.title.toLowerCase().indexOf(ql)>=0||item.text.toLowerCase().indexOf(ql)>=0||item.section.toLowerCase().indexOf(ql)>=0;
+}).slice(0,10);
+if(!hits.length){res.innerHTML='<p style="color:var(--text2);font-size:.85em;padding:8px">Sin resultados para "'+q+'"</p>';res.style.display='block';return}
+var h='';
+hits.forEach(function(hit){
+var snippet=hit.text.substring(0,120).replace(/</g,'&lt;')+'...';
+h+='<div onclick="goToTab(\''+hit.tab+'\');clearSearch()" style="background:var(--card);border-radius:10px;padding:10px 12px;margin-bottom:6px;cursor:pointer;border-left:3px solid var(--gold)">';
+h+='<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:.85em;color:var(--text)">'+hit.title+'</b><span style="font-size:.65em;background:var(--card2);padding:2px 6px;border-radius:6px;color:var(--text2)">'+hit.type+'</span></div>';
+h+='<p style="font-size:.78em;color:var(--text2);margin-top:4px;line-height:1.3">'+snippet+'</p></div>';
+});
+res.innerHTML=h;res.style.display='block';
+}
+function clearSearch(){document.getElementById('searchIn').value='';document.getElementById('searchResults').style.display='none';document.getElementById('searchClear').style.display='none'}
+function goToTab(t){document.querySelectorAll('.tab').forEach(function(tb){tb.classList.toggle('active',tb.dataset.t===t)});document.querySelectorAll('.pnl').forEach(function(p){p.classList.toggle('active',p.id==='p-'+t)});window.scrollTo(0,document.querySelector('.tabs').offsetTop)}
+
+/* === FRASES TARJETAS === */
+var FRASES=[
+{cat:'Básico',es:'Hola',zh:'你好',py:'Nǐ hǎo',sound:'ní jao'},
+{cat:'Básico',es:'Gracias',zh:'谢谢',py:'Xièxiè',sound:'shie-shie'},
+{cat:'Básico',es:'No, gracias',zh:'不用了',py:'Bú yòng le',sound:'bu iong le'},
+{cat:'Básico',es:'Perdona / disculpa',zh:'请问',py:'Qǐng wèn',sound:'ching uen'},
+{cat:'Básico',es:'No entiendo',zh:'我听不懂',py:'Wǒ tīng bù dǒng',sound:'uo ting bu dong'},
+{cat:'Básico',es:'Soy español/a',zh:'我是西班牙人',py:'Wǒ shì Xībānyá rén',sound:'uo shi shibanía ren'},
+{cat:'Compras',es:'¿Cuánto cuesta?',zh:'多少钱？',py:'Duōshao qián?',sound:'duo-shao chien?'},
+{cat:'Compras',es:'¡Muy caro!',zh:'太贵了！',py:'Tài guì le!',sound:'tai guei le!'},
+{cat:'Compras',es:'¿Más barato?',zh:'便宜一点？',py:'Piányi yīdiǎn?',sound:'pian-yi yi-dien?'},
+{cat:'Compras',es:'Quiero este',zh:'我要这个',py:'Wǒ yào zhège',sound:'uo iao ye-ge'},
+{cat:'Restaurante',es:'Una cerveza',zh:'一瓶啤酒',py:'Yī píng píjiǔ',sound:'yi ping pi-chiou'},
+{cat:'Restaurante',es:'Agua',zh:'水',py:'Shuǐ',sound:'shuei'},
+{cat:'Restaurante',es:'No picante',zh:'不要辣的',py:'Bú yào là de',sound:'bu iao la de'},
+{cat:'Restaurante',es:'Poco picante',zh:'微辣',py:'Wēi là',sound:'uei la'},
+{cat:'Restaurante',es:'¡Delicioso!',zh:'很好吃！',py:'Hěn hǎo chī!',sound:'jen jao chi!'},
+{cat:'Restaurante',es:'La cuenta, por favor',zh:'买单',py:'Mǎi dān',sound:'mai dan'},
+{cat:'Restaurante',es:'¿Se puede pagar con tarjeta?',zh:'可以刷卡吗？',py:'Kěyǐ shuā kǎ ma?',sound:'keyi shua ka ma?'},
+{cat:'Transporte',es:'Quiero ir a...',zh:'我要去...',py:'Wǒ yào qù...',sound:'uo iao chi...'},
+{cat:'Transporte',es:'¿Dónde está el baño?',zh:'洗手间在哪？',py:'Xǐshǒujiān zài nǎr?',sound:'shi-shou-chien zai nar?'},
+{cat:'Transporte',es:'Hotel',zh:'酒店',py:'Jiǔdiàn',sound:'chiou-dien'},
+{cat:'Transporte',es:'Aeropuerto',zh:'机场',py:'Jīchǎng',sound:'yi-chang'},
+{cat:'Transporte',es:'Estación de tren',zh:'火车站',py:'Huǒchē zhàn',sound:'juo-che yan'},
+{cat:'Emergencia',es:'¡Ayuda!',zh:'救命！',py:'Jiù mìng!',sound:'chiou ming!'},
+{cat:'Emergencia',es:'Necesito un médico',zh:'我需要看医生',py:'Wǒ xūyào kàn yīshēng',sound:'uo shu-iao kan yi-sheng'},
+{cat:'Emergencia',es:'Llamar a la policía',zh:'报警',py:'Bào jǐng',sound:'bao ying'},
+{cat:'Social',es:'¿Puedo hacer una foto?',zh:'可以拍照吗？',py:'Kěyǐ pāizhào ma?',sound:'keyi pai-yao ma?'},
+{cat:'Social',es:'¿Hay WiFi?',zh:'有WiFi吗？',py:'Yǒu WiFi ma?',sound:'iou WiFi ma?'},
+{cat:'Social',es:'Muy bonito',zh:'很漂亮',py:'Hěn piàoliang',sound:'jen piao-liang'},
+{cat:'Social',es:'Me llamo...',zh:'我叫...',py:'Wǒ jiào...',sound:'uo chiao...'},
+{cat:'Números',es:'1, 2, 3, 4, 5',zh:'一, 二, 三, 四, 五',py:'Yī, Èr, Sān, Sì, Wǔ',sound:'yi, ar, san, si, u'},
+{cat:'Números',es:'6, 7, 8, 9, 10',zh:'六, 七, 八, 九, 十',py:'Liù, Qī, Bā, Jiǔ, Shí',sound:'liou, chi, ba, chiou, shi'}
+];
+
+function rFra(){var h='<div class="st">🗣️ Frases para enseñar</div>';
+h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:14px">Tarjetas con el carácter grande — enseña el móvil al taxista, camarero o vendedor.</p>';
+var cats={};FRASES.forEach(function(f){if(!cats[f.cat])cats[f.cat]=[];cats[f.cat].push(f)});
+var catEmoji={Básico:'👋',Compras:'🛒',Restaurante:'🍜',Transporte:'🚕',Emergencia:'🆘',Social:'📸',Números:'🔢'};
+Object.keys(cats).forEach(function(cat){
+h+='<div class="st" style="font-size:.95em;margin-top:20px">'+(catEmoji[cat]||'📌')+' '+cat+'</div>';
+cats[cat].forEach(function(f){
+h+='<div style="background:var(--card);border-radius:14px;padding:16px;margin-bottom:10px;border:1px solid rgba(255,255,255,.06);cursor:pointer" onclick="this.classList.toggle(\'fra-flip\')">';
+h+='<div style="text-align:center;margin-bottom:10px"><span style="font-size:2.2em;letter-spacing:4px">'+f.zh+'</span></div>';
+h+='<div style="text-align:center;color:var(--gold);font-size:1em;margin-bottom:6px">'+f.py+'</div>';
+h+='<div style="text-align:center;color:var(--text2);font-size:.82em;margin-bottom:4px">🔊 '+f.sound+'</div>';
+h+='<div style="text-align:center;background:var(--card2);border-radius:8px;padding:8px;font-size:.9em;color:var(--text)">🇪🇸 '+f.es+'</div>';
+h+='</div>';
+});
+});
+document.getElementById('p-fra').innerHTML=h}
+
 function rTips(){var h='<div class="st">🚫 Cosas que NO hacer en China</div>';
 h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:14px">Errores típicos de turistas. Leed esto antes de ir.</p>';
 DONT.forEach(function(d,i){h+='<div class="dont-card"><div style="display:flex;align-items:start"><span class="num">'+(i+1)+'</span><div><b style="color:var(--text)">'+d.title+'</b><p>'+d.desc+'</p></div></div></div>'});
@@ -707,14 +814,14 @@ async function init(){var cached=loadCache();
 try{var[ruta,aloj,ck,apps,links,ver]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links),fetchCSV(SH.ver)]);
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);procVer(ver);saveCache()}
 catch(e){if(cached){D=cached}else{document.getElementById('ld').querySelector('p').textContent='Sin conexión y sin datos en caché.';return}}
-uCD();setInterval(uCD,1000);rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rLnk();
+uCD();setInterval(uCD,1000);rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rFra();rLnk();loadTheme();buildSearchIndex();
 document.getElementById('ld').classList.add('hide');setTimeout(function(){document.getElementById('ld').style.display='none'},600);
 updTime();setInterval(autoRefresh,180000)}
 async function autoRefresh(){
 try{var[ruta,aloj,ck,apps,links,ver]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links),fetchCSV(SH.ver)]);
 D={days:[],hotels:[],cl:{},apps:[],links:[],ver:[]};
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);procVer(ver);saveCache();
-rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rLnk();updTime()}catch(e){}}
+rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rFra();rLnk();buildSearchIndex();updTime()}catch(e){}}
 function updTime(){var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');
 document.querySelector('.rbar').innerHTML='<div class="ldot"></div> Actualizado a las '+h+':'+m+' · Toca para refrescar'}
 init();
