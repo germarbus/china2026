@@ -356,7 +356,7 @@ TRAV[tkA+'→'+tkB]=(tr.indexOf('Avión')>=0?'✈️':'🚅')+' '+trayFmt+(ht?' 
 if(exc)exc.split('\n').forEach(function(e){e=e.replace(/^-\s*/,'').trim();if(e){var hp=e.indexOf('€')>=0;tags.push({t:(hp?'💰 ':'🎯 ')+e,c:hp?'t-pr':'t-ac'})}});
 if(pt){pt=pt.trim();if(pt){var ptVal=parseNum(pt);if(!isNaN(ptVal)&&ptVal>0){tags.push({t:'💰 Transporte: '+ptVal+'€',c:'t-pr'})}else{tags.push({t:'💰 Transporte: '+pt,c:'t-pr'})}}}
 var org=iOrg>=0?(r[iOrg]||'').trim():'';
-D.days.push({d:dn,date:dstr,dow:DW[dow]||dow,city:city,emoji:CE[cl]||'📍',img:ik,color:CC[cl]||'#457b9d',desc:desc||'Día en '+city,tags:tags,cl:cl,org:org})}}
+D.days.push({d:dn,date:dstr,rawDate:jd,dow:DW[dow]||dow,city:city,emoji:CE[cl]||'📍',img:ik,color:CC[cl]||'#457b9d',desc:desc||'Día en '+city,tags:tags,cl:cl,org:org})}}
 function procAloj(rows){if(rows.length<2)return;var seen={};
 var hdr=rows[0]||[];var iCity=-1,iName=-1,iAddr=-1,iBk=-1,iType=-1,iPrice=-1,iPaid=-1,iWhen=-1,iDate=-1;
 for(var c=0;c<hdr.length;c++){var h=(hdr[c]||'').toLowerCase().trim();if(h.indexOf('ciudad')>=0)iCity=c;else if(h.indexOf('alojamiento')>=0)iName=c;else if(h.indexOf('direcci')>=0)iAddr=c;else if(h.indexOf('desayuno')>=0)iBk=c;else if(h.indexOf('tipo')>=0)iType=c;else if(h.indexOf('precio')>=0)iPrice=c;else if(h.indexOf('pagado')>=0)iPaid=c;else if(h.indexOf('paga')>=0&&h.indexOf('pagado')<0)iWhen=c;else if(h.indexOf('día')>=0||h.indexOf('dia')>=0||h.indexOf('fecha')>=0)iDate=c}
@@ -403,14 +403,24 @@ var pnd=D.hotels.filter(function(h){return h.price===null}).map(function(h){retu
 if(pnd.length)h+='<div class="st">⚠️ Pendiente</div><p style="color:var(--text2);font-size:.88em">Falta alojamiento: <b style="color:var(--gold)">'+pnd.join(', ')+'</b></p>';
 document.getElementById('p-res').innerHTML=h}
 
-function rRut(){var h='',prev='';D.days.forEach(function(day){
+function rRut(){var h='',prev='';
+var now=new Date();var todayStr=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+D.days.forEach(function(day){
 var cur=day.city.split('→')[0].split('/')[0].split('(')[0].trim();
 if(prev&&prev!==cur){var tt=getTrav(prev,cur);if(tt)h+='<div class="trav">🚀 '+prev+' → '+cur+': <b style="margin-left:4px">'+tt+'</b></div>'}prev=cur;
-h+='<div class="dc"><div class="dh"><div class="dnum" style="background:'+day.color+'"><span class="n">'+day.d+'</span>'+day.dow.substring(0,3)+'</div><div class="di"><div class="c">'+day.emoji+' '+day.city+(day.org?'<span class="org-badge '+(day.org.toLowerCase()==='si'||day.org==='TRUE'?'org-yes':'org-no')+'">'+(day.org.toLowerCase()==='si'||day.org==='TRUE'?'✅':'⏳')+'</span>':'')+'</div><div class="b">'+day.date+' — '+day.desc.substring(0,55)+'...</div></div><div class="dchev">▼</div></div>';
+var isToday=day.rawDate&&(day.rawDate.getFullYear()+'-'+(day.rawDate.getMonth()+1)+'-'+day.rawDate.getDate())===todayStr;
+var isPast=day.rawDate&&day.rawDate<now&&!isToday;
+var todayStyle=isToday?' style="border:2px solid var(--gold);box-shadow:0 0 16px rgba(244,162,97,.25)"':'';
+var todayId=isToday?' id="today-card"':'';
+h+='<div class="dc"'+todayStyle+todayId+'>';
+if(isToday)h+='<div style="background:var(--gold);color:#000;text-align:center;padding:4px 0;font-size:.75em;font-weight:700;letter-spacing:1px">📍 HOY</div>';
+h+='<div class="dh"><div class="dnum" style="background:'+day.color+(isPast?';opacity:.5':'')+'"><span class="n">'+day.d+'</span>'+day.dow.substring(0,3)+'</div><div class="di"><div class="c">'+day.emoji+' '+day.city+(day.org?'<span class="org-badge '+(day.org.toLowerCase()==='si'||day.org==='TRUE'?'org-yes':'org-no')+'">'+(day.org.toLowerCase()==='si'||day.org==='TRUE'?'✅':'⏳')+'</span>':'')+'</div><div class="b">'+day.date+' — '+day.desc.substring(0,55)+'...</div></div><div class="dchev">▼</div></div>';
 h+='<div class="db"><p>'+day.desc+'</p>';
 if(day.tags.length){h+='<div style="margin-top:8px">';day.tags.forEach(function(t){h+='<span class="dtag '+t.c+'">'+t.t+'</span>'});h+='</div>'}
 var rec=getRec(day.cl);if(rec){h+='<div class="rec"><div class="rec-title">💡 Recomendaciones</div><p>'+rec+'</p></div>'}
-h+='</div></div>'});document.getElementById('p-rut').innerHTML=h}
+h+='</div></div>'});document.getElementById('p-rut').innerHTML=h;
+/* Auto-scroll to today if visible */
+var tc=document.getElementById('today-card');if(tc&&document.getElementById('p-rut').classList.contains('active')){setTimeout(function(){tc.scrollIntoView({behavior:'smooth',block:'center'})},500)}}
 
 function rHot(){var h='';D.hotels.forEach(function(ht){var ip=ht.price===null;
 h+='<div class="hc'+(ip?' hcp':'')+'">';
