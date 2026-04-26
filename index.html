@@ -720,8 +720,8 @@ Object.keys(REST).forEach(function(k){var r=REST[k];
 r.dishes.forEach(function(d){SEARCH_DATA.push({type:'Gastronomía',section:r.city,title:d.name,text:d.desc+(d.price?' '+d.price:''),tab:'rst'})});
 });
 FRASES.forEach(function(f){SEARCH_DATA.push({type:'Frases',section:f.cat,title:f.es,text:f.zh+' '+f.py+' '+f.es,tab:'fra'})});
-D.days.forEach(function(d){SEARCH_DATA.push({type:'Ruta',section:d.city,title:'Día — '+d.city,text:d.city+' '+d.transport+' '+(d.org||''),tab:'rut'})});
-D.ver.forEach(function(v){if(v.que)SEARCH_DATA.push({type:'Qué ver',section:v.ciudad,title:'Día '+v.fecha,text:v.que+' '+(v.tip||''),tab:'ver'})});
+D.days.forEach(function(d){SEARCH_DATA.push({type:'Ruta',section:d.city,title:'Día '+d.d+' — '+d.city,text:d.city+' '+d.desc+' '+(d.org||''),tab:'rut'})});
+D.ver.forEach(function(v){if(v.que)SEARCH_DATA.push({type:'Qué ver',section:v.ciudad,title:'Día '+v.fecha+' — '+v.ciudad,text:v.que+' '+(v.tip||''),tab:'ver'})});
 }
 function doSearch(q){
 var res=document.getElementById('searchResults');
