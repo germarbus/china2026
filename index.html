@@ -8,16 +8,16 @@
 <title>China 2026 🐉</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Playfair+Display:wght@700&display=swap');
-:root{--bg:#0a0a0f;--card:#16161f;--card2:#1e1e2a;--accent:#e63946;--gold:#f4a261;--green:#2a9d8f;--text:#f1faee;--text2:#a8a8b3;--blue:#457b9d;--purple:#6c5ce7}
-:root.light{--bg:#f5f5f0;--card:#ffffff;--card2:#eeeee8;--accent:#d62839;--gold:#c87a30;--green:#248277;--text:#1a1a2e;--text2:#555566;--blue:#3a6d8c;--purple:#5a4dbf}
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap');
+:root{--bg:#07070d;--card:#111119;--card2:#1a1a26;--accent:#e63946;--gold:#f0b060;--green:#2a9d8f;--text:#eef0f2;--text2:#8a8a9a;--blue:#457b9d;--purple:#6c5ce7;--glow:rgba(240,176,96,.12)}
+:root.light{--bg:#f4f3ef;--card:#ffffff;--card2:#ece9e2;--accent:#d62839;--gold:#b87a2e;--green:#248277;--text:#1a1a2e;--text2:#666678;--blue:#3a6d8c;--purple:#5a4dbf;--glow:rgba(184,122,46,.08)}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-tap-highlight-color:transparent;letter-spacing:.01em}
 .ld{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s}.ld.hide{opacity:0;pointer-events:none}
 .spinner{width:50px;height:50px;border:3px solid var(--card2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.ld p{margin-top:16px;color:var(--text2);font-size:.9em}
 .rbar{background:var(--card2);text-align:center;padding:8px;font-size:.72em;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
 .ldot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero{position:relative;padding:60px 20px 30px;text-align:center;background:linear-gradient(135deg,var(--card) 0%,var(--bg) 50%,var(--card) 100%);overflow:hidden}.hero::before{content:'🐉';position:absolute;font-size:200px;opacity:.06;top:-30px;right:-40px}
-.hero h1{font-family:'Playfair Display',serif;font-size:2.4em;background:linear-gradient(135deg,var(--gold),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero .sub{color:var(--text2);margin-top:6px;font-size:.95em}
+.hero{position:relative;padding:60px 20px 30px;text-align:center;background:radial-gradient(ellipse at 30% 20%,rgba(240,176,96,.08) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(230,57,70,.06) 0%,transparent 50%),var(--bg);overflow:hidden}.hero::before{content:'🐉';position:absolute;font-size:200px;opacity:.04;top:-30px;right:-40px;animation:floatDragon 20s ease-in-out infinite}@keyframes floatDragon{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(2deg)}}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.6em;font-weight:700;background:linear-gradient(135deg,var(--gold) 0%,#f5d49a 40%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.02em}.hero .sub{color:var(--text2);margin-top:6px;font-size:.9em;letter-spacing:.03em}
 .cd{display:flex;gap:12px;justify-content:center;margin:20px 0 10px}.cdb{background:var(--card);border:1px solid rgba(228,57,70,.3);border-radius:12px;padding:10px 14px;min-width:60px;text-align:center}.cdb .n{font-size:1.6em;font-weight:700;color:var(--gold)}.cdb .l{font-size:.7em;color:var(--text2);text-transform:uppercase}
 .crew{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}.cav{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75em;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.15)}
 .tabs{display:flex;overflow-x:auto;background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(128,128,128,.15);-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
