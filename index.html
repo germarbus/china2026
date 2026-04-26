@@ -393,6 +393,8 @@ document.getElementById('hsub').textContent='30 abril — 17 mayo · '+NP+' viaj
 var hC=D.hotels.filter(function(h){return h.price!==null}).length,hT=D.hotels.length;var pct=Math.round(((hC/hT)*0.7+0.3)*100);
 h+='<div class="st">📊 Progreso</div><div class="pw"><div class="pr-row"><span class="lb">Organización</span><span class="vl">'+pct+'%</span></div><div class="pr-bar"><div class="pr-fill" style="width:'+pct+'%;background:linear-gradient(90deg,var(--green),var(--gold))"></div></div>';
 h+='<div class="pr-row"><span class="lb">🏨 Alojamientos</span><span class="vl">'+hC+'/'+hT+'</span></div><div class="pr-bar"><div class="pr-fill" style="width:'+Math.round(hC/hT*100)+'%;background:var(--blue)"></div></div></div>';
+/* Dual clock */
+h+='<div id="dualClock" style="background:var(--card);border-radius:14px;padding:14px;margin:14px 0;display:flex;justify-content:space-around;align-items:center;border:1px solid rgba(255,255,255,.06)"><div style="text-align:center"><div style="font-size:.7em;color:var(--text2)">🇪🇸 España</div><div id="clkES" style="font-size:1.4em;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums">--:--</div><div id="clkESday" style="font-size:.65em;color:var(--text2)"></div></div><div style="color:var(--text2);font-size:.8em;padding:0 8px">+6h</div><div style="text-align:center"><div style="font-size:.7em;color:var(--text2)">🇨🇳 China</div><div id="clkCN" style="font-size:1.4em;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums">--:--</div><div id="clkCNday" style="font-size:.65em;color:var(--text2)"></div></div></div>';
 var bg=calcB(),tot=0;bg.forEach(function(c){c.items.forEach(function(i){if(i.t)tot+=i.t})});
 h+='<div class="sg"><div class="sc"><div class="v">'+D.days.length+'</div><div class="lb">Días</div></div><div class="sc"><div class="v">'+nci+'</div><div class="lb">Ciudades</div></div><div class="sc"><div class="v">'+NP+'</div><div class="lb">Viajeros</div></div><div class="sc"><div class="v">'+Math.round(tot/NP)+'€</div><div class="lb">€/persona</div></div></div>';
 h+='<div class="st">🗺️ Ruta</div><div class="rv">';var rc=['Madrid'];D.days.forEach(function(d){var c=d.city.split('→')[0].split('/')[0].split('(')[0].trim();if(rc[rc.length-1]!==c)rc.push(c)});if(rc[rc.length-1]!=='Madrid')rc.push('Madrid');rc.forEach(function(c){h+='<div class="rs" onclick="goToCity(\''+c.replace(/'/g,"\\'")+'\')" role="button" aria-label="Ir a '+c+'"><div class="rl"></div><div class="rd"></div><div class="rla">'+c+'</div></div>'});h+='</div>';
@@ -421,20 +423,67 @@ if(ht.paid)h+='<span style="color:var(--green)">✅ Pagado</span>';else if(ht.wh
 if(ht.bk)h+='<span>🥐 Desayuno</span>';
 h+='</div></div>'});document.getElementById('p-hot').innerHTML=h}
 
-function rMap(){if(window._m)return;window._m=1;setTimeout(function(){var m=L.map('map').setView([33,105],3);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(m);
-var co=[];CM.forEach(function(c){
-var ic=L.divIcon({html:'<div style="font-size:24px;text-shadow:0 2px 8px rgba(0,0,0,.8)">'+c.e+'</div>',className:'',iconSize:[30,30]});
-L.marker([c.la,c.lo],{icon:ic}).addTo(m).bindPopup('<b>'+c.n+'</b>');co.push([c.la,c.lo])});
-// Animated route
+function rMap(){if(window._m)return;window._m=1;setTimeout(function(){
+var tileUrl=document.documentElement.classList.contains('light')?'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png':'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+var m=L.map('map').setView([33,105],3);
+L.tileLayer(tileUrl,{maxZoom:18}).addTo(m);
+/* City schedule: dates when we're in each city */
+var SCHED=[
+{city:'Madrid',la:40.4168,lo:-3.7038,e:'🏠',from:'2026-04-30',to:'2026-04-30'},
+{city:'Beijing',la:39.9042,lo:116.4074,e:'🏯',from:'2026-04-30',to:'2026-05-04'},
+{city:"Xi'an",la:34.3416,lo:108.9398,e:'🕌',from:'2026-05-04',to:'2026-05-05'},
+{city:'Chengdu',la:30.5728,lo:104.0668,e:'🐼',from:'2026-05-05',to:'2026-05-07'},
+{city:'Wulingyuan',la:29.3499,lo:110.55,e:'⛰️',from:'2026-05-07',to:'2026-05-09'},
+{city:'Zhangjiajie',la:29.1169,lo:110.4783,e:'🏔️',from:'2026-05-09',to:'2026-05-11'},
+{city:'Fenghuang',la:27.9481,lo:109.5996,e:'🏘️',from:'2026-05-11',to:'2026-05-12'},
+{city:'Furong',la:28.75,lo:109.9,e:'🌊',from:'2026-05-12',to:'2026-05-13'},
+{city:'Chongqing',la:29.4316,lo:106.9123,e:'🌃',from:'2026-05-13',to:'2026-05-17'},
+{city:'Madrid',la:40.4168,lo:-3.7038,e:'🏠',from:'2026-05-17',to:'2026-05-18'}
+];
+var now=new Date();var co=[];var currentCity=null;var visitedIdx=-1;
+SCHED.forEach(function(s,i){
+var fd=new Date(s.from+'T00:00:00+08:00');
+var td=new Date(s.to+'T23:59:59+08:00');
+co.push([s.la,s.lo]);
+if(now>=fd&&now<=td)currentCity=s;
+if(now>=fd)visitedIdx=i;
+});
+/* Draw ghost line (full route) */
+L.polyline(co,{color:'#f4a261',weight:1,opacity:.15,dashArray:'6 6'}).addTo(m);
+/* Draw visited route in solid */
+if(visitedIdx>=0){
+var visited=co.slice(0,visitedIdx+1);
+L.polyline(visited,{color:'var(--gold)',weight:3,opacity:.8}).addTo(m);
+/* Draw remaining route dashed */
+if(visitedIdx<co.length-1){
+var remaining=co.slice(visitedIdx);
+L.polyline(remaining,{color:'#f4a261',weight:2,opacity:.3,dashArray:'8 8'}).addTo(m);
+}}
+/* City markers */
+SCHED.forEach(function(s,i){
+var visited=i<=visitedIdx;
+var isCurrent=currentCity&&s.city===currentCity.city&&s.from===currentCity.from;
+var opacity=visited?1:.4;
+var size=isCurrent?36:24;
+var glow=isCurrent?' filter:drop-shadow(0 0 8px #f4a261);animation:pulse 2s infinite;':'';
+var ic=L.divIcon({html:'<div style="font-size:'+size+'px;text-shadow:0 2px 8px rgba(0,0,0,.8);opacity:'+opacity+';'+glow+'">'+s.e+'</div>',className:'',iconSize:[size,size]});
+var marker=L.marker([s.la,s.lo],{icon:ic}).addTo(m);
+var popupText='<b>'+s.city+'</b>';
+if(isCurrent)popupText+='<br><span style="color:#2a9d8f;font-weight:700">📍 ¡Estáis aquí!</span>';
+else if(visited)popupText+='<br><span style="color:#a8a8b3;font-size:.85em">✅ Visitado</span>';
+else popupText+='<br><span style="color:#a8a8b3;font-size:.85em">⏳ Próximamente</span>';
+marker.bindPopup(popupText);
+if(isCurrent)marker.openPopup();
+});
+/* Before trip: show animated draw */
+if(visitedIdx<0){
 var routeLine=L.polyline([],{color:'#f4a261',weight:3,opacity:.8}).addTo(m);
-var ghostLine=L.polyline(co,{color:'#f4a261',weight:1,opacity:.15,dashArray:'6 6'}).addTo(m);
 var step=0;var animInterval=setInterval(function(){
 if(step>=co.length){clearInterval(animInterval);
-// Add moving dot at the end
 var plane=L.divIcon({html:'<div style="font-size:18px">✈️</div>',className:'',iconSize:[20,20]});
 L.marker(co[co.length-1],{icon:plane}).addTo(m);return}
 routeLine.addLatLng(co[step]);step++},400);
+}
 m.fitBounds(co,{padding:[30,30]})},300)}
 
 function rGas(){var h='',bg=calcB(),tot=0;bg.forEach(function(c){c.items.forEach(function(i){if(i.t)tot+=i.t})});var pp=Math.round(tot/NP*100)/100;
@@ -806,6 +855,20 @@ return h}
 function lCk(){try{return JSON.parse(localStorage.getItem('cn26ck')||'{}')}catch(e){return{}}}
 function sCk(d){try{localStorage.setItem('cn26ck',JSON.stringify(d))}catch(e){}}
 function uCD(){var t=new Date('2026-04-30T11:00:00')-new Date(),el=document.getElementById('cd');if(t<=0){el.innerHTML='<div style="color:var(--gold);font-size:1.2em;font-weight:700">¡VIAJE EN MARCHA! 🐉🎉</div>';return}var d=Math.floor(t/864e5),h=Math.floor(t%864e5/36e5),m=Math.floor(t%36e5/6e4),s=Math.floor(t%6e4/1e3);el.innerHTML='<div class="cdb"><div class="n">'+d+'</div><div class="l">días</div></div><div class="cdb"><div class="n">'+h+'</div><div class="l">h</div></div><div class="cdb"><div class="n">'+m+'</div><div class="l">min</div></div><div class="cdb"><div class="n">'+s+'</div><div class="l">seg</div></div>'}
+function uDualClock(){
+var dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+var now=new Date();
+var esOpts={timeZone:'Europe/Madrid',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false};
+var cnOpts={timeZone:'Asia/Shanghai',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false};
+var esDayOpts={timeZone:'Europe/Madrid',weekday:'short',day:'numeric',month:'short'};
+var cnDayOpts={timeZone:'Asia/Shanghai',weekday:'short',day:'numeric',month:'short'};
+var elES=document.getElementById('clkES');
+var elCN=document.getElementById('clkCN');
+if(elES){elES.textContent=now.toLocaleTimeString('es-ES',esOpts);
+document.getElementById('clkESday').textContent=now.toLocaleDateString('es-ES',esDayOpts)}
+if(elCN){elCN.textContent=now.toLocaleTimeString('es-ES',cnOpts);
+document.getElementById('clkCNday').textContent=now.toLocaleDateString('es-ES',cnDayOpts)}
+}
 document.getElementById('cr').innerHTML=CRW.map(function(c){return '<div class="cav" style="background:'+c.c+'">'+c.n.substring(0,2)+'</div>'}).join('');
 document.getElementById('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.getElementById('p-'+t.getAttribute('data-t')).classList.add('active');if(t.getAttribute('data-t')==='map')rMap();});
 document.addEventListener('click',function(e){var h=e.target.closest('.dh');if(h)h.parentNode.classList.toggle('open');var ci=e.target.closest('.ci');if(ci){var k=ci.getAttribute('data-ck'),ck=lCk();ck[k]=!ck[k];sCk(ck);rMal()}});
@@ -814,7 +877,7 @@ async function init(){var cached=loadCache();
 try{var[ruta,aloj,ck,apps,links,ver]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links),fetchCSV(SH.ver)]);
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);procVer(ver);saveCache()}
 catch(e){if(cached){D=cached}else{document.getElementById('ld').querySelector('p').textContent='Sin conexión y sin datos en caché.';return}}
-uCD();setInterval(uCD,1000);rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rFra();rLnk();loadTheme();buildSearchIndex();
+uCD();uDualClock();setInterval(function(){uCD();uDualClock()},1000);rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rFra();rLnk();loadTheme();buildSearchIndex();
 document.getElementById('ld').classList.add('hide');setTimeout(function(){document.getElementById('ld').style.display='none'},600);
 updTime();setInterval(autoRefresh,180000)}
 async function autoRefresh(){
