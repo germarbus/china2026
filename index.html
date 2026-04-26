@@ -57,8 +57,8 @@
 .lnk{display:block;background:var(--card);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,.05);text-decoration:none;color:var(--text)}
 .lnk:active{background:var(--card2)}.lnk .lt{font-weight:700;font-size:.9em;margin-bottom:2px}.lnk .ld2{font-size:.78em;color:var(--text2)}
 .mbtn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--card);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.3em;cursor:pointer;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,.5)}.mbtn.on{background:var(--green);border-color:var(--green)}
-.rv{display:flex;overflow-x:auto;gap:0;padding:10px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-bottom:16px}.rv::-webkit-scrollbar{display:none}
-.rs{display:flex;flex-direction:column;align-items:center;min-width:70px;position:relative}.rd{width:16px;height:16px;border-radius:50%;border:3px solid var(--gold);background:var(--bg);z-index:2}.rl{position:absolute;top:8px;left:50%;width:100%;height:2px;background:var(--gold);opacity:.3}.rs:last-child .rl{display:none}.rla{font-size:.65em;margin-top:6px;color:var(--text2);text-align:center;max-width:70px}
+.rv{display:flex;flex-wrap:wrap;gap:0;padding:10px 0;justify-content:center;margin-bottom:16px}
+.rs{display:flex;flex-direction:column;align-items:center;min-width:55px;position:relative}.rd{width:12px;height:12px;border-radius:50%;border:2.5px solid var(--gold);background:var(--bg);z-index:2}.rl{position:absolute;top:6px;left:50%;width:100%;height:2px;background:var(--gold);opacity:.3}.rs:last-child .rl{display:none}.rla{font-size:.6em;margin-top:5px;color:var(--text2);text-align:center;max-width:58px}
 .sg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.sc{background:rgba(255,255,255,.03);backdrop-filter:blur(8px);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.06);transition:transform .2s}.sc:active{transform:scale(.97)}.sc .v{font-size:1.5em;font-weight:700;color:var(--gold);font-family:'Cormorant Garamond',serif}.sc .lb{font-size:.72em;color:var(--text2);margin-top:2px;letter-spacing:.03em}
 .ag{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.ac{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.05)}.ac .ai{font-size:1.8em;margin-bottom:4px}.ac .an{font-weight:700;font-size:.85em}.ac .au{font-size:.72em;color:var(--text2)}
 
@@ -123,14 +123,15 @@ html{scroll-behavior:smooth}
 <body>
 <div class="ld" id="ld"><div class="spinner"></div><p>Cargando datos del viaje... 🐉</p></div>
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
-<div class="hero"><div style="position:absolute;top:16px;right:16px;display:flex;gap:8px"><button id="themeBtn" onclick="toggleTheme()" style="background:var(--card2);border:1px solid rgba(128,128,128,.2);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:.85em;color:var(--text)">☀️ Claro</button></div><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
-<div id="searchBar" style="padding:3px 16px 4px;background:var(--bg)"><div style="max-width:600px;margin:0 auto;position:relative"><input id="searchIn" type="text" placeholder="Buscar..." oninput="doSearch(this.value)" style="width:100%;padding:5px 32px 5px 28px;border-radius:20px;border:1px solid var(--card2);background:var(--card);color:var(--text);font-size:.72em;outline:none"><span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:.65em;opacity:.5;pointer-events:none">🔍</span><button id="searchClear" onclick="clearSearch()" style="display:none;position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text2);cursor:pointer;font-size:.7em;padding:2px 4px">✕</button></div><div id="searchResults" style="max-width:600px;margin:4px auto 0;display:none"></div></div>
+<div class="hero"><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
 <div style="position:sticky;top:0;z-index:100">
 <div style="position:relative">
-<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="fra">Frases</div><div class="tab" data-t="log">Logros</div><div class="tab" data-t="quiz">Quiz</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
+<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="fra">Frases</div><div class="tab" data-t="log">Logros</div><div class="tab" data-t="quiz">Quiz</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div><div id="searchToggle" onclick="toggleSearch()" style="flex:0 0 auto;padding:13px 14px;cursor:pointer;font-size:.85em;color:var(--text2);transition:color .2s">🔍</div><div id="themeBtn" onclick="toggleTheme()" style="flex:0 0 auto;padding:13px 14px;cursor:pointer;font-size:.85em;color:var(--text2);transition:color .2s">☀️</div></div>
 <div id="tabFadeR" style="position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(90deg,transparent,var(--bg));pointer-events:none;z-index:101;transition:opacity .3s"></div>
 <div id="tabFadeL" style="position:absolute;left:0;top:0;bottom:0;width:40px;background:linear-gradient(-90deg,transparent,var(--bg));pointer-events:none;z-index:101;opacity:0;transition:opacity .3s"></div>
-</div></div>
+</div>
+<div id="searchDrop" style="display:none;padding:6px 12px 8px;background:var(--card);border-bottom:1px solid rgba(255,255,255,.06)"><div style="max-width:600px;margin:0 auto;position:relative"><input id="searchIn" type="text" placeholder="Buscar en toda la app..." oninput="doSearch(this.value)" style="width:100%;padding:8px 32px 8px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:var(--card2);color:var(--text);font-size:.82em;outline:none"><button id="searchClear" onclick="toggleSearch()" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text2);cursor:pointer;font-size:.8em">✕</button></div><div id="searchResults" style="max-width:600px;margin:6px auto 0;display:none"></div></div>
+</div>
 <div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-ver"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-zjj"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-vid"></div><div class="pnl" id="p-fra"></div><div class="pnl" id="p-log"></div><div class="pnl" id="p-quiz"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
 
 <div class="zoom-overlay" id="zoomOverlay" onclick="this.classList.remove('show')"><img id="zoomImg" src="" alt=""></div>
@@ -701,11 +702,11 @@ function toggleTheme(){
 var root=document.documentElement;
 var isLight=root.classList.toggle('light');
 localStorage.setItem('china26_theme',isLight?'light':'dark');
-document.getElementById('themeBtn').innerHTML=isLight?'🌙 Oscuro':'☀️ Claro';
+document.getElementById('themeBtn').innerHTML=isLight?'🌙':'☀️';
 }
 function loadTheme(){
 var t=localStorage.getItem('china26_theme');
-if(t==='light'){document.documentElement.classList.add('light');document.getElementById('themeBtn').innerHTML='🌙 Oscuro'}
+if(t==='light'){document.documentElement.classList.add('light');document.getElementById('themeBtn').innerHTML='🌙'}
 }
 
 /* === GLOBAL SEARCH === */
@@ -747,7 +748,8 @@ h+='<p style="font-size:.78em;color:var(--text2);margin-top:4px;line-height:1.3"
 });
 res.innerHTML=h;res.style.display='block';
 }
-function clearSearch(){document.getElementById('searchIn').value='';document.getElementById('searchResults').style.display='none';document.getElementById('searchClear').style.display='none'}
+function clearSearch(){document.getElementById('searchIn').value='';document.getElementById('searchResults').style.display='none'}
+function toggleSearch(){var drop=document.getElementById('searchDrop');var isOpen=drop.style.display!=='none';drop.style.display=isOpen?'none':'block';if(!isOpen){clearSearch();setTimeout(function(){document.getElementById('searchIn').focus()},100)}else{clearSearch()}}
 function goToTab(t){document.querySelectorAll('.tab').forEach(function(tb){tb.classList.toggle('active',tb.dataset.t===t)});document.querySelectorAll('.pnl').forEach(function(p){p.classList.toggle('active',p.id==='p-'+t)});window.scrollTo(0,document.querySelector('.tabs').offsetTop)}
 
 /* === FRASES TARJETAS === */
