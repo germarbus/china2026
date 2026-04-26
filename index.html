@@ -717,7 +717,8 @@ if(city.pop)SEARCH_DATA.push({type:'Historia',section:city.city,title:city.city+
 });
 DONT.forEach(function(d){SEARCH_DATA.push({type:'Tips',section:'No hacer',title:d.title,text:d.desc,tab:'tips'})});
 Object.keys(REST).forEach(function(k){var r=REST[k];
-r.dishes.forEach(function(d){SEARCH_DATA.push({type:'Gastronomía',section:r.city,title:d.name,text:d.desc+(d.price?' '+d.price:''),tab:'rst'})});
+r.dishes.forEach(function(d){SEARCH_DATA.push({type:'Gastronomía',section:r.name,title:d,text:d+' '+r.name,tab:'rst'})});
+if(r.places)r.places.forEach(function(p){SEARCH_DATA.push({type:'Gastronomía',section:r.name,title:p,text:p+' '+r.name,tab:'rst'})});
 });
 FRASES.forEach(function(f){SEARCH_DATA.push({type:'Frases',section:f.cat,title:f.es,text:f.zh+' '+f.py+' '+f.es,tab:'fra'})});
 D.days.forEach(function(d){SEARCH_DATA.push({type:'Ruta',section:d.city,title:'Día '+d.d+' — '+d.city,text:d.city+' '+d.desc+' '+(d.org||''),tab:'rut'})});
