@@ -120,14 +120,14 @@ html{scroll-behavior:smooth}
 <div class="ld" id="ld"><div class="spinner"></div><p>Cargando datos del viaje... 🐉</p></div>
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
 <div class="hero"><div style="position:absolute;top:16px;right:16px;display:flex;gap:8px"><button id="themeBtn" onclick="toggleTheme()" style="background:var(--card2);border:1px solid rgba(128,128,128,.2);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:.85em;color:var(--text)">☀️ Claro</button></div><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
-<div id="searchBar" style="padding:8px 16px;background:var(--bg);position:sticky;top:0;z-index:101"><div style="display:flex;gap:8px;max-width:600px;margin:0 auto"><input id="searchIn" type="text" placeholder="🔍 Buscar en toda la app..." style="flex:1;padding:9px 14px;border-radius:10px;border:1px solid var(--card2);background:var(--card);color:var(--text);font-size:.85em;outline:none" oninput="doSearch(this.value)"><button id="searchClear" onclick="clearSearch()" style="display:none;padding:6px 12px;border-radius:10px;border:none;background:var(--card2);color:var(--text2);cursor:pointer;font-size:.85em">✕</button></div><div id="searchResults" style="max-width:600px;margin:8px auto 0;display:none"></div></div>
+<div id="searchBar" style="padding:4px 16px;background:var(--bg)"><div style="display:flex;gap:6px;max-width:600px;margin:0 auto"><input id="searchIn" type="text" placeholder="🔍 Buscar..." style="flex:1;padding:6px 12px;border-radius:20px;border:1px solid var(--card2);background:var(--card);color:var(--text);font-size:.78em;outline:none" oninput="doSearch(this.value)"><button id="searchClear" onclick="clearSearch()" style="display:none;padding:4px 10px;border-radius:20px;border:none;background:var(--card2);color:var(--text2);cursor:pointer;font-size:.78em">✕</button></div><div id="searchResults" style="max-width:600px;margin:6px auto 0;display:none"></div></div>
 <div style="position:sticky;top:0;z-index:100">
 <div style="position:relative">
-<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="fra">Frases</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
+<div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="fra">Frases</div><div class="tab" data-t="log">Logros</div><div class="tab" data-t="quiz">Quiz</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
 <div id="tabFadeR" style="position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(90deg,transparent,var(--bg));pointer-events:none;z-index:101;transition:opacity .3s"></div>
 <div id="tabFadeL" style="position:absolute;left:0;top:0;bottom:0;width:40px;background:linear-gradient(-90deg,transparent,var(--bg));pointer-events:none;z-index:101;opacity:0;transition:opacity .3s"></div>
 </div></div>
-<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-ver"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-zjj"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-vid"></div><div class="pnl" id="p-fra"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
+<div class="pnl active" id="p-res"></div><div class="pnl" id="p-rut"></div><div class="pnl" id="p-ver"></div><div class="pnl" id="p-hot"></div><div class="pnl" id="p-map"><div id="map"></div></div><div class="pnl" id="p-gas"></div><div class="pnl" id="p-mal"></div><div class="pnl" id="p-rst"></div><div class="pnl" id="p-tips"></div><div class="pnl" id="p-cli"></div><div class="pnl" id="p-zjj"></div><div class="pnl" id="p-hist"></div><div class="pnl" id="p-vid"></div><div class="pnl" id="p-fra"></div><div class="pnl" id="p-log"></div><div class="pnl" id="p-quiz"></div><div class="pnl" id="p-inf"></div><div class="pnl" id="p-lnk"></div>
 
 <div class="zoom-overlay" id="zoomOverlay" onclick="this.classList.remove('show')"><img id="zoomImg" src="" alt=""></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -372,9 +372,9 @@ var dateStr='';var jd=exD(r[iDate]);if(jd)dateStr=jd.getDate()+' '+MN[jd.getMont
 if(!city)continue;
 // Count nights: how many consecutive rows have this hotel name
 var nightCount=0;for(var j=i;j<rows.length;j++){if((rows[j][iName]||'').trim()===name||(rows[j][iCity]||'').trim()===city)nightCount++;else break}
-var dateOut='';if(nightCount>0){var jdOut=exD(rows[Math.min(i+nightCount,rows.length-1)][iDate]);if(jdOut)dateOut=jdOut.getDate()+' '+MN[jdOut.getMonth()]}
-D.hotels.push({city:city,name:name,addr:addr,bk:bk==='SI'||bk==='SÍ',type:type||'Hotel 🏨',price:isNaN(price)?null:price,paid:paid==='SI'||paid==='SÍ',when:when,dateIn:dateStr,dateOut:dateOut,nights:nightCount>1?nightCount+' noches':nightCount===1?'1 noche':''})}
-if(!D.hotels.some(function(h){return h.city.toLowerCase().indexOf('chongqing')>=0&&h.price!==null}))D.hotels.push({city:'Chongqing',name:'Pendiente',addr:'Zona Jiefangbei',bk:false,type:'Por confirmar ❓',price:null,paid:false,when:'',date:''})}
+var dateOut='';var jdOut=null;if(nightCount>0){jdOut=exD(rows[Math.min(i+nightCount,rows.length-1)][iDate]);if(jdOut)dateOut=jdOut.getDate()+' '+MN[jdOut.getMonth()]}
+D.hotels.push({city:city,name:name,addr:addr,bk:bk==='SI'||bk==='SÍ',type:type||'Hotel 🏨',price:isNaN(price)?null:price,paid:paid==='SI'||paid==='SÍ',when:when,dateIn:dateStr,dateOut:dateOut,nights:nightCount>1?nightCount+' noches':nightCount===1?'1 noche':'',rawIn:jd,rawOut:jdOut})}
+if(!D.hotels.some(function(h){return h.city.toLowerCase().indexOf('chongqing')>=0&&h.price!==null}))D.hotels.push({city:'Chongqing',name:'Pendiente',addr:'Zona Jiefangbei',bk:false,type:'Por confirmar ❓',price:null,paid:false,when:'',dateIn:'',dateOut:'',nights:'',rawIn:null,rawOut:null})}
 function procCk(rows){if(rows.length<2)return;var cl={'Equipaje':[],'Importantes':[]};for(var i=1;i<rows.length;i++){var r=rows[i];if(!r)continue;if((r[0]||'').trim())cl['Equipaje'].push(r[0].trim());if((r[3]||'').trim())cl['Importantes'].push(r[3].trim())}D.cl=cl}
 function procApps(rows){if(rows.length<2)return;var icons={alipay:'💳',wechat:'💬',amap:'🗺️',trip:'🚅',didi:'🚕',holafly:'📶'};
 var links={alipay:'https://apps.apple.com/app/alipay-simplify-your-life/id333206289',wechat:'https://apps.apple.com/app/wechat/id414478124',amap:'https://apps.apple.com/app/amap-gaode-map/id461703208',trip:'https://apps.apple.com/app/trip-com-book-flights-hotels/id681752345',didi:'https://apps.apple.com/app/didi-chuxing/id554499054',holafly:'https://apps.apple.com/app/holafly-esim/id1464920557'};
@@ -403,6 +403,23 @@ h+='<div id="dualClock" style="background:var(--card);border-radius:14px;padding
 var bg=calcB(),tot=0;bg.forEach(function(c){c.items.forEach(function(i){if(i.t)tot+=i.t})});
 h+='<div class="sg"><div class="sc"><div class="v">'+D.days.length+'</div><div class="lb">Días</div></div><div class="sc"><div class="v">'+nci+'</div><div class="lb">Ciudades</div></div><div class="sc"><div class="v">'+NP+'</div><div class="lb">Viajeros</div></div><div class="sc"><div class="v">'+Math.round(tot/NP)+'€</div><div class="lb">€/persona</div></div></div>';
 h+='<div class="st">🗺️ Ruta</div><div class="rv">';var rc=['Madrid'];D.days.forEach(function(d){var c=d.city.split('→')[0].split('/')[0].split('(')[0].trim();if(rc[rc.length-1]!==c)rc.push(c)});if(rc[rc.length-1]!=='Madrid')rc.push('Madrid');rc.forEach(function(c){h+='<div class="rs" onclick="goToCity(\''+c.replace(/'/g,"\\'")+'\')" role="button" aria-label="Ir a '+c+'"><div class="rl"></div><div class="rd"></div><div class="rla">'+c+'</div></div>'});h+='</div>';
+/* Distancias entre ciudades */
+var DIST=[
+{from:'Madrid',to:'Beijing',km:'9.200',mode:'✈️',time:'11h vuelo'},
+{from:'Beijing',to:"Xi'an",km:'1.200',mode:'🚅',time:'4h 30min'},
+{from:"Xi'an",to:'Chengdu',km:'660',mode:'🚅',time:'3h'},
+{from:'Chengdu',to:'Wulingyuan',km:'950',mode:'🚅+🚌',time:'5-6h'},
+{from:'Wulingyuan',to:'Zhangjiajie',km:'35',mode:'🚌',time:'40min'},
+{from:'Zhangjiajie',to:'Fenghuang',km:'230',mode:'🚌',time:'3h 30min'},
+{from:'Fenghuang',to:'Furong',km:'60',mode:'🚌',time:'1h 30min'},
+{from:'Furong',to:'Chongqing',km:'340',mode:'🚌',time:'5h'},
+{from:'Chongqing',to:'Madrid',km:'9.600',mode:'✈️',time:'13h (escala)'}
+];
+var totalKm=0;DIST.forEach(function(d){totalKm+=parseInt(d.km.replace('.',''))||0});
+h+='<div class="st">📏 Distancias</div><div style="background:var(--card);border-radius:12px;padding:12px;margin-bottom:16px;font-size:.82em">';
+h+='<div style="text-align:center;margin-bottom:10px;color:var(--gold);font-weight:700;font-size:1.1em">'+totalKm.toLocaleString('es-ES')+' km totales</div>';
+DIST.forEach(function(d){h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--text2)">'+d.from+' → '+d.to+'</span><span>'+d.mode+' '+d.km+' km · <b style="color:var(--gold)">'+d.time+'</b></span></div>'});
+h+='</div>';
 if(D.apps.length){h+='<div class="st">📱 Apps</div><div class="ag">';D.apps.forEach(function(a){h+='<div class="ac"'+(a.link?' onclick="window.open(\''+a.link+'\',\'_blank\')" style="cursor:pointer"':'')+'><div class="ai">'+a.icon+'</div><div class="an">'+a.name+'</div><div class="au">'+a.use+'</div>'+(a.link?'<div style="font-size:.65em;color:var(--blue);margin-top:4px">Descargar ↗</div>':'')+'</div>'});h+='</div>'}
 var pnd=D.hotels.filter(function(h){return h.price===null}).map(function(h){return h.city});
 if(pnd.length)h+='<div class="st">⚠️ Pendiente</div><p style="color:var(--text2);font-size:.88em">Falta alojamiento: <b style="color:var(--gold)">'+pnd.join(', ')+'</b></p>';
@@ -427,8 +444,12 @@ h+='</div></div>'});document.getElementById('p-rut').innerHTML=h;
 /* Auto-scroll to today if visible */
 var tc=document.getElementById('today-card');if(tc&&document.getElementById('p-rut').classList.contains('active')){setTimeout(function(){tc.scrollIntoView({behavior:'smooth',block:'center'})},500)}}
 
-function rHot(){var h='';D.hotels.forEach(function(ht){var ip=ht.price===null;
-h+='<div class="hc'+(ip?' hcp':'')+'">';
+function rHot(){var h='';var now=new Date();var todayD=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+D.hotels.forEach(function(ht){var ip=ht.price===null;
+var isTonight=ht.rawIn&&ht.rawOut&&todayD>=ht.rawIn&&todayD<=ht.rawOut;
+var isPast=ht.rawOut&&ht.rawOut<todayD;
+h+='<div class="hc'+(ip?' hcp':'')+'"'+(isTonight?' style="border:2px solid var(--gold);box-shadow:0 0 14px rgba(244,162,97,.2)"':'')+(isPast?' style="opacity:.5"':'')+(isTonight?' id="tonight-hotel"':'')+'>';
+if(isTonight)h+='<div style="background:var(--gold);color:#000;text-align:center;padding:3px 0;font-size:.72em;font-weight:700;letter-spacing:1px">🛏️ DORMÍS AQUÍ ESTA NOCHE</div>';
 h+='<div class="hci">'+ht.city+'</div><div class="hcn">'+ht.name+'</div>';
 if(ht.dateIn||ht.dateOut)h+='<div class="hcd">📅 '+(ht.dateIn||'?')+' → '+(ht.dateOut||'?')+(ht.nights?' ('+ht.nights+')':'')+'</div>';
 if(ht.addr)h+='<div class="hca">📍 '+ht.addr+'</div>';
@@ -776,6 +797,95 @@ h+='</div>';
 });
 document.getElementById('p-fra').innerHTML=h}
 
+/* === LOGROS === */
+var LOGROS=[
+{id:'muralla',icon:'🏯',title:'Conquistador de la Muralla',desc:'Subir a la Gran Muralla de Mutianyu',city:'Beijing',day:3},
+{id:'pato',icon:'🦆',title:'Maestro del Pato',desc:'Comer pato laqueado en Beijing',city:'Beijing',day:2},
+{id:'guerreros',icon:'⚔️',title:'Desenterrador de Guerreros',desc:'Visitar los Guerreros de Terracota',city:"Xi'an",day:5},
+{id:'roujiamo',icon:'🥙',title:'Hamburguesa Milenaria',desc:'Comer un Roujiamo en el Barrio Musulmán',city:"Xi'an",day:5},
+{id:'panda',icon:'🐼',title:'Amigo de los Pandas',desc:'Ver pandas en la base de Chengdu',city:'Chengdu',day:6},
+{id:'hotpot',icon:'🌶️',title:'Superviviente del Hot Pot',desc:'Sobrevivir al Hot Pot sichuanés',city:'Chengdu',day:7},
+{id:'bailong',icon:'🛗',title:'Elevado 326m',desc:'Subir en el ascensor Bailong',city:'Zhangjiajie',day:9},
+{id:'avatar',icon:'🏔️',title:'Pandora on Earth',desc:'Caminar entre los pilares de Avatar',city:'Zhangjiajie',day:9},
+{id:'cristal',icon:'🫣',title:'Sin Vértigo',desc:'Cruzar el puente de cristal',city:'Zhangjiajie',day:10},
+{id:'fenghuang',icon:'🏘️',title:'Ciudad del Fénix',desc:'Pasear Fenghuang de noche',city:'Fenghuang',day:12},
+{id:'furong',icon:'🌊',title:'Pueblo sobre la Cascada',desc:'Llegar a Furong',city:'Furong',day:13},
+{id:'cqhotpot',icon:'🔥',title:'Nivel Infernal',desc:'Hot Pot en Chongqing (el original)',city:'Chongqing',day:15},
+{id:'hongya',icon:'🌃',title:'Chihiro Real',desc:'Ver Hongyadong de noche',city:'Chongqing',day:16},
+{id:'drones',icon:'✨',title:'Última Noche',desc:'Ver el show de drones sobre el río',city:'Chongqing',day:17},
+{id:'selfie',icon:'📸',title:'Famoso en China',desc:'Que un local os pida una foto',city:'any',day:0},
+{id:'xie',icon:'🙏',title:'Xièxiè Master',desc:'Decir "gracias" en chino 50 veces',city:'any',day:0},
+{id:'picante',icon:'🥵',title:'Boca de Fuego',desc:'Pedir "tè là" (extra picante) y sobrevivir',city:'any',day:0},
+{id:'regateo',icon:'💰',title:'Negociador Nato',desc:'Regatear y conseguir descuento',city:'any',day:0}
+];
+function rLog(){
+var now=new Date();var start=new Date('2026-04-30T00:00:00');
+var dayNum=now>=start?Math.floor((now-start)/864e5)+1:0;
+var ck=JSON.parse(localStorage.getItem('china26_logros')||'{}');
+var unlocked=0;LOGROS.forEach(function(l){if(ck[l.id])unlocked++});
+var h='<div class="st">🏆 Logros del viaje</div>';
+h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:6px">Desbloqueadlos tocando cuando los completéis. Se guardan en tu dispositivo.</p>';
+h+='<div class="cprog"><b>'+unlocked+'/'+LOGROS.length+'</b> logros<div class="cbar"><div class="cfill" style="width:'+Math.round(unlocked/LOGROS.length*100)+'%"></div></div></div>';
+LOGROS.forEach(function(l){
+var done=ck[l.id];
+var available=l.day===0||dayNum>=l.day;
+h+='<div onclick="toggleLogro(\''+l.id+'\')" style="background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;border:1px solid '+(done?'var(--gold)':'rgba(255,255,255,.05)')+';'+(done?'':'opacity:'+(available?'1':'.4'))+';">';
+h+='<div style="font-size:1.8em;'+(done?'':'filter:grayscale(1);opacity:.4')+'">'+l.icon+'</div>';
+h+='<div style="flex:1"><div style="font-weight:700;font-size:.9em;color:'+(done?'var(--gold)':'var(--text)')+'">'+l.title+(done?' ✅':'')+'</div>';
+h+='<div style="font-size:.78em;color:var(--text2)">'+l.desc+'</div>';
+if(l.city!=='any')h+='<div style="font-size:.68em;color:var(--text2);margin-top:2px">📍 '+l.city+'</div>';
+h+='</div></div>'});
+document.getElementById('p-log').innerHTML=h}
+function toggleLogro(id){var ck=JSON.parse(localStorage.getItem('china26_logros')||'{}');ck[id]=!ck[id];if(!ck[id])delete ck[id];localStorage.setItem('china26_logros',JSON.stringify(ck));rLog()}
+
+/* === QUIZ === */
+var QUIZ=[
+{q:'¿Cuántas habitaciones tiene la Ciudad Prohibida?',a:['8.888','9.999','10.000','7.777'],c:1},
+{q:'¿Qué material se usó en la argamasa de la Gran Muralla?',a:['Cemento','Clara de huevo','Arroz glutinoso','Sangre de buey'],c:2},
+{q:'¿Cuántos guerreros de terracota se han descubierto?',a:['2.000','8.000','15.000','50.000'],c:1},
+{q:'¿Qué significa "Beijing" literalmente?',a:['Ciudad Roja','Capital del Norte','Paz Eterna','Puerta del Dragón'],c:1},
+{q:'¿Cuánto bambú come un panda al día?',a:['5 kg','15 kg','38 kg','60 kg'],c:2},
+{q:'¿Qué número es de mala suerte en China?',a:['3','4','7','13'],c:1},
+{q:'El Hot Pot de Chongqing usa como base...',a:['Aceite de oliva','Aceite de vacuno','Mantequilla','Aceite de sésamo'],c:1},
+{q:'¿Cuántos km tiene la red de tren bala china?',a:['12.000','25.000','45.000','60.000'],c:2},
+{q:'¿A qué velocidad va el tren bala?',a:['200 km/h','280 km/h','350 km/h','500 km/h'],c:2},
+{q:'¿Qué película inspiraron las montañas de Zhangjiajie?',a:['El Señor de los Anillos','Avatar','Star Wars','Jurassic Park'],c:1},
+{q:'El ascensor Bailong mide...',a:['100m','200m','326m','500m'],c:2},
+{q:'¿Cuál es la superapp china por excelencia?',a:['Alipay','Douyin','WeChat','Baidu'],c:2},
+{q:'¿En qué dinastía se construyó la Ciudad Prohibida?',a:['Tang','Song','Ming','Qing'],c:2},
+{q:'¿Cuántas lenguas vivas tiene China?',a:['50','120','302','500'],c:2},
+{q:'Fenghuang significa...',a:['Ciudad Antigua','Ciudad del Dragón','Ciudad del Fénix','Ciudad del Río'],c:2},
+{q:'¿Qué animal del zodiaco chino es 2026?',a:['Serpiente','Caballo','Dragón','Mono'],c:1},
+{q:'¿Cuánto pesa un panda recién nacido?',a:['1 kg','500g','100g','2 kg'],c:2},
+{q:'¿Quién dijo "Quien no llega a la Gran Muralla no es un valiente"?',a:['Confucio','Mao Zedong','Sun Tzu','Lao Tse'],c:1},
+{q:'El puente de cristal de Zhangjiajie mide...',a:['100m','250m','430m','600m'],c:2},
+{q:'¿Cuántos pisos tiene Hongyadong?',a:['5','8','11','15'],c:2}
+];
+var quizState={current:0,score:0,answered:false,finished:false};
+function rQuiz(){
+var h='<div class="st">🧠 Quiz de China</div>';
+h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:14px">20 preguntas sobre todo lo que habéis aprendido. Perfecto para los trenes.</p>';
+if(quizState.finished){
+h+='<div style="background:var(--card);border-radius:14px;padding:24px;text-align:center">';
+h+='<div style="font-size:3em;margin-bottom:10px">'+(quizState.score>=18?'🏆':quizState.score>=14?'🥇':quizState.score>=10?'🥈':'🎓')+'</div>';
+h+='<div style="font-size:1.3em;font-weight:700;color:var(--gold)">'+quizState.score+'/'+QUIZ.length+'</div>';
+h+='<p style="color:var(--text2);margin:8px 0">'+(quizState.score>=18?'¡Eres el guía oficial del grupo!':quizState.score>=14?'¡Impresionante! Sabes más que muchos chinos':quizState.score>=10?'¡Bien! Vas preparado para el viaje':'Repasa la pestaña Historia antes del viaje 😄')+'</p>';
+h+='<button onclick="quizState={current:0,score:0,answered:false,finished:false};rQuiz()" style="padding:10px 24px;border-radius:10px;border:none;background:var(--gold);color:#000;font-weight:700;cursor:pointer;margin-top:8px">🔄 Reiniciar</button></div>';
+}else{
+var qi=QUIZ[quizState.current];
+h+='<div style="background:var(--card);border-radius:14px;padding:16px;margin-bottom:14px">';
+h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="color:var(--text2);font-size:.8em">Pregunta '+(quizState.current+1)+'/'+QUIZ.length+'</span><span style="color:var(--gold);font-size:.8em;font-weight:700">'+quizState.score+' ✓</span></div>';
+h+='<p style="font-size:1em;font-weight:700;margin-bottom:14px;line-height:1.4">'+qi.q+'</p>';
+qi.a.forEach(function(a,ai){
+var state='';if(quizState.answered){if(ai===qi.c)state='border-color:var(--green);background:rgba(42,157,143,.15)';else if(ai===quizState.picked&&ai!==qi.c)state='border-color:var(--accent);background:rgba(230,57,70,.1);opacity:.6'}
+h+='<div onclick="pickAnswer('+ai+')" style="padding:12px 14px;border-radius:10px;border:2px solid var(--card2);margin-bottom:8px;cursor:'+(quizState.answered?'default':'pointer')+';font-size:.9em;transition:.2s;'+state+'">'+a+'</div>'});
+if(quizState.answered){h+='<button onclick="nextQuestion()" style="width:100%;padding:10px;border-radius:10px;border:none;background:var(--gold);color:#000;font-weight:700;cursor:pointer;margin-top:6px">'+(quizState.current<QUIZ.length-1?'Siguiente →':'Ver resultado')+'</button>'}
+h+='</div>';
+h+='<div class="cprog"><div class="cbar"><div class="cfill" style="width:'+Math.round((quizState.current/QUIZ.length)*100)+'%"></div></div></div>'}
+document.getElementById('p-quiz').innerHTML=h}
+function pickAnswer(ai){if(quizState.answered)return;quizState.answered=true;quizState.picked=ai;if(ai===QUIZ[quizState.current].c)quizState.score++;rQuiz()}
+function nextQuestion(){quizState.current++;quizState.answered=false;if(quizState.current>=QUIZ.length)quizState.finished=true;rQuiz()}
+
 function rTips(){var h='<div class="st">🚫 Cosas que NO hacer en China</div>';
 h+='<p style="color:var(--text2);font-size:.85em;margin-bottom:14px">Errores típicos de turistas. Leed esto antes de ir.</p>';
 DONT.forEach(function(d,i){h+='<div class="dont-card"><div style="display:flex;align-items:start"><span class="num">'+(i+1)+'</span><div><b style="color:var(--text)">'+d.title+'</b><p>'+d.desc+'</p></div></div></div>'});
@@ -879,7 +989,12 @@ h+='</div>';
 return h}
 function lCk(){try{return JSON.parse(localStorage.getItem('cn26ck')||'{}')}catch(e){return{}}}
 function sCk(d){try{localStorage.setItem('cn26ck',JSON.stringify(d))}catch(e){}}
-function uCD(){var t=new Date('2026-04-30T11:00:00')-new Date(),el=document.getElementById('cd');if(t<=0){el.innerHTML='<div style="color:var(--gold);font-size:1.2em;font-weight:700">¡VIAJE EN MARCHA! 🐉🎉</div>';return}var d=Math.floor(t/864e5),h=Math.floor(t%864e5/36e5),m=Math.floor(t%36e5/6e4),s=Math.floor(t%6e4/1e3);el.innerHTML='<div class="cdb"><div class="n">'+d+'</div><div class="l">días</div></div><div class="cdb"><div class="n">'+h+'</div><div class="l">h</div></div><div class="cdb"><div class="n">'+m+'</div><div class="l">min</div></div><div class="cdb"><div class="n">'+s+'</div><div class="l">seg</div></div>'}
+function uCD(){var start=new Date('2026-04-30T11:00:00');var end=new Date('2026-05-17T23:59:59');var now=new Date();var t=start-now,el=document.getElementById('cd');
+if(now>=start&&now<=end){
+var dayNum=Math.floor((now-start)/864e5)+1;var totalDays=18;
+el.innerHTML='<div style="color:var(--gold);font-size:1em;font-weight:700">🐉 ¡VIAJE EN MARCHA!</div><div style="display:flex;gap:12px;justify-content:center;margin-top:8px"><div class="cdb"><div class="n">'+dayNum+'</div><div class="l">de '+totalDays+'</div></div><div class="cdb"><div class="n">'+Math.round((dayNum/totalDays)*100)+'%</div><div class="l">completado</div></div></div>';return}
+if(now>end){el.innerHTML='<div style="color:var(--gold);font-size:1.1em;font-weight:700">✅ ¡Viaje completado! 🎉</div>';return}
+var d=Math.floor(t/864e5),h=Math.floor(t%864e5/36e5),m=Math.floor(t%36e5/6e4),s=Math.floor(t%6e4/1e3);el.innerHTML='<div class="cdb"><div class="n">'+d+'</div><div class="l">días</div></div><div class="cdb"><div class="n">'+h+'</div><div class="l">h</div></div><div class="cdb"><div class="n">'+m+'</div><div class="l">min</div></div><div class="cdb"><div class="n">'+s+'</div><div class="l">seg</div></div>'}
 function uDualClock(){
 var dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 var now=new Date();
@@ -904,18 +1019,23 @@ document.getElementById('tabFadeL').style.opacity=sl>10?'1':'0'}
 tabsEl.addEventListener('scroll',uTabFade);setTimeout(uTabFade,500);
 document.addEventListener('click',function(e){var h=e.target.closest('.dh');if(h)h.parentNode.classList.toggle('open');var ci=e.target.closest('.ci');if(ci){var k=ci.getAttribute('data-ck'),ck=lCk();ck[k]=!ck[k];sCk(ck);rMal()}});
 document.addEventListener('touchend',function(e){var h=e.target.closest('.dh');if(h){e.preventDefault();h.parentNode.classList.toggle('open')}var ci=e.target.closest('.ci');if(ci){e.preventDefault();var k=ci.getAttribute('data-ck'),ck=lCk();ck[k]=!ck[k];sCk(ck);rMal()}},{passive:false});
+/* Pull-to-refresh */
+var _ptr_y=0,_ptr_active=false;
+document.addEventListener('touchstart',function(e){if(window.scrollY===0)_ptr_y=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchmove',function(e){if(window.scrollY===0&&e.touches[0].clientY-_ptr_y>80&&!_ptr_active){_ptr_active=true}},{passive:true});
+document.addEventListener('touchend',function(){if(_ptr_active){_ptr_active=false;var rb=document.querySelector('.rbar');if(rb){rb.textContent='🔄 Actualizando...';rb.style.color='var(--gold)'}autoRefresh().then(function(){if(rb){rb.innerHTML='<span class="ldot"></span> Datos en vivo · actualizado ahora';rb.style.color=''}}).catch(function(){if(rb){rb.textContent='❌ Error al actualizar';rb.style.color='var(--accent)'}})}});
 async function init(){var cached=loadCache();
 try{var[ruta,aloj,ck,apps,links,ver]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links),fetchCSV(SH.ver)]);
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);procVer(ver);saveCache()}
 catch(e){if(cached){D=cached}else{document.getElementById('ld').querySelector('p').textContent='Sin conexión y sin datos en caché.';return}}
-uCD();uDualClock();setInterval(function(){uCD();uDualClock()},1000);rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rFra();rLnk();loadTheme();buildSearchIndex();
+uCD();uDualClock();setInterval(function(){uCD();uDualClock()},1000);rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rFra();rLog();rQuiz();rLnk();loadTheme();buildSearchIndex();
 document.getElementById('ld').classList.add('hide');setTimeout(function(){document.getElementById('ld').style.display='none'},600);
 updTime();setInterval(autoRefresh,180000)}
 async function autoRefresh(){
 try{var[ruta,aloj,ck,apps,links,ver]=await Promise.all([fetchCSV(SH.ruta),fetchCSV(SH.aloj),fetchCSV(SH.ck),fetchCSV(SH.apps),fetchCSV(SH.links),fetchCSV(SH.ver)]);
 D={days:[],hotels:[],cl:{},apps:[],links:[],ver:[]};
 procRuta(ruta);procAloj(aloj);procCk(ck);procApps(apps);procLinks(links);procVer(ver);saveCache();
-rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rFra();rLnk();buildSearchIndex();updTime()}catch(e){}}
+rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rHist();rVid();rFra();rLog();rQuiz();rLnk();buildSearchIndex();updTime()}catch(e){}}
 function updTime(){var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');
 document.querySelector('.rbar').innerHTML='<div class="ldot"></div> Actualizado a las '+h+':'+m+' · Toca para refrescar'}
 init();
