@@ -11,7 +11,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap');
 :root{--bg:#07070d;--card:#111119;--card2:#1a1a26;--accent:#e63946;--gold:#f0b060;--green:#2a9d8f;--text:#eef0f2;--text2:#8a8a9a;--blue:#457b9d;--purple:#6c5ce7;--glow:rgba(240,176,96,.12)}
 :root.light{--bg:#f4f3ef;--card:#ffffff;--card2:#ece9e2;--accent:#d62839;--gold:#b87a2e;--green:#248277;--text:#1a1a2e;--text2:#666678;--blue:#3a6d8c;--purple:#5a4dbf;--glow:rgba(184,122,46,.08)}
-*{margin:0;padding:0;box-sizing:border-box}html{height:100%;overflow:hidden}body{font-family:'DM Sans','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;letter-spacing:.01em;transition:background .4s,color .4s}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;letter-spacing:.01em;transition:background .4s,color .4s}
 /* Global smooth transitions for theme switch */
 .hero,.tabs,.pnl,.rbar,.dc,.hc,.ic,.pw,.sc,.wc,.bc,.ci,.lnk,.food-card,.dont-card,.conv,.cprog,.cdb{transition:all .3s ease}
 /* Smooth scroll */
@@ -1067,13 +1067,44 @@ rRes();rRut();rVer();rHot();rGas();rMal();rInf();rCli();rZjj();rRst();rTips();rH
 function updTime(){var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');
 document.querySelector('.rbar').innerHTML='<div class="ldot"></div> Actualizado a las '+h+':'+m+' · Toca para refrescar'}
 init();
+/* iOS Safari bounce prevention */
+(function(){
+var lastY=0;
+document.addEventListener('touchstart',function(e){lastY=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchmove',function(e){
+var el=e.target;
+/* Find the scrollable ancestor */
+while(el&&el!==document.body&&el!==document.documentElement){
+var st=window.getComputedStyle(el);
+var ov=st.overflowY;
+if((ov==='auto'||ov==='scroll')&&el.scrollHeight>el.clientHeight){
+var curY=e.touches[0].clientY;
+var atTop=el.scrollTop<=0&&curY>lastY;
+var atBottom=el.scrollTop+el.clientHeight>=el.scrollHeight&&curY<lastY;
+if(!atTop&&!atBottom)return;
+}
+el=el.parentElement;
+}
+/* At document level: prevent bounce at top and bottom */
+var scrollTop=window.pageYOffset||document.documentElement.scrollTop;
+var scrollHeight=document.documentElement.scrollHeight;
+var clientHeight=window.innerHeight;
+var curY=e.touches[0].clientY;
+var goingUp=curY>lastY;
+var goingDown=curY<lastY;
+if((scrollTop<=0&&goingUp)||(scrollTop+clientHeight>=scrollHeight&&goingDown)){
+e.preventDefault();
+}
+},{passive:false});
+})();
 
 </script>
-<footer style="text-align:center;padding:30px 16px calc(40px + env(safe-area-inset-bottom,0px));color:var(--text2);font-size:.7em;letter-spacing:.04em;border-top:1px solid rgba(255,255,255,.04);margin-top:20px">
+<footer style="text-align:center;padding:30px 16px calc(80px + env(safe-area-inset-bottom,20px));color:var(--text2);font-size:.7em;letter-spacing:.04em;border-top:1px solid rgba(255,255,255,.04);margin-top:20px;background:var(--bg)">
 <div style="font-size:1.8em;margin-bottom:6px">🐉</div>
 <div style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.4em;font-weight:600;margin-bottom:4px">China 2026</div>
 <div>Hecho con ❤️ para 7 viajeros valientes</div>
 <div style="margin-top:4px;opacity:.5">30 abril — 17 mayo · Madrid → Beijing → Xi'an → Chengdu → Zhangjiajie → Chongqing → Madrid</div>
 </footer>
+<div style="height:100px;background:var(--bg)"></div>
 </body>
 </html>
