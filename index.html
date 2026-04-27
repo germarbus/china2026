@@ -13,7 +13,13 @@
 <title>China 2026 🐉</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap');
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://docs.google.com">
+<link rel="dns-prefetch" href="https://api.open-meteo.com">
+<link rel="dns-prefetch" href="https://a.basemaps.cartocdn.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" media="print" onload="this.media='all'">
 :root{--bg:#07070d;--card:#111119;--card2:#1a1a26;--accent:#e63946;--gold:#f0b060;--green:#2a9d8f;--text:#eef0f2;--text2:#8a8a9a;--blue:#457b9d;--purple:#6c5ce7;--glow:rgba(240,176,96,.12)}
 :root.light{--bg:#f4f3ef;--card:#ffffff;--card2:#ece9e2;--accent:#d62839;--gold:#b87a2e;--green:#248277;--text:#1a1a2e;--text2:#666678;--blue:#3a6d8c;--purple:#5a4dbf;--glow:rgba(184,122,46,.08)}
 *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;letter-spacing:.01em;transition:background .4s,color .4s}
@@ -36,11 +42,14 @@
 .crew{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0}.cav{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65em;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.15);box-shadow:0 2px 8px rgba(0,0,0,.3);transition:transform .2s,box-shadow .2s}.cav:hover{transform:scale(1.1);box-shadow:0 0 12px var(--glow)}
 .tabs{display:flex;overflow-x:auto;overscroll-behavior-x:contain;background:var(--card);border-bottom:1px solid rgba(255,255,255,.06);-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 :root.light .tabs{background:var(--card)}
-:root.light .dc,:root.light .hc,:root.light .ic,:root.light .pw,:root.light .sc,:root.light .wc,:root.light .food-card,:root.light .dont-card,:root.light .lnk{border-color:rgba(0,0,0,.08);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+:root.light .dc,:root.light .hc,:root.light .ic,:root.light .pw,:root.light .sc,:root.light .wc,:root.light .food-card,:root.light .dont-card,:root.light .lnk{border-color:rgba(0,0,0,.08);box-shadow:0 1px 3px rgba(0,0,0,.05)}
 :root.light .ci{border-color:rgba(0,0,0,.06)}
-:root.light .cdb{border-color:rgba(184,122,46,.2);background:rgba(0,0,0,.03)}
+:root.light .cdb{border-color:rgba(184,122,46,.2);background:var(--card)}
 :root.light .rbar{background:var(--card);border-bottom-color:rgba(0,0,0,.06)}
 :root.light .hero::before{opacity:.06}
+:root.light .trav{background:rgba(69,123,157,.06);border-color:rgba(69,123,157,.1)}
+:root.light .dnum{color:#fff}
+:root.light .cav{border-color:rgba(0,0,0,.1)}
 .tab{flex:0 0 auto;padding:13px 16px;font-size:.8em;color:var(--text2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .25s;font-weight:500;letter-spacing:.01em;position:relative}.tab.active{color:var(--gold);border-bottom-color:var(--gold)}.tab:active{transform:scale(.96)}
 .tab::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;background:var(--gold);transition:all .25s;transform:translateX(-50%)}.tab.active::after{width:70%}
 .st{font-size:1.05em;font-weight:700;margin:20px 0 12px;color:var(--gold);display:flex;align-items:center;gap:8px;text-shadow:0 0 20px var(--glow)}.st:first-child{margin-top:0}
@@ -531,9 +540,9 @@ var glow=isCurrent?' filter:drop-shadow(0 0 8px #f4a261);animation:pulse 2s infi
 var ic=L.divIcon({html:'<div style="font-size:'+size+'px;text-shadow:0 2px 8px rgba(0,0,0,.8);opacity:'+opacity+';'+glow+'">'+s.e+'</div>',className:'',iconSize:[size,size]});
 var marker=L.marker([s.la,s.lo],{icon:ic}).addTo(m);
 var popupText='<b>'+s.city+'</b>';
-if(isCurrent)popupText+='<br><span style="color:#2a9d8f;font-weight:700">📍 ¡Estáis aquí!</span>';
-else if(visited)popupText+='<br><span style="color:#a8a8b3;font-size:.85em">✅ Visitado</span>';
-else popupText+='<br><span style="color:#a8a8b3;font-size:.85em">⏳ Próximamente</span>';
+if(isCurrent)popupText+='<br><span style="color:var(--green);font-weight:700">📍 ¡Estáis aquí!</span>';
+else if(visited)popupText+='<br><span style="color:var(--text2);font-size:.85em">✅ Visitado</span>';
+else popupText+='<br><span style="color:var(--text2);font-size:.85em">⏳ Próximamente</span>';
 marker.bindPopup(popupText);
 if(isCurrent)marker.openPopup();
 });
