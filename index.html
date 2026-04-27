@@ -22,7 +22,7 @@
 <style>
 :root{--bg:#07070d;--card:#111119;--card2:#1a1a26;--accent:#e63946;--gold:#f0b060;--green:#2a9d8f;--text:#eef0f2;--text2:#8a8a9a;--blue:#457b9d;--purple:#6c5ce7;--glow:rgba(240,176,96,.12)}
 :root.light{--bg:#f4f3ef;--card:#ffffff;--card2:#ece9e2;--accent:#d62839;--gold:#b87a2e;--green:#248277;--text:#1a1a2e;--text2:#666678;--blue:#3a6d8c;--purple:#5a4dbf;--glow:rgba(184,122,46,.08)}
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;letter-spacing:.01em;transition:background .4s,color .4s}
+*{margin:0;padding:0;box-sizing:border-box}html{overflow-x:hidden}body{font-family:'DM Sans','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;max-width:100vw;-webkit-tap-highlight-color:transparent;letter-spacing:.01em;transition:background .4s,color .4s}
 /* Global smooth transitions for theme switch */
 .hero,.rbar{transition:background .3s,color .3s}
 .dc,.hc,.ic,.lnk,.food-card{transition:transform .15s}
@@ -40,7 +40,7 @@
 .hero h1{font-family:'Cormorant Garamond',serif;font-size:2.2em;font-weight:700;background:linear-gradient(135deg,var(--gold) 0%,#f5d49a 40%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.02em}.hero .sub{color:var(--text2);margin-top:4px;font-size:.78em;letter-spacing:.03em}
 .cd{display:flex;gap:8px;justify-content:center;margin:12px 0 8px}.cdb{background:var(--card);border:1px solid rgba(240,176,96,.15);border-radius:10px;padding:6px 12px;min-width:50px;text-align:center}.cdb .n{font-size:1.3em;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}.cdb .l{font-size:.6em;color:var(--text2);text-transform:uppercase;letter-spacing:.05em}
 .crew{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0}.cav{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65em;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.15);box-shadow:0 2px 8px rgba(0,0,0,.3);transition:transform .2s,box-shadow .2s}.cav:hover{transform:scale(1.1);box-shadow:0 0 12px var(--glow)}
-.tabs{display:flex;overflow-x:auto;overscroll-behavior-x:contain;background:var(--card);border-bottom:1px solid rgba(255,255,255,.06);-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tabs{display:flex;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;background:var(--card);border-bottom:1px solid rgba(255,255,255,.06);scrollbar-width:none;max-width:100vw}.tabs::-webkit-scrollbar{display:none}
 :root.light .tabs{background:var(--card)}
 :root.light .dc,:root.light .hc,:root.light .ic,:root.light .pw,:root.light .sc,:root.light .wc,:root.light .food-card,:root.light .dont-card,:root.light .lnk{border-color:rgba(0,0,0,.08);box-shadow:0 1px 3px rgba(0,0,0,.05)}
 :root.light .ci{border-color:rgba(0,0,0,.06)}
@@ -154,7 +154,7 @@
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
 <div class="hero"><div style="position:absolute;top:16px;right:16px;display:flex;gap:8px;z-index:10"><div id="searchToggle" onclick="toggleSearch()" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9em;transition:transform .2s;box-shadow:0 2px 10px rgba(0,0,0,.3)">🔍</div><div id="themeBtn" onclick="toggleTheme()" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9em;transition:transform .2s;box-shadow:0 2px 10px rgba(0,0,0,.3)">☀️</div></div><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
 <div style="height:1px;background:linear-gradient(90deg,transparent 5%,var(--gold) 50%,transparent 95%);opacity:.15"></div>
-<div style="position:sticky;top:0;z-index:100">
+<div style="position:sticky;top:0;z-index:100;overflow-x:hidden">
 <div style="position:relative">
 <div class="tabs" id="tabs" role="tablist"><div class="tab active" data-t="res">Resumen</div><div class="tab" data-t="rut">Ruta</div><div class="tab" data-t="ver">Qué ver</div><div class="tab" data-t="hot">Hoteles</div><div class="tab" data-t="map">Mapa</div><div class="tab" data-t="gas">Gastos</div><div class="tab" data-t="mal">Maleta</div><div class="tab" data-t="rst">Gastronomía</div><div class="tab" data-t="tips">Tips</div><div class="tab" data-t="cli">Clima</div><div class="tab" data-t="zjj">Parque</div><div class="tab" data-t="hist">Historia</div><div class="tab" data-t="vid">Vídeos</div><div class="tab" data-t="fra">Frases</div><div class="tab" data-t="log">Logros</div><div class="tab" data-t="quiz">Quiz</div><div class="tab" data-t="inf">Info</div><div class="tab" data-t="lnk">Enlaces</div></div>
 <div id="tabFadeR" style="position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(90deg,transparent,var(--bg));pointer-events:none;z-index:101;transition:opacity .3s"></div>
