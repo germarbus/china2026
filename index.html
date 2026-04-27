@@ -16,11 +16,11 @@
 .spinner{width:44px;height:44px;border:2px solid rgba(240,176,96,.15);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.ld p{margin-top:16px;color:var(--text2);font-size:.85em;letter-spacing:.03em}
 .rbar{background:var(--card);text-align:center;padding:6px;font-size:.68em;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:.03em;border-bottom:1px solid rgba(255,255,255,.03)}
 .ldot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero{position:relative;padding:60px 20px 30px;text-align:center;background:radial-gradient(ellipse at 30% 20%,rgba(240,176,96,.08) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(230,57,70,.06) 0%,transparent 50%),var(--bg)}.hero::before{content:'🐉';position:absolute;font-size:200px;opacity:.04;top:-30px;right:-40px;pointer-events:none;animation:floatDragon 20s ease-in-out infinite}@keyframes floatDragon{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(2deg)}}
+.hero{position:relative;padding:40px 16px 14px;text-align:center;background:radial-gradient(ellipse at 30% 20%,rgba(240,176,96,.08) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(230,57,70,.06) 0%,transparent 50%),var(--bg)}.hero::before{content:'🐉';position:absolute;font-size:160px;opacity:.04;top:-20px;right:-30px;pointer-events:none;animation:floatDragon 20s ease-in-out infinite}@keyframes floatDragon{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(2deg)}}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.6em;font-weight:700;background:linear-gradient(135deg,var(--gold) 0%,#f5d49a 40%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.02em}.hero .sub{color:var(--text2);margin-top:6px;font-size:.9em;letter-spacing:.03em}
-.cd{display:flex;gap:12px;justify-content:center;margin:20px 0 10px}.cdb{background:rgba(255,255,255,.04);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(240,176,96,.15);border-radius:14px;padding:10px 14px;min-width:60px;text-align:center;transition:transform .2s}.cdb:hover{transform:translateY(-2px)}.cdb .n{font-size:1.6em;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}.cdb .l{font-size:.7em;color:var(--text2);text-transform:uppercase;letter-spacing:.05em}
-.crew{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:16px 0}.cav{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75em;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.15);box-shadow:0 2px 10px rgba(0,0,0,.3);transition:transform .2s,box-shadow .2s}.cav:hover{transform:scale(1.1);box-shadow:0 0 12px var(--glow)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.2em;font-weight:700;background:linear-gradient(135deg,var(--gold) 0%,#f5d49a 40%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.02em}.hero .sub{color:var(--text2);margin-top:4px;font-size:.78em;letter-spacing:.03em}
+.cd{display:flex;gap:8px;justify-content:center;margin:12px 0 8px}.cdb{background:rgba(255,255,255,.04);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(240,176,96,.15);border-radius:10px;padding:6px 12px;min-width:50px;text-align:center;transition:transform .2s}.cdb:hover{transform:translateY(-2px)}.cdb .n{font-size:1.3em;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}.cdb .l{font-size:.6em;color:var(--text2);text-transform:uppercase;letter-spacing:.05em}
+.crew{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0}.cav{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65em;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.15);box-shadow:0 2px 8px rgba(0,0,0,.3);transition:transform .2s,box-shadow .2s}.cav:hover{transform:scale(1.1);box-shadow:0 0 12px var(--glow)}
 .tabs{display:flex;overflow-x:auto;overscroll-behavior-x:contain;background:rgba(17,17,25,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);-webkit-overflow-scrolling:touch;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 :root.light .tabs{background:rgba(255,255,255,.92)}
 :root.light .dc,:root.light .hc,:root.light .ic,:root.light .pw,:root.light .sc,:root.light .wc,:root.light .food-card,:root.light .dont-card,:root.light .lnk{border-color:rgba(0,0,0,.08);box-shadow:0 1px 4px rgba(0,0,0,.06)}
@@ -34,7 +34,7 @@
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .st{font-size:1.05em;font-weight:700;margin:20px 0 12px;color:var(--gold);display:flex;align-items:center;gap:8px;text-shadow:0 0 20px var(--glow)}.st:first-child{margin-top:0}
 .mal-compact .st{font-size:.95em;margin:12px 0 6px}
-.pw{background:var(--card);border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid rgba(255,255,255,.04);position:relative;overflow:hidden}.pw::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.2}
+.pw{background:var(--card);border-radius:12px;padding:12px;margin-bottom:10px;border:1px solid rgba(255,255,255,.04);position:relative;overflow:hidden}.pw::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.2}
 .pr-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.82em}.pr-row .lb{color:var(--text2)}.pr-row .vl{color:var(--gold);font-weight:700}
 .pr-bar{height:5px;background:var(--card2);border-radius:3px;overflow:hidden;margin-bottom:10px}.pr-fill{height:100%;border-radius:3px;transition:width .6s ease;box-shadow:0 0 8px var(--glow)}
 .dc{background:var(--card);border-radius:16px;margin-bottom:14px;overflow:hidden;border:1px solid rgba(255,255,255,.04);transition:transform .2s,box-shadow .2s}.dc:active{transform:scale(.99)}
@@ -75,7 +75,7 @@
 .rl{position:absolute;top:6px;left:50%;width:100%;height:2px}
 .rla{font-size:.62em;margin-top:5px;text-align:center;max-width:60px}
 }
-.sg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.sc{background:rgba(255,255,255,.03);backdrop-filter:blur(8px);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.06);transition:transform .2s}.sc:active{transform:scale(.97)}.sc .v{font-size:1.5em;font-weight:700;color:var(--gold);font-family:'Cormorant Garamond',serif}.sc .lb{font-size:.72em;color:var(--text2);margin-top:2px;letter-spacing:.03em}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0}.sc{background:rgba(255,255,255,.03);backdrop-filter:blur(8px);border-radius:10px;padding:10px 6px;text-align:center;border:1px solid rgba(255,255,255,.06);transition:transform .2s}.sc:active{transform:scale(.97)}.sc .v{font-size:1.2em;font-weight:700;color:var(--gold);font-family:'Cormorant Garamond',serif}.sc .lb{font-size:.58em;color:var(--text2);margin-top:2px;letter-spacing:.03em}
 .ag{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.ac{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.05)}.ac .ai{font-size:1.8em;margin-bottom:4px}.ac .an{font-weight:700;font-size:.85em}.ac .au{font-size:.72em;color:var(--text2)}
 
 html{scroll-behavior:smooth}
@@ -88,8 +88,8 @@ html{scroll-behavior:smooth}
 .org-yes{background:rgba(42,157,143,.2);color:var(--green)}.org-no{background:rgba(244,162,97,.2);color:var(--gold)}
 @media(min-width:768px){
 .pnl{max-width:700px}
-.hero h1{font-size:3.2em}
-.sg{grid-template-columns:repeat(4,1fr)}
+.hero h1{font-size:2.8em}
+.hero{padding:50px 20px 20px}
 .ag{grid-template-columns:repeat(3,1fr)}
 .cbg{grid-template-columns:repeat(4,1fr)}
 .dc{transition:transform .15s,box-shadow .15s}.dc:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.2)}
@@ -144,7 +144,7 @@ html{scroll-behavior:smooth}
 <body>
 <div class="ld" id="ld"><div class="spinner"></div><p>Cargando datos del viaje... 🐉</p></div>
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
-<div class="hero"><div style="position:absolute;top:16px;right:16px;display:flex;gap:8px;z-index:10"><div id="searchToggle" onclick="toggleSearch()" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9em;transition:transform .2s;box-shadow:0 2px 10px rgba(0,0,0,.3)">🔍</div><div id="themeBtn" onclick="toggleTheme()" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9em;transition:transform .2s;box-shadow:0 2px 10px rgba(0,0,0,.3)">☀️</div></div><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div><div style="margin-top:16px;animation:bounce 2s infinite;opacity:.3;font-size:.8em;color:var(--text2)">↓ desliza ↓</div></div>
+<div class="hero"><div style="position:absolute;top:16px;right:16px;display:flex;gap:8px;z-index:10"><div id="searchToggle" onclick="toggleSearch()" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9em;transition:transform .2s;box-shadow:0 2px 10px rgba(0,0,0,.3)">🔍</div><div id="themeBtn" onclick="toggleTheme()" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9em;transition:transform .2s;box-shadow:0 2px 10px rgba(0,0,0,.3)">☀️</div></div><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
 <div style="height:1px;background:linear-gradient(90deg,transparent 5%,var(--gold) 50%,transparent 95%);opacity:.15"></div>
 <div style="position:sticky;top:0;z-index:100">
 <div style="position:relative">
@@ -426,7 +426,7 @@ var hC=D.hotels.filter(function(h){return h.price!==null}).length,hT=D.hotels.le
 h+='<div class="st">📊 Progreso</div><div class="pw"><div class="pr-row"><span class="lb">Organización</span><span class="vl">'+pct+'%</span></div><div class="pr-bar"><div class="pr-fill" style="width:'+pct+'%;background:linear-gradient(90deg,var(--green),var(--gold))"></div></div>';
 h+='<div class="pr-row"><span class="lb">🏨 Alojamientos</span><span class="vl">'+hC+'/'+hT+'</span></div><div class="pr-bar"><div class="pr-fill" style="width:'+Math.round(hC/hT*100)+'%;background:var(--blue)"></div></div></div>';
 /* Dual clock */
-h+='<div id="dualClock" style="background:var(--card);border-radius:14px;padding:14px;margin:14px 0;display:flex;justify-content:space-around;align-items:center;border:1px solid rgba(255,255,255,.06)"><div style="text-align:center"><div style="font-size:.7em;color:var(--text2)">🇪🇸 España</div><div id="clkES" style="font-size:1.4em;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums">--:--</div><div id="clkESday" style="font-size:.65em;color:var(--text2)"></div></div><div style="color:var(--text2);font-size:.8em;padding:0 8px">+6h</div><div style="text-align:center"><div style="font-size:.7em;color:var(--text2)">🇨🇳 China</div><div id="clkCN" style="font-size:1.4em;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums">--:--</div><div id="clkCNday" style="font-size:.65em;color:var(--text2)"></div></div></div>';
+h+='<div id="dualClock" style="background:var(--card);border-radius:10px;padding:8px 12px;margin:8px 0;display:flex;justify-content:space-around;align-items:center;border:1px solid rgba(255,255,255,.04);font-size:.85em"><div style="text-align:center"><div style="font-size:.6em;color:var(--text2)">🇪🇸 España</div><div id="clkES" style="font-size:1.1em;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums">--:--</div></div><div style="color:var(--text2);font-size:.7em">+6h</div><div style="text-align:center"><div style="font-size:.6em;color:var(--text2)">🇨🇳 China</div><div id="clkCN" style="font-size:1.1em;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums">--:--</div></div></div>';
 var bg=calcB(),tot=0;bg.forEach(function(c){c.items.forEach(function(i){if(i.t)tot+=i.t})});
 h+='<div class="sg"><div class="sc"><div class="v">'+D.days.length+'</div><div class="lb">Días</div></div><div class="sc"><div class="v">'+nci+'</div><div class="lb">Ciudades</div></div><div class="sc"><div class="v">'+NP+'</div><div class="lb">Viajeros</div></div><div class="sc"><div class="v">'+Math.round(tot/NP)+'€</div><div class="lb">€/persona</div></div></div>';
 h+='<div class="st">🗺️ Ruta</div><div class="rv">';var rc=['Madrid'];D.days.forEach(function(d){var c=d.city.split('→')[0].split('/')[0].split('(')[0].trim();if(rc[rc.length-1]!==c)rc.push(c)});if(rc[rc.length-1]!=='Madrid')rc.push('Madrid');rc.forEach(function(c){h+='<div class="rs" onclick="goToCity(\''+c.replace(/'/g,"\\'")+'\')" role="button" aria-label="Ir a '+c+'"><div class="rl"></div><div class="rd"></div><div class="rla">'+c+'</div></div>'});h+='</div>';
@@ -1026,18 +1026,13 @@ el.innerHTML='<div style="color:var(--gold);font-size:1em;font-weight:700">🐉 
 if(now>end){el.innerHTML='<div style="color:var(--gold);font-size:1.1em;font-weight:700">✅ ¡Viaje completado! 🎉</div>';return}
 var d=Math.floor(t/864e5),h=Math.floor(t%864e5/36e5),m=Math.floor(t%36e5/6e4),s=Math.floor(t%6e4/1e3);el.innerHTML='<div class="cdb"><div class="n">'+d+'</div><div class="l">días</div></div><div class="cdb"><div class="n">'+h+'</div><div class="l">h</div></div><div class="cdb"><div class="n">'+m+'</div><div class="l">min</div></div><div class="cdb"><div class="n">'+s+'</div><div class="l">seg</div></div>'}
 function uDualClock(){
-var dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 var now=new Date();
 var esOpts={timeZone:'Europe/Madrid',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false};
 var cnOpts={timeZone:'Asia/Shanghai',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false};
-var esDayOpts={timeZone:'Europe/Madrid',weekday:'short',day:'numeric',month:'short'};
-var cnDayOpts={timeZone:'Asia/Shanghai',weekday:'short',day:'numeric',month:'short'};
 var elES=document.getElementById('clkES');
 var elCN=document.getElementById('clkCN');
-if(elES){elES.textContent=now.toLocaleTimeString('es-ES',esOpts);
-document.getElementById('clkESday').textContent=now.toLocaleDateString('es-ES',esDayOpts)}
-if(elCN){elCN.textContent=now.toLocaleTimeString('es-ES',cnOpts);
-document.getElementById('clkCNday').textContent=now.toLocaleDateString('es-ES',cnDayOpts)}
+if(elES)elES.textContent=now.toLocaleTimeString('es-ES',esOpts);
+if(elCN)elCN.textContent=now.toLocaleTimeString('es-ES',cnOpts);
 }
 document.getElementById('cr').innerHTML=CRW.map(function(c){return '<div class="cav" style="background:'+c.c+'">'+c.n.substring(0,2)+'</div>'}).join('');
 document.getElementById('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.getElementById('p-'+t.getAttribute('data-t')).classList.add('active');if(t.getAttribute('data-t')==='map')rMap();t.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});});
