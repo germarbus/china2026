@@ -87,16 +87,16 @@
 .lnk .lt{font-weight:700;font-size:.9em;margin-bottom:2px}.lnk .ld2{font-size:.78em;color:var(--text2)}
 .lnk::after{content:'→';color:var(--gold);font-size:1.1em;opacity:.4}
 .mbtn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--card);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.3em;cursor:pointer;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,.5)}.mbtn.on{background:var(--green);border-color:var(--green)}
-.rv{display:flex;flex-direction:column;gap:0;padding:10px 0;margin-bottom:16px;align-items:flex-start;padding-left:20px}
-.rs{display:flex;align-items:center;gap:12px;position:relative;min-height:36px}.rd{width:12px;height:12px;border-radius:50%;border:2.5px solid var(--gold);background:var(--bg);z-index:2;flex-shrink:0}.rl{position:absolute;top:12px;left:5px;width:2px;height:100%;background:var(--gold);opacity:.3}.rs:last-child .rl{display:none}.rla{font-size:.78em;color:var(--text2)}
+.rv{display:flex;flex-direction:column;gap:0;padding:6px 0;margin-bottom:12px;align-items:flex-start;padding-left:20px}
+.rs{display:flex;align-items:center;gap:10px;position:relative;min-height:28px}.rd{width:10px;height:10px;border-radius:50%;border:2px solid var(--gold);background:var(--bg);z-index:2;flex-shrink:0}.rl{position:absolute;top:10px;left:4px;width:2px;height:100%;background:var(--gold);opacity:.3}.rs:last-child .rl{display:none}.rla{font-size:.75em;color:var(--text2)}
 @media(min-width:768px){
 .rv{flex-direction:row;flex-wrap:wrap;justify-content:center;padding-left:0;gap:0}
-.rs{flex-direction:column;align-items:center;min-width:60px;min-height:auto}
-.rl{position:absolute;top:6px;left:50%;width:100%;height:2px}
-.rla{font-size:.62em;margin-top:5px;text-align:center;max-width:60px}
+.rs{flex-direction:column;align-items:center;min-width:52px;min-height:auto}
+.rl{position:absolute;top:5px;left:50%;width:100%;height:2px}
+.rla{font-size:.58em;margin-top:4px;text-align:center;max-width:55px}
 }
 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0}.sc{background:var(--card);border-radius:10px;padding:10px 6px;text-align:center;border:1px solid rgba(255,255,255,.04)}.sc .v{font-size:1.2em;font-weight:700;color:var(--gold);font-family:'Cormorant Garamond',serif}.sc .lb{font-size:.58em;color:var(--text2);margin-top:2px;letter-spacing:.03em}
-.ag{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.ac{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.05)}.ac .ai{font-size:1.8em;margin-bottom:4px}.ac .an{font-weight:700;font-size:.85em}.ac .au{font-size:.72em;color:var(--text2)}
+.ag{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0}.ac{background:var(--card);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.04)}.ac .ai{font-size:1.5em;margin-bottom:2px}.ac .an{font-weight:700;font-size:.8em}.ac .au{font-size:.65em;color:var(--text2)}
 .rv .rs{cursor:pointer;transition:transform .2s}.rv .rs:active{transform:scale(1.15)}
 .org-badge{display:inline-block;font-size:.65em;padding:2px 6px;border-radius:6px;margin-left:6px;vertical-align:middle}
 .org-yes{background:rgba(42,157,143,.2);color:var(--green)}.org-no{background:rgba(244,162,97,.2);color:var(--gold)}
@@ -152,7 +152,7 @@
 <body>
 <div class="ld" id="ld"><div class="spinner"></div><p>Cargando datos del viaje... 🐉</p></div>
 <div class="rbar" onclick="autoRefresh()"><div class="ldot"></div> Datos en vivo de Google Sheets · Toca para refrescar</div>
-<div class="hero"><div style="position:absolute;top:16px;right:16px;display:flex;gap:8px;z-index:10"><div id="searchToggle" onclick="toggleSearch()" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9em;transition:transform .2s;box-shadow:0 2px 10px rgba(0,0,0,.3)">🔍</div><div id="themeBtn" onclick="toggleTheme()" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9em;transition:transform .2s;box-shadow:0 2px 10px rgba(0,0,0,.3)">☀️</div></div><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
+<div class="hero"><div style="position:absolute;top:16px;right:16px;display:flex;gap:6px;z-index:10"><div id="searchToggle" onclick="toggleSearch()" style="width:32px;height:32px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.75em">🔍</div><div id="themeBtn" onclick="toggleTheme()" style="width:32px;height:32px;border-radius:50%;background:var(--card2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.75em">☀️</div></div><h1>China 2026</h1><p class="sub" id="hsub">Cargando...</p><div class="cd" id="cd"></div><div class="crew" id="cr"></div></div>
 <div style="height:1px;background:linear-gradient(90deg,transparent 5%,var(--gold) 50%,transparent 95%);opacity:.15"></div>
 <div style="position:sticky;top:0;z-index:100;overflow-x:hidden">
 <div style="position:relative">
@@ -1102,7 +1102,7 @@ e.preventDefault();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
 
 </script>
-<footer style="text-align:center;padding:30px 16px calc(80px + env(safe-area-inset-bottom,20px));color:var(--text2);font-size:.7em;letter-spacing:.04em;border-top:1px solid rgba(255,255,255,.04);margin-top:20px;background:var(--bg)">
+<footer style="text-align:center;padding:16px 16px calc(24px + env(safe-area-inset-bottom,0px));color:var(--text2);font-size:.65em;letter-spacing:.04em;border-top:1px solid rgba(255,255,255,.04);margin-top:10px;background:var(--bg)">
 <div style="font-size:1.8em;margin-bottom:6px">🐉</div>
 <div style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.4em;font-weight:600;margin-bottom:4px">China 2026</div>
 <div>Hecho con ❤️ para 7 viajeros valientes</div>
