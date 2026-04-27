@@ -1043,7 +1043,7 @@ if(elES)elES.textContent=now.toLocaleTimeString('es-ES',esOpts);
 if(elCN)elCN.textContent=now.toLocaleTimeString('es-ES',cnOpts);
 }
 document.getElementById('cr').innerHTML=CRW.map(function(c){return '<div class="cav" style="background:'+c.c+'">'+c.n.substring(0,2)+'</div>'}).join('');
-document.getElementById('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.getElementById('p-'+t.getAttribute('data-t')).classList.add('active');if(t.getAttribute('data-t')==='map')rMap();t.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});});
+document.getElementById('tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.getElementById('p-'+t.getAttribute('data-t')).classList.add('active');if(t.getAttribute('data-t')==='map')rMap();var tabs=document.getElementById('tabs');var tl=t.offsetLeft;var tw=t.offsetWidth;var cl=tabs.clientWidth;tabs.scrollTo({left:tl-cl/2+tw/2,behavior:'smooth'});});
 /* Tab scroll fade indicators */
 var tabsEl=document.getElementById('tabs');
 function uTabFade(){var sl=tabsEl.scrollLeft,sw=tabsEl.scrollWidth,cw=tabsEl.clientWidth;
