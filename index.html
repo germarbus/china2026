@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#07070d">
 <title>China 2026 🐉</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
@@ -1073,7 +1076,6 @@ var lastY=0;
 document.addEventListener('touchstart',function(e){lastY=e.touches[0].clientY},{passive:true});
 document.addEventListener('touchmove',function(e){
 var el=e.target;
-/* Find the scrollable ancestor */
 while(el&&el!==document.body&&el!==document.documentElement){
 var st=window.getComputedStyle(el);
 var ov=st.overflowY;
@@ -1085,18 +1087,17 @@ if(!atTop&&!atBottom)return;
 }
 el=el.parentElement;
 }
-/* At document level: prevent bounce at top and bottom */
 var scrollTop=window.pageYOffset||document.documentElement.scrollTop;
 var scrollHeight=document.documentElement.scrollHeight;
 var clientHeight=window.innerHeight;
 var curY=e.touches[0].clientY;
-var goingUp=curY>lastY;
-var goingDown=curY<lastY;
-if((scrollTop<=0&&goingUp)||(scrollTop+clientHeight>=scrollHeight&&goingDown)){
+if((scrollTop<=0&&curY>lastY)||(scrollTop+clientHeight>=scrollHeight-1&&curY<lastY)){
 e.preventDefault();
 }
 },{passive:false});
 })();
+/* Register Service Worker */
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
 
 </script>
 <footer style="text-align:center;padding:30px 16px calc(80px + env(safe-area-inset-bottom,20px));color:var(--text2);font-size:.7em;letter-spacing:.04em;border-top:1px solid rgba(255,255,255,.04);margin-top:20px;background:var(--bg)">
